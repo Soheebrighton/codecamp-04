@@ -1,3 +1,3 @@
-let students = {
-  name: "철수",
-};
+let students = {};
+
+students.student = "철수";
