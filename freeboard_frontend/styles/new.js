@@ -212,3 +212,7 @@ export const Label = styled.label`
   padding-left: 5px;
   padding-right: 10px;
 `;
+
+export const Error = styled.div`
+  color: red;
+`;
