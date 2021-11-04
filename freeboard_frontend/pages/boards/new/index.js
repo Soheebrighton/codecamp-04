@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
 
 import {
   Writer,
@@ -41,15 +42,40 @@ import {
   Error,
 } from "../../../styles/new";
 
+// const CREATE_BOARD = gql`
+//   mutation createBoard($createBoardInput: CreateBoardInput!) {
+//     createBoard(createBoardInput: $createBoardInput) {
+//       _id
+//       writer
+//       title
+//       contents
+//     }
+//   }
+// `;
+
+const CREATE_BOARD = gql`
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      _id
+      writer
+      title
+      contents
+    }
+  }
+`;
+
 export default function NewPage() {
   const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState("");
   const [content, setContent] = useState("");
+
+  const [nameError, setNameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
+
+  const [createBoard] = useMutation(CREATE_BOARD);
 
   function saveName(event) {
     setName(event.target.value);
@@ -65,6 +91,14 @@ export default function NewPage() {
 
   function saveContent(event) {
     setContent(event.target.value);
+  }
+
+  function checkValid() {
+    if (name !== "" && password !== "" && title !== "" && content !== "") {
+      submit();
+    } else {
+      invalidSubmit();
+    }
   }
 
   function invalidSubmit() {
@@ -95,6 +129,34 @@ export default function NewPage() {
     }
   }
 
+  async function submit() {
+    const result = await createBoard({
+      variables: {
+        createBoardInput: {
+          writer: name,
+          password: password,
+          title: title,
+          contents: content,
+        },
+      },
+    });
+    console.log(result);
+  }
+
+  // const test = async () => {
+  //   const result = await createBoard({
+  //     variables: {
+  //       createBoardInput: {
+  //         writer: "ads",
+  //         password: "`121",
+  //         title: "title",
+  //         contents: "content",
+  //       },
+  //     },
+  //   });
+  //   console.log(result.data.createBoard._id);
+  // };
+
   return (
     <>
       <Main>
@@ -109,7 +171,7 @@ export default function NewPage() {
                 type="text"
                 placeholder="이름을 입력해주세요."
                 onChange={saveName}
-              ></WriterName>{" "}
+              ></WriterName>
               <Error>{nameError}</Error>
             </WriterDiv>
 
@@ -209,12 +271,12 @@ export default function NewPage() {
             <MainSettingTitle>메인설정</MainSettingTitle>
 
             <Radio type="radio" id="youtube" name="setting"></Radio>
-            <Label for="youtube">유튜브</Label>
+            <Label htmlfor="youtube">유튜브</Label>
             <Radio type="radio" id="photo" name="setting"></Radio>
-            <Label for="photo">사진</Label>
+            <Label htmlfor="photo">사진</Label>
           </MainSetting>
 
-          <SubmitButton onClick={invalidSubmit}>등록하기</SubmitButton>
+          <SubmitButton onClick={submit}>등록하기</SubmitButton>
         </Wrapper>
       </Main>
     </>
