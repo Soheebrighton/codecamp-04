@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+// import styled from "styled-components";
 
 export const Title = styled.div`
   font-size: 25px;
@@ -16,26 +17,28 @@ export const Writer = styled.div`
 
 export const WriterNameTitle = styled.div`
   padding-bottom: 10px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 export const WriterName = styled.input`
   width: 100%;
   height: 32px;
   padding: 10px;
-  border: 1px solid lightgray;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 export const WriterPasswordTitle = styled.div`
   padding-bottom: 10px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 export const WriterPassword = styled.input`
   width: 100%;
   height: 32px;
   padding: 10px;
-  border: 1px solid lightgray;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 export const WriterDiv = styled.div`
@@ -50,13 +53,14 @@ export const PostTitle = styled.div`
 
 export const PostTitleTitle = styled.div`
   padding-bottom: 10px;
-  font-weight: 500;
+  font-weight: 600;
 `;
 export const PostTitleInput = styled.input`
   width: 100%;
   padding: 10px;
   height: 32px;
-  border: 1px solid lightgray;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 export const PostContent = styled.div`
@@ -64,14 +68,15 @@ export const PostContent = styled.div`
 `;
 
 export const PostContentTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   padding-bottom: 10px;
 `;
 export const PostContentInput = styled.textarea`
   padding: 10px;
   width: 100%;
   height: 300px;
-  border: 1px solid lightgray;
+  border-radius: 4px;
+  border: 1px solid #dbdbdb;
 `;
 
 export const Address = styled.div`
@@ -79,7 +84,7 @@ export const Address = styled.div`
 `;
 
 export const AddressTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   padding-bottom: 10px;
 `;
 
@@ -99,13 +104,15 @@ export const AddressPostcodeInput = styled.input`
   padding: 10px;
   height: 32px;
   border: 1px solid lightgray;
+  border-radius: 4px;
 `;
 
 export const AddressPostcodeButton = styled.button`
   color: white;
-  background-color: black;
+  background-color: #4a4a4a;
   height: 32px;
   border: none;
+  cursor: pointer;
 `;
 
 export const AddressMainInput = styled.input`
@@ -113,12 +120,14 @@ export const AddressMainInput = styled.input`
 
   height: 32px;
   border: 1px solid lightgray;
+  border-radius: 4px;
 `;
 
 export const AddressOptionalInput = styled.input`
   width: 100%;
   padding: 10px;
   height: 32px;
+  border-radius: 4px;
   border: 1px solid lightgray;
 `;
 
@@ -126,16 +135,14 @@ export const AddressMain = styled.div`
   padding-bottom: 20px;
 `;
 
-export const AddressOptional = styled.div`
-  background-color: red;
-`;
+export const AddressOptional = styled.div``;
 
 export const Youtube = styled.div`
   padding-bottom: 35px;
 `;
 
 export const YoutubeTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   padding-bottom: 10px;
 `;
 
@@ -144,6 +151,7 @@ export const YoutubeLinkInput = styled.input`
   padding: 10px;
   height: 32px;
   border: 1px solid lightgray;
+  border-radius: 4px;
 `;
 
 export const UploadImages = styled.div`
@@ -151,7 +159,7 @@ export const UploadImages = styled.div`
 `;
 
 export const UploadImagesTitle = styled.div`
-  font-weight: 500;
+  font-weight: 600;
   padding-bottom: 10px;
 `;
 
@@ -169,7 +177,12 @@ export const UploadImage = styled.div`
   height: 70px;
   color: #4f4f4f;
   font-size: 0.7rem;
-  background-image: url("/images/image 2.png");
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 export const MainSetting = styled.div`
@@ -177,17 +190,25 @@ export const MainSetting = styled.div`
 `;
 
 export const MainSettingTitle = styled.div`
-  font-weight: 500;
-  padding-bottom: 10px;
+  font-weight: 600;
+  padding-bottom: 15px;
 `;
 
 export const SubmitButton = styled.button`
   width: 170px;
   height: 42px;
-  background-color: #ffd600;
+  /* background-color: #988cff; */
+  background-color: black;
+  border-radius: 4px;
   border: none;
-  font-weight: 500;
+  font-size: 14px;
+  color: white;
+  font-weight: 400;
   align-self: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #4a4a4a;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -196,7 +217,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); */
 `;
 
 export const Main = styled.div`
@@ -206,7 +227,11 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Radio = styled.input``;
+export const Radio = styled.input`
+  &:checked {
+    background-color: yellow;
+  }
+`;
 
 export const Label = styled.label`
   padding-left: 5px;
@@ -215,4 +240,6 @@ export const Label = styled.label`
 
 export const Error = styled.div`
   color: red;
+  font-size: 12px;
+  padding-top: 5px;
 `;

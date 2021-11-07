@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
+import { useRouter } from "next/router";
+// import ReactDOM from "react-dom";
 
 import {
   Writer,
@@ -42,17 +44,6 @@ import {
   Error,
 } from "../../../styles/new";
 
-// const CREATE_BOARD = gql`
-//   mutation createBoard($createBoardInput: CreateBoardInput!) {
-//     createBoard(createBoardInput: $createBoardInput) {
-//       _id
-//       writer
-//       title
-//       contents
-//     }
-//   }
-// `;
-
 const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
     createBoard(createBoardInput: $createBoardInput) {
@@ -65,6 +56,8 @@ const CREATE_BOARD = gql`
 `;
 
 export default function NewPage() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -141,21 +134,18 @@ export default function NewPage() {
       },
     });
     console.log(result);
+    result.data.createBoard._id;
+    router.push(`/boards/view/${result.data.createBoard._id}`);
   }
 
-  // const test = async () => {
-  //   const result = await createBoard({
-  //     variables: {
-  //       createBoardInput: {
-  //         writer: "ads",
-  //         password: "`121",
-  //         title: "title",
-  //         contents: "content",
-  //       },
-  //     },
-  //   });
-  //   console.log(result.data.createBoard._id);
-  // };
+  /////radio button
+  // const App = () => {
+  //   const [select, setSelect] = useState("");
+  //   const handleSelectChange = (event) => {
+  //     const value = event.target.value;
+  //     setSelect(value);
+  //   };
+  //////////////////
 
   return (
     <>
@@ -260,9 +250,10 @@ export default function NewPage() {
 
               <UploadImage>
                 <div>
+                  {" "}
                   <img src="/images/Vector (4).png" />
                 </div>
-                <div>Upload</div>
+                {/* <div>Upload</div> */}
               </UploadImage>
             </UploadImageDiv>
           </UploadImages>
@@ -270,15 +261,47 @@ export default function NewPage() {
           <MainSetting>
             <MainSettingTitle>메인설정</MainSettingTitle>
 
-            <Radio type="radio" id="youtube" name="setting"></Radio>
+            <Radio
+              type="radio"
+              id="youtube"
+              name="setting"
+              value="youtube"
+            ></Radio>
             <Label htmlfor="youtube">유튜브</Label>
-            <Radio type="radio" id="photo" name="setting"></Radio>
+            <Radio
+              type="radio"
+              id="photo"
+              name="setting"
+              value="photo"
+              style={{ border: "10px solid #90DDD0" }}
+            ></Radio>
+
+            {/* <Radio
+              type="radio"
+              id="youtube"
+              name="setting"
+              value="youtube"
+              checked={select === "youtube"}
+              onChange={(event) => handleSelectChange(event)}
+            ></Radio>
+            <Label htmlfor="youtube">유튜브</Label>
+            <Radio
+              type="radio"
+              id="photo"
+              name="setting"
+              value="photo"
+              checked={select === "photo"}
+              onChange={(event) => handleSelectChange(event)}
+            ></Radio> */}
             <Label htmlfor="photo">사진</Label>
           </MainSetting>
 
-          <SubmitButton onClick={submit}>등록하기</SubmitButton>
+          <SubmitButton onClick={checkValid}>등록하기</SubmitButton>
         </Wrapper>
       </Main>
     </>
   );
 }
+
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<App />, rootElement);
