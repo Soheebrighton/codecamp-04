@@ -12,7 +12,9 @@ import {
   Dislike,
   LikesText,
   SmallBar,
-} from "../../../../styles/view";
+} from "../../../styles/view";
+
+//////
 
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
@@ -30,20 +32,35 @@ const FETCH_BOARD = gql`
       title
       contents
       createdAt
+      likeCount
     }
   }
 `;
+
+//값으로 들어옴 createdAt
 
 export default function ViewPage() {
   const router = useRouter();
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.myId },
   });
+  const date = data?.fetchBoard.createdAt.split("T")[0];
+  // const date = data?.fetchBoard.createdAt.split("");
+  // const newDate = date.splice(0, 10).join("");
+
+  //splice, slice적용할 경우엔 값을 일일히 가져오면서 런타임 에러
+
+  function onClickLike() {
+    // let likeNum = data?.fetchBoard.likeCount;
+    // likeNum = +1;
+    // console.log({ likeNum });
+    console.log("likes!");
+  }
   return (
     <>
       <Main>
         <Wrapper>
-          <Date>{data?.fetchBoard.createdAt}</Date>{" "}
+          <Date>{date}</Date>{" "}
           {/* <div>
             {" "}
             <FontAwesomeIcon icon={faLink} color="#c8c2fc" />
@@ -72,9 +89,13 @@ export default function ViewPage() {
           <Likes>
             <Like>
               <div>
-                <FontAwesomeIcon icon={faThumbsUp} color="#c8c2fc" />
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  color="#c8c2fc"
+                  onClick={onClickLike}
+                />
               </div>
-              <LikesText>57</LikesText>
+              <LikesText>{data?.fetchBoard.likeCount}</LikesText>
             </Like>
             {/* <Dislike>
               <div>

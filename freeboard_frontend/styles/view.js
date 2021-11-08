@@ -99,10 +99,13 @@ export const Like = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid #dbdbdb;
+  /* border: none; */
   width: 70px;
   height: 70px;
   border-radius: 70px;
   padding: 10px;
+  /* background-color: #fcfcfc; */
+  cursor: pointer;
 `;
 
 export const Dislike = styled.div`

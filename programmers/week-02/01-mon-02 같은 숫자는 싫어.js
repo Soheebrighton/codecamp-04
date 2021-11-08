@@ -12,3 +12,10 @@ function solution(arr) {
 
   return answer;
 }
+////////////////////
+//answer와 있는값 비교
+
+// if( answer[answer.length-1] !== arr[i]) {
+//   answer.push(arr[i])
+// }
+////////////////////

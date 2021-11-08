@@ -209,6 +209,7 @@ export const SubmitButton = styled.button`
   &:hover {
     background-color: #4a4a4a;
   }
+  background-color: ${(props) => (props.MyAaa === true ? "yellow" : "gray")};
 `;
 
 export const Wrapper = styled.div`
