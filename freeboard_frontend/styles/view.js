@@ -42,19 +42,46 @@ export const Writer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   padding-top: 15px;
   padding-bottom: 15px;
   /* background-color: yellow; */
 `;
 
-export const ProfilePhoto = styled.div`
+export const Mutation = styled.div`
+  color: lightgray;
+  font-size: 15px;
+  font-weight: 400;
+  padding-right: 30px;
+`;
+
+export const Modify = styled.span`
+  cursor: pointer;
+  :hover {
+    color: black;
+  }
+`;
+
+export const Delete = styled.span`
+  padding-left: 10px;
+  cursor: pointer;
+  :hover {
+    color: black;
+  }
+`;
+export const Profile = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+export const ProfilePhoto = styled.span`
   font-size: 25px;
 
   /* background-color: aqua; */
 `;
 
-export const Name = styled.div`
+export const Name = styled.span`
   font-weight: 600;
   padding-right: 10px;
   height: 100%;

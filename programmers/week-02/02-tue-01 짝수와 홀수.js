@@ -3,18 +3,19 @@
 
 //      if ( num % 2 === 0) {
 //      answer = "Even"
-//            return answer;
+//
 //  } else if ( num % 2 === 1) {
 //      answer = "Odd"
-//        return answer;
+
 //  } else if (num === 0) {
 //      answer = "Even"
-//        return answer;
+//
 //  }
 
 // }
 
 //if문 쓰는건 왜 테스트가 통과가 안됐을까?
+// else if가 아니라 else 로 처리한다
 
 function solution(num) {
   let answer = "";

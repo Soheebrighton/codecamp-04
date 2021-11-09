@@ -72,12 +72,7 @@ export default function BoardWrite() {
 
   function saveContent(event) {
     setContent(event.target.value);
-    if (
-      name !== "" &&
-      password !== "" &&
-      title !== "" &&
-      event.target.value !== ""
-    ) {
+    if (name && password && title && event.target.value) {
       setMyAaa(true);
     } else {
       setMyAaa(false);
@@ -85,7 +80,7 @@ export default function BoardWrite() {
   }
 
   function checkValid() {
-    if (name !== "" && password !== "" && title !== "" && content !== "") {
+    if (name && password && title && content) {
       submit();
     } else {
       invalidSubmit();
@@ -95,28 +90,28 @@ export default function BoardWrite() {
   function invalidSubmit() {
     // console.log(name, password, title, content);
 
-    if (name === "") {
+    if (!name) {
       setNameError("이름을 입력해주세요.");
       return;
     } else {
       setNameError("");
     }
 
-    if (password === "") {
+    if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
       return;
     } else {
       setPasswordError("");
     }
 
-    if (title === "") {
+    if (!title) {
       setTitleError("제목을 작성해주세요.");
       return;
     } else {
       setTitleError("");
     }
 
-    if (content === "") {
+    if (!content) {
       setContentError("내용을 작성해주세요.");
       return;
     } else {
