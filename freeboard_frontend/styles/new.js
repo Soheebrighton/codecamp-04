@@ -26,6 +26,17 @@ export const WriterName = styled.input`
   padding: 10px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border-bottom: 1px solid black;
+  }
+
+  &:hover {
+    border-bottom: 1px solid black;
+  }
 `;
 
 export const WriterPasswordTitle = styled.div`
@@ -39,6 +50,17 @@ export const WriterPassword = styled.input`
   padding: 10px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border-bottom: 1px solid black;
+  }
+
+  &:hover {
+    border-bottom: 1px solid black;
+  }
 `;
 
 export const WriterDiv = styled.div`
@@ -61,6 +83,17 @@ export const PostTitleInput = styled.input`
   height: 32px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border-bottom: 1px solid black;
+  }
+
+  &:hover {
+    border-bottom: 1px solid black;
+  }
 `;
 
 export const PostContent = styled.div`
@@ -77,6 +110,17 @@ export const PostContentInput = styled.textarea`
   height: 300px;
   border-radius: 4px;
   border: 1px solid #dbdbdb;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border: 1px solid black;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const Address = styled.div`
@@ -105,6 +149,17 @@ export const AddressPostcodeInput = styled.input`
   height: 32px;
   border: 1px solid lightgray;
   border-radius: 4px;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border: 1px solid black;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const AddressPostcodeButton = styled.button`
@@ -121,6 +176,17 @@ export const AddressMainInput = styled.input`
   height: 32px;
   border: 1px solid lightgray;
   border-radius: 4px;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border: 1px solid black;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const AddressOptionalInput = styled.input`
@@ -129,6 +195,17 @@ export const AddressOptionalInput = styled.input`
   height: 32px;
   border-radius: 4px;
   border: 1px solid lightgray;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border: 1px solid black;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const AddressMain = styled.div`
@@ -152,6 +229,17 @@ export const YoutubeLinkInput = styled.input`
   height: 32px;
   border: 1px solid lightgray;
   border-radius: 4px;
+  &:focus {
+    outline: none;
+    &::placeholder {
+      color: transparent;
+    }
+    border: 1px solid black;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const UploadImages = styled.div`
@@ -175,13 +263,15 @@ export const UploadImage = styled.div`
   margin-right: 20px;
   width: 70px;
   height: 70px;
+  background-color: #f5f5f5;
   color: #4f4f4f;
   font-size: 0.7rem;
   border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+
   cursor: pointer;
   &:hover {
-    background-color: #f5f5f5;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -206,6 +296,7 @@ export const SubmitButton = styled.button`
   font-weight: 400;
   align-self: center;
   cursor: pointer;
+  transition: all 0.3s ease;
   &:hover {
     background-color: #4a4a4a;
   }
