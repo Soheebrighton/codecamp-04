@@ -6,7 +6,9 @@ export default function BoardListUI(props) {
       <A.BestList>
         {props.dataForBest?.fetchBoardsOfTheBest.map((el) => (
           <A.BestContent>
-            <A.BestTitle>{el.title}</A.BestTitle>
+            <A.BestTitle id={el._id} onClick={props.onClickView}>
+              {el.title}
+            </A.BestTitle>
             <A.BestWriter>
               <A.BestName>{el.writer}</A.BestName>
               <A.BestDate>{el.createdAt}</A.BestDate>
@@ -19,12 +21,14 @@ export default function BoardListUI(props) {
         {/* //게시글 목록 설명 */}
 
         <A.Row>
-          <A.ColumnCheckbox>체크박스</A.ColumnCheckbox>
+          <A.ColumnCheckbox>
+            <input type="checkbox" />
+          </A.ColumnCheckbox>
           <A.ColumnNumber>번호</A.ColumnNumber>
           <A.ColumnTitle>제목</A.ColumnTitle>
-          <A.Column>작성자</A.Column>
-          <A.Column>날짜</A.Column>
-          <A.Column>삭제버튼</A.Column>
+          <A.ColumnWriter>작성자</A.ColumnWriter>
+          <A.ColumnDate>날짜</A.ColumnDate>
+          <A.ColumnDelete></A.ColumnDelete>
         </A.Row>
         {/* ////////////// */}
         {props.dataForBoards?.fetchBoards.map((el, index) => (
@@ -33,15 +37,25 @@ export default function BoardListUI(props) {
               <input type="checkbox" />
             </A.ColumnCheckbox>
             <A.ColumnNumber>{index + 1}</A.ColumnNumber>
-            <A.ColumnTitle>{el.title}</A.ColumnTitle>
-            <A.Column>{el.writer}</A.Column>
-            <A.Column>{el.createdAt}</A.Column>
-            <A.DeleteButton id={el._id} onClick={props.onClickDelete}>
-              삭제하기
-            </A.DeleteButton>
+            <A.ColumnTitle id={el._id} onClick={props.onClickView}>
+              {el.title}
+            </A.ColumnTitle>
+            <A.ColumnWriter>{el.writer}</A.ColumnWriter>
+            <A.ColumnDate>{el.createdAt.split("T")[0]}</A.ColumnDate>
+            <A.ColumnDelete>
+              {" "}
+              <A.DeleteButton id={el._id} onClick={props.onClickDelete}>
+                x
+              </A.DeleteButton>
+            </A.ColumnDelete>
           </A.Row>
         ))}
       </A.Wrapper>
+
+      {/* //버튼 */}
+      <A.NewButton onClick={props.onClickNew}>
+        <div>게시물 작성하기</div>
+      </A.NewButton>
     </A.Main>
   );
 }

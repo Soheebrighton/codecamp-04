@@ -18,13 +18,8 @@ export default function BoardViewUI(props) {
         </div> */}
           <A.Writer>
             <A.Mutation>
-              <A.Modify>수정</A.Modify>
-              <A.Delete
-                id={props.data?.fetchBoard._id}
-                onClick={props.onClickDelete}
-              >
-                삭제
-              </A.Delete>
+              <A.Modify onClick={props.onClickEdit}>수정</A.Modify>
+              <A.Delete onClick={props.onClickDelete}>삭제</A.Delete>
             </A.Mutation>
             <A.Profile>
               {" "}
@@ -45,13 +40,9 @@ export default function BoardViewUI(props) {
             <p> {props.data?.fetchBoard.contents}</p>
           </A.Content>
           <A.Likes>
-            <A.Like>
+            <A.Like onClick={props.onClickLike}>
               <div>
-                <FontAwesomeIcon
-                  icon={faThumbsUp}
-                  color="#c8c2fc"
-                  onClick={props.onClickLike}
-                />
+                <FontAwesomeIcon icon={faThumbsUp} color="#c8c2fc" />
               </div>
               <A.LikesText>{props.data?.fetchBoard.likeCount}</A.LikesText>
             </A.Like>
@@ -64,6 +55,7 @@ export default function BoardViewUI(props) {
           </Dislike> */}
           </A.Likes>
         </A.Wrapper>
+        <A.ListButton onClick={props.onClickList}>목록으로</A.ListButton>
       </A.Main>
     </>
   );

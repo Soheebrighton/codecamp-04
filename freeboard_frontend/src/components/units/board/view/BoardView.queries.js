@@ -12,3 +12,9 @@ export const FETCH_BOARD = gql`
     }
   }
 `;
+
+export const LIKE_BOARD = gql`
+  mutation likeBoard($boardId: ID!) {
+    likeBoard(boardId: $boardId)
+  }
+`;

@@ -22,3 +22,15 @@ export const FETCH_BOARDS_OF_THE_BEST = gql`
     }
   }
 `;
+
+////// 개별 보드 게시물 ////
+
+export const FETCH_BOARD = gql`
+  query fetchBoard {
+    fetchBoard {
+      _id
+      writer
+      title
+    }
+  }
+`;

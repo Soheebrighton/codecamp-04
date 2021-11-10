@@ -1,6 +1,6 @@
 import BoardViewUI from "./BoardView.presenter";
 import { useRouter } from "next/router";
-import { FETCH_BOARD } from "./BoardView.queries";
+import { FETCH_BOARD, LIKE_BOARD } from "./BoardView.queries";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 const DELETE_BOARD = gql`
@@ -13,6 +13,7 @@ export default function BoardView() {
   const router = useRouter();
 
   const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [likeBoard] = useMutation(LIKE_BOARD);
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.myId },
@@ -23,22 +24,41 @@ export default function BoardView() {
 
   //splice, slice적용할 경우엔 값을 일일히 가져오면서 런타임 에러
 
-  function onClickLike() {
-    // let likeNum = data?.fetchBoard.likeCount;
-    // likeNum = +1;
-    // console.log({ likeNum });
+  /////// 라이크 ////////
+
+  async function onClickLike() {
     console.log("likes!");
+    await likeBoard({
+      variables: { boardId: router.query.myId },
+      refetchQueries: [
+        { query: FETCH_BOARD, variables: { boardId: router.query.myId } },
+      ],
+    });
   }
-  async function onClickDelete(event) {
+
+  ////// 삭제 ///////
+  async function onClickDelete() {
     try {
-      await deleteBoard({
-        variables: { boardId: event.target.id },
-      });
+      await deleteBoard({ variables: { boardId: router.query.myId } });
     } catch (error) {
       alert(error.message);
     }
-    console.log("deleted!!");
+    alert("게시물이 삭제되었습니다.");
+    router.push(`/boards/list`);
   }
+
+  function onClickList() {
+    router.push(`/boards/list`);
+  }
+
+  ////////// 수정하기 ~~~~~~~~~ //////////
+
+  function onClickEdit() {
+    console.log("edit page");
+    router.push(`/boards/${router.query.myId}/edit`);
+  }
+  //////////////////////////////////////
+
   return (
     <BoardViewUI
       data={data}
@@ -46,6 +66,8 @@ export default function BoardView() {
       onClickLike={onClickLike}
       deleteBoard={deleteBoard}
       onClickDelete={onClickDelete}
+      onClickList={onClickList}
+      onClickEdit={onClickEdit}
     ></BoardViewUI>
   );
 }

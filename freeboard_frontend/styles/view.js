@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   border-right: 1px solid #dbdbdb;
   border-left: 1px solid #dbdbdb;
+  margin-bottom: 20px;
   /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); */
 `;
 
@@ -58,7 +59,7 @@ export const Mutation = styled.div`
 export const Modify = styled.span`
   cursor: pointer;
   :hover {
-    color: black;
+    color: #787878;
   }
 `;
 
@@ -66,7 +67,7 @@ export const Delete = styled.span`
   padding-left: 10px;
   cursor: pointer;
   :hover {
-    color: black;
+    color: #787878;
   }
 `;
 export const Profile = styled.div`
@@ -142,4 +143,26 @@ export const Dislike = styled.div`
   align-items: center;
 
   padding: 10px;
+`;
+
+export const ListButton = styled.div`
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: gray;
+  width: 100px;
+  height: 42px;
+  font-size: 14px;
+  padding: 8px;
+  background-color: #ededed;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  :hover {
+    color: white;
+    background-color: #787878;
+  }
 `;

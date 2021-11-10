@@ -31,11 +31,11 @@ export const WriterName = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 
   &:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 `;
 
@@ -55,11 +55,11 @@ export const WriterPassword = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 
   &:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 `;
 
@@ -88,11 +88,11 @@ export const PostTitleInput = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 
   &:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #787878;
   }
 `;
 
@@ -115,11 +115,11 @@ export const PostContentInput = styled.textarea`
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 
   &:hover {
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 `;
 
@@ -154,11 +154,11 @@ export const AddressPostcodeInput = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 
   &:hover {
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 `;
 
@@ -181,11 +181,11 @@ export const AddressMainInput = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 
   &:hover {
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 `;
 
@@ -200,11 +200,11 @@ export const AddressOptionalInput = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 
   &:hover {
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 `;
 
@@ -234,11 +234,11 @@ export const YoutubeLinkInput = styled.input`
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 
   &:hover {
-    border: 1px solid black;
+    border: 1px solid #787878;
   }
 `;
 
@@ -285,22 +285,26 @@ export const MainSettingTitle = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  width: 170px;
+  width: 150px;
   height: 42px;
   /* background-color: #988cff; */
   background-color: black;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   font-size: 14px;
-  color: white;
-  font-weight: 400;
+  color: gray;
+  font-weight: 600;
   align-self: center;
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
-    background-color: #4a4a4a;
+    background-color: #787878;
+    color: white;
   }
-  background-color: ${(props) => (props.MyAaa === true ? "yellow" : "gray")};
+  background-color: ${(props) =>
+    props.MyAaa === true ? "#b36bff" : "#ededed"};
+
+  color: ${(props) => (props.MyBbb === true ? "white" : "gray")};
 `;
 
 export const Wrapper = styled.div`

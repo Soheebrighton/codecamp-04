@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
-export default function BoardWrite() {
+export default function BoardWrite(props) {
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -18,6 +18,7 @@ export default function BoardWrite() {
   const [contentError, setContentError] = useState("");
 
   const [myAaa, setMyAaa] = useState(false);
+  const [myBbb, setMyBbb] = useState(false);
 
   //   if (name !== "" && password !== "" && title !== "" && content !== "") {
   //     setMyAaa(true);
@@ -26,6 +27,9 @@ export default function BoardWrite() {
   //   }
 
   const [createBoard] = useMutation(CREATE_BOARD);
+
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+
   console.log(createBoard);
 
   function saveName(event) {
@@ -37,8 +41,10 @@ export default function BoardWrite() {
       content !== ""
     ) {
       setMyAaa(true);
+      setMyBbb(true);
     } else {
       setMyAaa(false);
+      setMyBbb(false);
     }
   }
 
@@ -51,8 +57,10 @@ export default function BoardWrite() {
       content !== ""
     ) {
       setMyAaa(true);
+      setMyBbb(true);
     } else {
       setMyAaa(false);
+      setMyBbb(false);
     }
   }
 
@@ -65,8 +73,10 @@ export default function BoardWrite() {
       content !== ""
     ) {
       setMyAaa(true);
+      setMyBbb(true);
     } else {
       setMyAaa(false);
+      setMyBbb(false);
     }
   }
 
@@ -74,8 +84,10 @@ export default function BoardWrite() {
     setContent(event.target.value);
     if (name && password && title && event.target.value) {
       setMyAaa(true);
+      setMyBbb(true);
     } else {
       setMyAaa(false);
+      setMyBbb(false);
     }
   }
 
@@ -136,6 +148,23 @@ export default function BoardWrite() {
     router.push(`/boards/${result.data.createBoard._id}`);
   }
 
+  ////////// 수정하기 ~~~~ ////////
+  console.log(router.query.myId);
+  async function editBoard() {
+    const result = await updateBoard({
+      variables: {
+        updateBoardInput: {
+          title,
+          contents: content,
+        },
+        password,
+        boardId: router.query.myId,
+      },
+    });
+
+    router.push(`/boards/${result.data.updateBoard._id}`);
+  }
+  //////////////////////
   /////radio button
   // const App = () => {
   //   const [select, setSelect] = useState("");
@@ -159,6 +188,9 @@ export default function BoardWrite() {
       submit={submit}
       invalidSubmit={invalidSubmit}
       aaa={myAaa}
+      isEdit={props.isEdit}
+      editBoard={editBoard}
+      bbb={myBbb}
     ></BoardWriteUI>
   );
 }

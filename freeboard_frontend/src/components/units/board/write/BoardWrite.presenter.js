@@ -48,7 +48,8 @@ export default function BoardWriteUI(props) {
       <Main>
         <Wrapper>
           <Title>
-            <span>게시물 등록</span>
+            {!props.isEdit && <span>게시물 등록</span>}
+            {props.isEdit && <span>게시물 수정</span>}
           </Title>
           <Writer>
             <WriterDiv>
@@ -179,9 +180,25 @@ export default function BoardWriteUI(props) {
             등록하기
           </SubmitButton> */}
 
-          <SubmitButton onClick={props.checkValid} MyAaa={props.aaa}>
+          {!props.isEdit && (
+            <SubmitButton
+              onClick={props.checkValid}
+              MyAaa={props.aaa}
+              MyBbb={props.bbb}
+            >
+              <div>등록하기</div>
+            </SubmitButton>
+          )}
+
+          {props.isEdit && (
+            <SubmitButton onClick={props.editBoard} MyAaa={props.aaa}>
+              수정하기
+            </SubmitButton>
+          )}
+
+          {/* <SubmitButton onClick={props.checkValid} MyAaa={props.aaa}>
             등록하기
-          </SubmitButton>
+          </SubmitButton> */}
         </Wrapper>
       </Main>
     </>
