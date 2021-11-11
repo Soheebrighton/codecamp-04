@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
 
 export default function BoardWrite(props) {
   const router = useRouter();
@@ -29,6 +29,12 @@ export default function BoardWrite(props) {
   const [createBoard] = useMutation(CREATE_BOARD);
 
   const [updateBoard] = useMutation(UPDATE_BOARD);
+
+  const { data } = useQuery(FETCH_BOARD, {
+    variables: { boardId: router.query.myId },
+  });
+
+  // const [fetchBoard] = useQuery(FETCH_BOARD);
 
   console.log(createBoard);
 
@@ -151,15 +157,46 @@ export default function BoardWrite(props) {
   ////////// 수정하기 ~~~~ ////////
   console.log(router.query.myId);
   async function editBoard() {
+    ////////////// myVariablesForEdit ////////
+    // const myVariablesForEdit = {
+    //   updateBoardInput: {
+    //     title,
+    //     contents: content,
+    //   },
+    //   password,
+    //   boardId: router.query.myId,
+    // };
+
+    // if (title) myVariablesForEdit.updateBoardInput.title = title;
+    // if (content) myVariablesForEdit.updateBoardInput.contents = content;
+
+    // ////////////////////
+    // const result = await updateBoard({
+    //   variables: myVariablesForEdit,
+    // });
+
+    const myVariablesForEdit = {
+      updateBoardInput: {},
+      password,
+      boardId: router.query.myId,
+    };
+
+    if (title) {
+      myVariablesForEdit.updateBoardInput.title = title;
+    } else {
+      alert("입력좀해라 제발");
+      myVariablesForEdit.updateBoardInput.title = data.fetchBoard.title;
+    }
+
+    if (content) {
+      myVariablesForEdit.updateBoardInput.contents = content;
+    } else {
+      alert("입력좀해라 제발");
+      myVariablesForEdit.updateBoardInput.contents = data.fetchBoard.contents;
+    }
+
     const result = await updateBoard({
-      variables: {
-        updateBoardInput: {
-          title,
-          contents: content,
-        },
-        password,
-        boardId: router.query.myId,
-      },
+      variables: myVariablesForEdit,
     });
 
     router.push(`/boards/${result.data.updateBoard._id}`);
@@ -191,6 +228,7 @@ export default function BoardWrite(props) {
       isEdit={props.isEdit}
       editBoard={editBoard}
       bbb={myBbb}
+      data={data}
     ></BoardWriteUI>
   );
 }

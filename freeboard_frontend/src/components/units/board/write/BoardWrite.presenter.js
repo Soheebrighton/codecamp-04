@@ -1,206 +1,168 @@
-import {
-  Writer,
-  Title,
-  WriterName,
-  WriterPassword,
-  WriterDiv,
-  PostTitle,
-  PostTitleInput,
-  PostTitleTitle,
-  PostContent,
-  PostContentInput,
-  PostContentTitle,
-  Address,
-  AddressTitle,
-  AddressPostcodeInput,
-  AddressPostcodeButton,
-  AddressMainInput,
-  AddressOptionalInput,
-  AddressMain,
-  AddressOptional,
-  Youtube,
-  YoutubeTitle,
-  YoutubeLinkInput,
-  UploadImages,
-  MainSetting,
-  SubmitButton,
-  Wrapper,
-  Main,
-  PostcodeWrapper,
-  PostcodeSpan,
-  Radio,
-  Label,
-  MainSettingTitle,
-  UploadImage,
-  UploadImagesTitle,
-  UploadImageDiv,
-  WriterNameTitle,
-  WriterPasswordTitle,
-  Error,
-} from "../../../../../styles/new";
-
-// import * as A from "../../../../../styles/new";
+import * as A from "../../../../../styles/new";
 // 스타일에서 한꺼번에 다 받기
 
 export default function BoardWriteUI(props) {
   return (
     <>
-      <Main>
-        <Wrapper>
-          <Title>
+      <A.Main>
+        <A.Wrapper>
+          <A.Title>
             {!props.isEdit && <span>게시물 등록</span>}
             {props.isEdit && <span>게시물 수정</span>}
-          </Title>
-          <Writer>
-            <WriterDiv>
-              <WriterNameTitle>작성자</WriterNameTitle>
-              <WriterName
+          </A.Title>
+          <A.Writer>
+            <A.WriterDiv>
+              <A.WriterNameTitle>작성자</A.WriterNameTitle>
+              <A.WriterName
                 type="text"
                 placeholder="이름을 입력해주세요."
                 onChange={props.saveName}
-              ></WriterName>
-              <Error>{props.nameError}</Error>
-            </WriterDiv>
+                defaultValue={props.data?.fetchBoard.writer}
+              ></A.WriterName>
+              <A.Error>{props.nameError}</A.Error>
+            </A.WriterDiv>
 
-            <WriterDiv>
-              <WriterPasswordTitle>비밀번호</WriterPasswordTitle>
+            <A.WriterDiv>
+              <A.WriterPasswordTitle>비밀번호</A.WriterPasswordTitle>
 
-              <WriterPassword
+              <A.WriterPassword
                 type="password"
                 placeholder="비밀번호를 입력해주세요."
                 onChange={props.savePassword}
-              ></WriterPassword>
-              <Error>{props.passwordError}</Error>
-            </WriterDiv>
-          </Writer>
+              ></A.WriterPassword>
+              <A.Error>{props.passwordError}</A.Error>
+            </A.WriterDiv>
+          </A.Writer>
 
-          <PostTitle>
-            <PostTitleTitle>제목</PostTitleTitle>
+          <A.PostTitle>
+            <A.PostTitleTitle>제목</A.PostTitleTitle>
 
-            <PostTitleInput
+            <A.PostTitleInput
               type="text"
               placeholder="제목을 작성해주세요."
+              defaultValue={props.data?.fetchBoard.title}
               onChange={props.saveTitle}
-            ></PostTitleInput>
-            <Error>{props.titleError}</Error>
-          </PostTitle>
+            ></A.PostTitleInput>
+            <A.Error>{props.titleError}</A.Error>
+          </A.PostTitle>
 
-          <PostContent>
-            <PostContentTitle>내용</PostContentTitle>
-            <PostContentInput
+          <A.PostContent>
+            <A.PostContentTitle>내용</A.PostContentTitle>
+            <A.PostContentInput
               type="text"
               placeholder="내용을 작성해주세요."
+              defaultValue={props.data?.fetchBoard.contents}
               onChange={props.saveContent}
-            ></PostContentInput>
-            <Error>{props.contentError}</Error>
-          </PostContent>
+            ></A.PostContentInput>
+            <A.Error>{props.contentError}</A.Error>
+          </A.PostContent>
 
-          <Address>
-            <AddressTitle>주소</AddressTitle>
+          <A.Address>
+            <A.AddressTitle>주소</A.AddressTitle>
 
-            <PostcodeWrapper>
-              <PostcodeSpan>
+            <A.PostcodeWrapper>
+              <A.PostcodeSpan>
                 {" "}
-                <AddressPostcodeInput
+                <A.AddressPostcodeInput
                   type="text"
                   placeholder="00000"
                   maxLength="5"
-                ></AddressPostcodeInput>
-              </PostcodeSpan>
+                ></A.AddressPostcodeInput>
+              </A.PostcodeSpan>
 
-              <AddressPostcodeButton>우편번호 검색</AddressPostcodeButton>
-            </PostcodeWrapper>
+              <A.AddressPostcodeButton>우편번호 검색</A.AddressPostcodeButton>
+            </A.PostcodeWrapper>
 
-            <AddressMain>
-              <AddressMainInput type="text"></AddressMainInput>
-            </AddressMain>
+            <A.AddressMain>
+              <A.AddressMainInput type="text"></A.AddressMainInput>
+            </A.AddressMain>
 
-            <AddressOptional>
-              <AddressOptionalInput type="text"></AddressOptionalInput>
-            </AddressOptional>
-          </Address>
+            <A.AddressOptional>
+              <A.AddressOptionalInput type="text"></A.AddressOptionalInput>
+            </A.AddressOptional>
+          </A.Address>
 
-          <Youtube>
-            <YoutubeTitle>유튜브</YoutubeTitle>
-            <YoutubeLinkInput
+          <A.Youtube>
+            <A.YoutubeTitle>유튜브</A.YoutubeTitle>
+            <A.YoutubeLinkInput
               type="text"
               placeholder="링크를 복사해주세요."
-            ></YoutubeLinkInput>
-          </Youtube>
+            ></A.YoutubeLinkInput>
+          </A.Youtube>
 
-          <UploadImages>
-            <UploadImagesTitle>사진첨부</UploadImagesTitle>
-            <UploadImageDiv>
-              <UploadImage>
+          <A.UploadImages>
+            <A.UploadImagesTitle>사진첨부</A.UploadImagesTitle>
+            <A.UploadImageDiv>
+              <A.UploadImage>
                 <div>
                   <img src="/images/Vector (4).png" />
                 </div>
                 {/* <div>Upload</div> */}
-              </UploadImage>
+              </A.UploadImage>
 
-              <UploadImage>
+              <A.UploadImage>
                 <div>
                   <img src="/images/Vector (4).png" />
                 </div>
                 {/* <div>Upload</div> */}
-              </UploadImage>
+              </A.UploadImage>
 
-              <UploadImage>
+              <A.UploadImage>
                 <div>
                   {" "}
                   <img src="/images/Vector (4).png" />
                 </div>
                 {/* <div>Upload</div> */}
-              </UploadImage>
-            </UploadImageDiv>
-          </UploadImages>
+              </A.UploadImage>
+            </A.UploadImageDiv>
+          </A.UploadImages>
 
-          <MainSetting>
-            <MainSettingTitle>메인설정</MainSettingTitle>
+          <A.MainSetting>
+            <A.MainSettingTitle>메인설정</A.MainSettingTitle>
 
-            <Radio
+            <A.Radio
               type="radio"
               id="youtube"
               name="setting"
               value="youtube"
-            ></Radio>
-            <Label htmlfor="youtube">유튜브</Label>
-            <Radio
+            ></A.Radio>
+            <A.Label htmlfor="youtube">유튜브</A.Label>
+            <A.Radio
               type="radio"
               id="photo"
               name="setting"
               value="photo"
               style={{ border: "10px solid #90DDD0" }}
-            ></Radio>
+            ></A.Radio>
 
-            <Label htmlfor="photo">사진</Label>
-          </MainSetting>
+            <A.Label htmlfor="photo">사진</A.Label>
+          </A.MainSetting>
           {/* 
           <SubmitButton onClick={props.checkValid}>
             등록하기
           </SubmitButton> */}
 
           {!props.isEdit && (
-            <SubmitButton
+            <A.SubmitButton
               onClick={props.checkValid}
               MyAaa={props.aaa}
               MyBbb={props.bbb}
             >
               <div>등록하기</div>
-            </SubmitButton>
+            </A.SubmitButton>
           )}
 
           {props.isEdit && (
-            <SubmitButton onClick={props.editBoard} MyAaa={props.aaa}>
+            <A.SubmitButton onClick={props.editBoard} MyAaa={props.aaa}>
               수정하기
-            </SubmitButton>
+            </A.SubmitButton>
           )}
 
           {/* <SubmitButton onClick={props.checkValid} MyAaa={props.aaa}>
             등록하기
           </SubmitButton> */}
-        </Wrapper>
-      </Main>
+        </A.Wrapper>
+      </A.Main>
     </>
   );
 }

@@ -10,6 +10,7 @@ export const Main = styled.div`
 export const Wrapper = styled.div`
   padding: 60px;
   width: 800px;
+
   display: flex;
   flex-direction: column;
   border-right: 1px solid #dbdbdb;
