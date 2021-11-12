@@ -2,16 +2,6 @@ import { ChangeEvent } from "react";
 import { MyInput, MyButton } from "./BoardWrite.styles";
 import { IBoardWriteUIprops } from "./BoardWrite.types";
 
-interface IProps {
-  aaa: (event: ChangeEvent<HTMLInputElement>) => void;
-  bbb: (event: ChangeEvent<HTMLInputElement>) => void;
-  ccc: (event: ChangeEvent<HTMLInputElement>) => void;
-  zzz: () => void;
-  qqq: boolean;
-  ggg: boolean;
-  xxx: () => void;
-  data: any;
-}
 export default function BoardWriteUI(props: IBoardWriteUIprops) {
   return (
     <>

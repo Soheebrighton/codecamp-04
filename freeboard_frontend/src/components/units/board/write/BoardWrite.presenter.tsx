@@ -1,4 +1,5 @@
 import * as A from "../../../../../styles/new";
+
 // 스타일에서 한꺼번에 다 받기
 
 export default function BoardWriteUI(props) {

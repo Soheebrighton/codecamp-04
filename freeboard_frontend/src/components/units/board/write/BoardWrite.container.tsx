@@ -157,24 +157,6 @@ export default function BoardWrite(props) {
   ////////// 수정하기 ~~~~ ////////
   console.log(router.query.myId);
   async function editBoard() {
-    ////////////// myVariablesForEdit ////////
-    // const myVariablesForEdit = {
-    //   updateBoardInput: {
-    //     title,
-    //     contents: content,
-    //   },
-    //   password,
-    //   boardId: router.query.myId,
-    // };
-
-    // if (title) myVariablesForEdit.updateBoardInput.title = title;
-    // if (content) myVariablesForEdit.updateBoardInput.contents = content;
-
-    // ////////////////////
-    // const result = await updateBoard({
-    //   variables: myVariablesForEdit,
-    // });
-
     const myVariablesForEdit = {
       updateBoardInput: {},
       password,
