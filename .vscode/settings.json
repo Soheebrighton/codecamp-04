@@ -1,0 +1,4 @@
+{
+    "editor.formatOnsave": true,
+    "editor.defaultformatter": "esbenp.pretter-vscode"
+};
