@@ -1,19 +1,26 @@
 import BoardViewUI from "./BoardView.presenter";
 import { useRouter } from "next/router";
-import { FETCH_BOARD, LIKE_BOARD } from "./BoardView.queries";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import {
+  FETCH_BOARD,
+  LIKE_BOARD,
+  DELETE_BOARD,
+  CREATE_BOARD_COMMENT,
+} from "./BoardView.queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState } from "react";
 
-const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
-  }
-`;
+// const DELETE_BOARD = gql`
+//   mutation deleteBoard($boardId: ID!) {
+//     deleteBoard(boardId: $boardId)
+//   }
+// `;
 
 export default function BoardView() {
   const router = useRouter();
 
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
+  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.myId },
@@ -59,6 +66,66 @@ export default function BoardView() {
   }
   //////////////////////////////////////
 
+  //////////// 댓글 ~~~~~~~////////////
+
+  /////// 댓글 등록시 빈 인풋 확인 /////
+
+  const [commentWriter, setCommentWriter] = useState("");
+  const [commentPassword, setCommentPassword] = useState("");
+  const [commentContent, setCommentContent] = useState("");
+
+  function checkCommentSubmitValid() {
+    if (commentWriter && commentPassword && commentContent) {
+      console.log("빈칸없음");
+      commentSubmit();
+    } else {
+      console.log("빈칸있음");
+    }
+  }
+  /////////////////////////////////
+  ////// 작성자, 비밀번호, 댓글 내용 저장 ////
+
+  function saveCommentWriter(event) {
+    setCommentWriter(event.target.value);
+  }
+
+  function saveCommentPassword(event) {
+    setCommentPassword(event.target.value);
+  }
+
+  function saveCommentContent(event) {
+    setCommentContent(event.target.value);
+    setWord(event.target.value);
+  }
+
+  const [word, setWord] = useState("");
+
+  async function commentSubmit() {
+    const result = await createBoardComment({
+      variables: {
+        createBoardCommentInput: {
+          writer: commentWriter,
+          password: commentPassword,
+          contents: commentContent,
+          rating: 1,
+        },
+      },
+    });
+
+    console.log(result);
+    result.data.createBoard._id;
+  }
+
+
+  // updateBoardInput: {},
+  // password,
+  // boardId: router.query.myId,
+
+  // 아이디 라우터, commentSubmit 확인
+  /
+
+  ////////////////////////////////////
+
   return (
     <BoardViewUI
       data={data}
@@ -68,6 +135,15 @@ export default function BoardView() {
       onClickDelete={onClickDelete}
       onClickList={onClickList}
       onClickEdit={onClickEdit}
+      checkCommentSubmitValid={checkCommentSubmitValid}
+      commentWriter={commentWriter}
+      commentPassword={commentPassword}
+      commentContent={commentContent}
+      saveCommentWriter={saveCommentWriter}
+      saveCommentPassword={saveCommentPassword}
+      saveCommentContent={saveCommentContent}
+      word={word}
+      commentSubmit={commentSubmit}
     ></BoardViewUI>
   );
 }

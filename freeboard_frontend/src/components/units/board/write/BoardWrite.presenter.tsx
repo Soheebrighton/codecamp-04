@@ -158,10 +158,6 @@ export default function BoardWriteUI(props) {
               수정하기
             </A.SubmitButton>
           )}
-
-          {/* <SubmitButton onClick={props.checkValid} MyAaa={props.aaa}>
-            등록하기
-          </SubmitButton> */}
         </A.Wrapper>
       </A.Main>
     </>

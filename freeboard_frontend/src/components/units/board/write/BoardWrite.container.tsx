@@ -166,14 +166,12 @@ export default function BoardWrite(props) {
     if (title) {
       myVariablesForEdit.updateBoardInput.title = title;
     } else {
-      alert("입력좀해라 제발");
       myVariablesForEdit.updateBoardInput.title = data.fetchBoard.title;
     }
 
     if (content) {
       myVariablesForEdit.updateBoardInput.contents = content;
     } else {
-      alert("입력좀해라 제발");
       myVariablesForEdit.updateBoardInput.contents = data.fetchBoard.contents;
     }
 
@@ -183,15 +181,6 @@ export default function BoardWrite(props) {
 
     router.push(`/boards/${result.data.updateBoard._id}`);
   }
-  //////////////////////
-  /////radio button
-  // const App = () => {
-  //   const [select, setSelect] = useState("");
-  //   const handleSelectChange = (event) => {
-  //     const value = event.target.value;
-  //     setSelect(value);
-  //   };
-  //////////////////
 
   return (
     <BoardWriteUI

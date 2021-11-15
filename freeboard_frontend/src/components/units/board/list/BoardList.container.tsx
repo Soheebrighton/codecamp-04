@@ -3,15 +3,10 @@ import {
   FETCH_BOARDS,
   FETCH_BOARDS_OF_THE_BEST,
   FETCH_BOARD,
+  DELETE_BOARD,
 } from "./BoardList.queries";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-
-const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
-  }
-`;
 
 export default function BoardList() {
   const router = useRouter();

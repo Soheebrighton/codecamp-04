@@ -56,6 +56,52 @@ export default function BoardViewUI(props) {
           </A.Likes>
         </A.Wrapper>
         <A.ListButton onClick={props.onClickList}>목록으로</A.ListButton>
+
+        <A.Comments>
+          <A.CommentTitle>댓글</A.CommentTitle>
+          <A.CommentTop>
+            <A.CommentWriteName
+              type="text"
+              placeholder="작성자"
+              onChange={props.saveCommentWriter}
+            ></A.CommentWriteName>
+            <A.CommentWritePassword
+              type="password"
+              placeholder="비밀번호"
+              onChange={props.saveCommentPassword}
+            ></A.CommentWritePassword>
+            <A.Rate>★★★★★</A.Rate>
+          </A.CommentTop>
+
+          <A.CommentWrite>
+            <A.CommentInput
+              type="text"
+              placeholder="댓글을 입력해주세요"
+              maxLength="100"
+              onChange={props.saveCommentContent}
+            ></A.CommentInput>
+            <A.CommentBottom>
+              <A.CommentWords>
+                <span>{props.word.length}</span>/100
+              </A.CommentWords>
+              <A.CommentSubmitButton onClick={props.checkCommentSubmitValid}>
+                등록하기
+              </A.CommentSubmitButton>
+            </A.CommentBottom>
+          </A.CommentWrite>
+          <A.CommentView>
+            <A.CommentProfilePhoto></A.CommentProfilePhoto>
+            <A.CommentViewDetails>
+              <A.CommentWriter>정소희</A.CommentWriter>
+              <A.CommentViewText>아주 좋아요</A.CommentViewText>
+              <A.CommentViewDate>2021.11.24</A.CommentViewDate>
+            </A.CommentViewDetails>
+            <A.CommentEandD>
+              <A.CommentEdit>수정</A.CommentEdit>
+              <A.CommentDelete>삭제</A.CommentDelete>
+            </A.CommentEandD>
+          </A.CommentView>
+        </A.Comments>
       </A.Main>
     </>
   );

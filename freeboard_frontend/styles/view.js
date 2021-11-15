@@ -167,3 +167,91 @@ export const ListButton = styled.div`
     background-color: #787878;
   }
 `;
+
+/////////// 댓글 ///////////
+
+export const Comments = styled.div`
+  width: 800px;
+`;
+
+export const CommentTitle = styled.div`
+  padding-bottom: 20px;
+`;
+
+export const CommentTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+`;
+
+export const CommentWriteName = styled.input`
+  margin-right: 10px;
+`;
+
+export const CommentWritePassword = styled.input`
+  margin-right: 10px;
+`;
+
+export const Rate = styled.div``;
+
+export const CommentWrite = styled.div``;
+
+export const CommentInput = styled.textarea`
+  width: 100%;
+  height: 100px;
+`;
+
+export const CommentBottom = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const CommentWords = styled.span`
+  width: 90%;
+`;
+
+export const CommentSubmitButton = styled.span`
+  width: 10%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+`;
+
+export const CommentView = styled.div`
+  border-bottom: 1px solid gray;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+`;
+
+export const CommentProfilePhoto = styled.div`
+  width: 20%;
+`;
+
+export const CommentViewDetails = styled.div`
+  width: 70%;
+`;
+
+export const CommentWriter = styled.div`
+  font-weight: 600;
+  padding-bottom: 10px;
+`;
+
+export const CommentViewText = styled.div``;
+
+export const CommentViewDate = styled.div`
+  color: gray;
+  font-size: 9px;
+`;
+
+export const CommentEandD = styled.div`
+  width: 10%;
+`;
+
+export const CommentEdit = styled.span`
+  padding-right: 10px;
+`;
+
+export const CommentDelete = styled.span``;
