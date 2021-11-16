@@ -174,6 +174,10 @@ export const Comments = styled.div`
   width: 800px;
 `;
 
+export const CommentCreate = styled.div``;
+
+export const Row = styled.div``;
+
 export const CommentTitle = styled.div`
   padding-bottom: 20px;
 `;
@@ -252,6 +256,15 @@ export const CommentEandD = styled.div`
 
 export const CommentEdit = styled.span`
   padding-right: 10px;
+  cursor: pointer;
+  :hover {
+    color: gray;
+  }
 `;
 
-export const CommentDelete = styled.span``;
+export const CommentDelete = styled.span`
+  cursor: pointer;
+  :hover {
+    color: gray;
+  }
+`;

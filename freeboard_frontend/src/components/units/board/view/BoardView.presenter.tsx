@@ -59,48 +59,113 @@ export default function BoardViewUI(props) {
 
         <A.Comments>
           <A.CommentTitle>댓글</A.CommentTitle>
-          <A.CommentTop>
-            <A.CommentWriteName
-              type="text"
-              placeholder="작성자"
-              onChange={props.saveCommentWriter}
-            ></A.CommentWriteName>
-            <A.CommentWritePassword
-              type="password"
-              placeholder="비밀번호"
-              onChange={props.saveCommentPassword}
-            ></A.CommentWritePassword>
-            <A.Rate>★★★★★</A.Rate>
-          </A.CommentTop>
+          {/* ////댓글 작성 인풋 ////////////////////////////// */}
+          <A.CommentCreate>
+            <A.CommentTop>
+              <A.CommentWriteName
+                type="text"
+                placeholder="작성자"
+                onChange={props.saveCommentWriter}
+              ></A.CommentWriteName>
+              <A.CommentWritePassword
+                type="password"
+                placeholder="비밀번호"
+                onChange={props.saveCommentPassword}
+              ></A.CommentWritePassword>
+              <A.Rate>★★★★★</A.Rate>
+            </A.CommentTop>
+            <A.CommentWrite>
+              <A.CommentInput
+                type="text"
+                placeholder="댓글을 입력해주세요"
+                maxLength="100"
+                onChange={props.saveCommentContent}
+              ></A.CommentInput>
+              <A.CommentBottom>
+                <A.CommentWords>
+                  <span>{props.word.length}</span>/100
+                </A.CommentWords>
+                <A.CommentSubmitButton onClick={props.checkCommentSubmitValid}>
+                  <span>등록하기</span>
+                </A.CommentSubmitButton>
+              </A.CommentBottom>
+            </A.CommentWrite>{" "}
+          </A.CommentCreate>
+          {/* /////////////////////////////////////////////////////// */}
+          {props.dataForComments?.fetchBoardComments.map((el) => (
+            <A.CommentView key={el._id}>
+              <A.CommentProfilePhoto></A.CommentProfilePhoto>
 
-          <A.CommentWrite>
-            <A.CommentInput
-              type="text"
-              placeholder="댓글을 입력해주세요"
-              maxLength="100"
-              onChange={props.saveCommentContent}
-            ></A.CommentInput>
-            <A.CommentBottom>
-              <A.CommentWords>
-                <span>{props.word.length}</span>/100
-              </A.CommentWords>
-              <A.CommentSubmitButton onClick={props.checkCommentSubmitValid}>
-                등록하기
-              </A.CommentSubmitButton>
-            </A.CommentBottom>
-          </A.CommentWrite>
-          <A.CommentView>
-            <A.CommentProfilePhoto></A.CommentProfilePhoto>
-            <A.CommentViewDetails>
-              <A.CommentWriter>정소희</A.CommentWriter>
-              <A.CommentViewText>아주 좋아요</A.CommentViewText>
-              <A.CommentViewDate>2021.11.24</A.CommentViewDate>
-            </A.CommentViewDetails>
-            <A.CommentEandD>
-              <A.CommentEdit>수정</A.CommentEdit>
-              <A.CommentDelete>삭제</A.CommentDelete>
-            </A.CommentEandD>
-          </A.CommentView>
+              {/* ///댓글 내용 보기 */}
+              <A.CommentViewDetails>
+                {!props.isEdit && (
+                  <A.CommentWriter>{el.writer}</A.CommentWriter>
+                )}
+
+                {/* //// 댓글 작성자 수정 인풋 */}
+
+                {/* ////// 수정하기 인풋 및 버튼  */}
+                {props.isEdit && (
+                  <A.CommentCreate>
+                    <A.CommentTop>
+                      <A.CommentWriteName
+                        type="text"
+                        placeholder="작성자"
+                        onChange={props.saveCommentWriter}
+                        defaultValue={el.writer}
+                      ></A.CommentWriteName>
+                      <A.CommentWritePassword
+                        type="password"
+                        placeholder="비밀번호"
+                        onChange={props.saveCommentPassword}
+                      ></A.CommentWritePassword>
+                      <A.Rate>★★★★★</A.Rate>
+                    </A.CommentTop>
+                    <A.CommentWrite>
+                      <A.CommentInput
+                        type="text"
+                        placeholder="댓글을 입력해주세요"
+                        maxLength="100"
+                        onChange={props.saveCommentContent}
+                        defaultValue={el.contents}
+                        // defaultValue={props.commentContent}
+                      ></A.CommentInput>
+                      <A.CommentBottom>
+                        <A.CommentWords>
+                          <span>{props.word.length}</span>/100
+                        </A.CommentWords>
+                        <A.CommentSubmitButton
+                          onClick={props.checkCommentSubmitValid}
+                        >
+                          <span>수정하기</span>
+                        </A.CommentSubmitButton>
+                      </A.CommentBottom>
+                    </A.CommentWrite>{" "}
+                  </A.CommentCreate>
+                )}
+
+                {!props.isEdit && (
+                  <A.CommentViewText>{el.contents}</A.CommentViewText>
+                )}
+
+                {!props.isEdit && (
+                  <A.CommentViewDate>{el.createdAt}</A.CommentViewDate>
+                )}
+              </A.CommentViewDetails>
+              {/* ///////////////////// */}
+              <A.CommentEandD>
+                <A.CommentEdit id={el._id} onClick={props.onClickUpdateComment}>
+                  수정
+                </A.CommentEdit>
+                <A.CommentDelete
+                  id={el._id}
+                  onClick={props.onClickDeleteComment}
+                >
+                  삭제
+                </A.CommentDelete>
+              </A.CommentEandD>
+            </A.CommentView>
+          ))}
         </A.Comments>
       </A.Main>
     </>

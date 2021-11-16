@@ -25,6 +25,8 @@ export const DELETE_BOARD = gql`
   }
 `;
 
+////댓글////
+
 export const CREATE_BOARD_COMMENT = gql`
   mutation createBoardComment(
     $createBoardCommentInput: CreateBoardCommentInput!
@@ -32,14 +34,45 @@ export const CREATE_BOARD_COMMENT = gql`
   ) {
     createBoardComment(
       createBoardCommentInput: $createBoardCommentInput
-      password: $password
       boardId: $boardId
     ) {
       _id
+    }
+  }
+`;
+
+export const FETCH_BOARD_COMMENTS = gql`
+  query fetchBoardComments($boardId: ID!) {
+    fetchBoardComments(boardId: $boardId) {
+      _id
       writer
       contents
-      rating
       createdAt
+      rating
+    }
+  }
+`;
+
+export const DELETE_BOARD_COMMENT = gql`
+  mutation deleteBoardComment($boardCommentId: ID!, $password: String) {
+    deleteBoardComment(password: $password, boardCommentId: $boardCommentId)
+  }
+`;
+
+///// 댓글 수정 ////
+
+export const UPDATE_BOARD_COMMENT = gql`
+  mutation updateBoardComment(
+    $updateBoardCommentInput: UpdateBoardCommentInput!
+    $password: String
+    $boardCommentId: ID!
+  ) {
+    updateBoardComment(
+      updateBoardCommentInput: $updateBoardCommentInput
+      password: $password
+      boardCommentId: $boardCommentId
+    ) {
+      _id
     }
   }
 `;
