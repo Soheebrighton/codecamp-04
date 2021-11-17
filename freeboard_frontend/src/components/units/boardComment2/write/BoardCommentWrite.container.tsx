@@ -1,22 +1,22 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import BoardCommentWriteUI from "./BoardCommentWrite.presenter";
+import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import {
-  CREATE_BOARD_COMMENT,
+  CREATED_BOARD_COMMENT,
   UPDATE_BOARD_COMMENT,
 } from "./BoardCommentWrite.queries";
-import { Modal } from "antd";
 
 export default function BoardCommentWrite(props) {
+  //새 댓글의 작성자, 비밀번호, 내용의 값을 변수에 담기//
   const router = useRouter();
   const [myWriter, setMyWriter] = useState("");
   const [myPassword, setMyPassword] = useState("");
   const [myContents, setMyContents] = useState("");
-  const [myStar, setMyStar] = useState(0);
+  ///// ///// //// ///// /////
 
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [createBoardComment] = useMutation(CREATED_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   function onChangeMyWriter(event) {
@@ -31,14 +31,6 @@ export default function BoardCommentWrite(props) {
     setMyContents(event.target.value);
   }
 
-  function onChangeStar(value) {
-    setMyStar(value);
-  }
-
-  // function onChangeStar(value: number) {
-  //   setMyStar(value);
-  // }
-
   async function onClickWrite() {
     try {
       await createBoardComment({
@@ -47,7 +39,7 @@ export default function BoardCommentWrite(props) {
             writer: myWriter,
             password: myPassword,
             contents: myContents,
-            rating: myStar,
+            rating: 0,
           },
           boardId: String(router.query.myId),
         },
@@ -59,23 +51,18 @@ export default function BoardCommentWrite(props) {
         ],
       });
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      alert(error.message);
     }
   }
 
   async function onClickUpdate() {
     if (!myContents) {
-      Modal.warning({
-        title: "내용이 수정되지 않았습니다.",
-      });
-
+      alert("내용이 수정되지 않았습니다.");
       return;
     }
-    if (!myPassword) {
-      Modal.warning({
-        title: "비밀번호가 입력되지 않았습니다.",
-      });
 
+    if (!myPassword) {
+      alert("비밀번호가 입력되지 않았습니다.");
       return;
     }
 
@@ -83,7 +70,7 @@ export default function BoardCommentWrite(props) {
       if (!props.el?._id) return;
       await updateBoardComment({
         variables: {
-          updateBoardCommentInput: { contents: myContents, rating: myStar },
+          updateBoardCommentInput: { contents: myContents },
           password: myPassword,
           boardCommentId: props.el?._id,
         },
@@ -107,7 +94,6 @@ export default function BoardCommentWrite(props) {
       onChangeMyContents={onChangeMyContents}
       onClickWrite={onClickWrite}
       onClickUpdate={onClickUpdate}
-      onChangeStar={onChangeStar}
       isEdit={props.isEdit}
       el={props.el}
       myContents={myContents}

@@ -13,7 +13,7 @@ return answer.length === 0
 };
 
 function solution(arr. divisior) {
-    const answer = arr.filter (numb => {
+    const answer = arr.filter (num => {
         return num% divisior;
     })
 

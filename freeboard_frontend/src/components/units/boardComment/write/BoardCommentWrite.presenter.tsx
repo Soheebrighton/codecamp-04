@@ -1,45 +1,59 @@
 import * as A from "./BoardCommentWrite.styles";
+import { Rate } from "antd";
+import { useState } from "react";
 
 export default function BoardCommentWriteUI(props) {
+  // const [value, setValue] = useState(0);
+  // function handleChange() {
+  //   setValue(value);
+  // }
+
+  // const [value, setValue] = useState(0);
+
+  // function handleChange(value: Number) {
+  //   setValue(value);
+  // }
   return (
     <A.Wrapper>
-      {!props.isEdit && (
-        <>
-          <span>댓글</span>
-        </>
-      )}
-
-      <A.InputWrapper>
-        <A.Input
-          placeholder="작성자"
-          readOnly={props.el?.wrtier}
-          defaultValue={props.el?.writer || ""}
-          onChange={props.onChangeMyWriter}
-        />
-        <A.Input
-          type="비밀번호"
-          placeholder="비밀번호"
-          onChange={props.onChangeMyPassword}
-        />
-      </A.InputWrapper>
-      <A.ContentsWrapper>
-        <A.Contents
-          maxLength={100}
-          defaultValue={props.el?.contents}
-          placeholder="개인정보를 공유 및 요청하거
-나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 
-이에 대한 민형사상 책임은 게시자에게 있습니다."
-          onChange={props.onChangeMyContents}
-        />
-        <A.BottomWrapper>
-          <A.ContentsLength>{props.myContents.length}/100</A.ContentsLength>
-          <A.Button
-            onClick={props.isEdit ? props.onClickUpdate : props.onClickWrite}
-          >
-            {props.isEdit ? "수정하기" : "등록하기"}
-          </A.Button>
-        </A.BottomWrapper>
-      </A.ContentsWrapper>
+      <A.CommentCreate>
+        <A.CommentTop>
+          <A.CommentWriteName
+            placeholder="작성자"
+            readOnly={props.el?.writer}
+            defaultValue={props.el?.writer || ""}
+            onChange={props.onChangeMyWriter}
+          ></A.CommentWriteName>
+          <A.CommentWritePassword
+            type="password"
+            placeholder="비밀번호"
+            onChange={props.onChangeMyPassword}
+          ></A.CommentWritePassword>
+          <A.Rate>
+            {" "}
+            <span>
+              <Rate onChange={props.onChangeStar} />
+            </span>
+          </A.Rate>
+        </A.CommentTop>
+        <A.CommentWrite>
+          <A.CommentInput
+            placeholder="댓글을 입력해주세요"
+            maxLength={100}
+            defaultValue={props.el?.contents}
+            onChange={props.onChangeMyContents}
+          ></A.CommentInput>
+          <A.CommentBottom>
+            <A.CommentWords>
+              <span>{props.myContents.length}</span>/100
+            </A.CommentWords>
+            <A.CommentSubmitButton
+              onClick={props.isEdit ? props.onClickUpdate : props.onClickWrite}
+            >
+              {props.isEdit ? "수정하기" : "등록하기"}
+            </A.CommentSubmitButton>
+          </A.CommentBottom>
+        </A.CommentWrite>
+      </A.CommentCreate>
     </A.Wrapper>
   );
 }

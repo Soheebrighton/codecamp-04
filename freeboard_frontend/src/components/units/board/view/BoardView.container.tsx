@@ -11,6 +11,7 @@ import {
 } from "./BoardView.queries";
 import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
+import { Modal } from "antd";
 
 // const DELETE_BOARD = gql`
 //   mutation deleteBoard($boardId: ID!) {
@@ -60,7 +61,9 @@ export default function BoardView() {
     } catch (error) {
       alert(error.message);
     }
-    alert("게시물이 삭제되었습니다.");
+    Modal.success({
+      content: "게시물이 정상적으로 삭제되었습니다.",
+    });
     router.push(`/boards/list`);
   }
 

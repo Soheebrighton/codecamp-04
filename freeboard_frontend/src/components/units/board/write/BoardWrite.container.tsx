@@ -11,6 +11,7 @@ export default function BoardWrite(props) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -97,6 +98,10 @@ export default function BoardWrite(props) {
     }
   }
 
+  function saveYoutubeUrl(event) {
+    setYoutubeUrl(event.target.value);
+  }
+
   function checkValid() {
     if (name && password && title && content) {
       submit();
@@ -145,11 +150,12 @@ export default function BoardWrite(props) {
           password: password,
           title: title,
           contents: content,
+          youtubeUrl: youtubeUrl,
         },
       },
     });
 
-    console.log(result);
+    console.log(result.data.createBoard.youtubeUrl);
     result.data.createBoard._id;
     router.push(`/boards/${result.data.createBoard._id}`);
   }
@@ -200,6 +206,7 @@ export default function BoardWrite(props) {
       editBoard={editBoard}
       bbb={myBbb}
       data={data}
+      saveYoutubeUrl={saveYoutubeUrl}
     ></BoardWriteUI>
   );
 }

@@ -88,6 +88,7 @@ export default function BoardWriteUI(props) {
             <A.YoutubeLinkInput
               type="text"
               placeholder="링크를 복사해주세요."
+              onChange={props.saveYoutubeUrl}
             ></A.YoutubeLinkInput>
           </A.Youtube>
 
