@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { ISubmitButtonProps } from "./BoardWrite.types";
+
 // import styled from "styled-components";
 
 export const Title = styled.div`
@@ -144,7 +146,7 @@ export const PostcodeSpan = styled.span`
 `;
 
 export const AddressPostcodeInput = styled.input`
-  width: 60px;
+  width: 65px;
   padding: 10px;
   height: 32px;
   border: 1px solid lightgray;
@@ -172,7 +174,7 @@ export const AddressPostcodeButton = styled.button`
 
 export const AddressMainInput = styled.input`
   width: 100%;
-
+  padding: 10px;
   height: 32px;
   border: 1px solid lightgray;
   border-radius: 4px;
@@ -304,7 +306,8 @@ export const SubmitButton = styled.button`
   background-color: ${(props) =>
     props.MyAaa === true ? "#b36bff" : "#ededed"};
 
-  color: ${(props) => (props.MyBbb === true ? "white" : "gray")};
+  color: ${(props: ISubmitButtonProps) =>
+    props.MyBbb === true ? "white" : "gray"};
 `;
 
 export const Wrapper = styled.div`
@@ -323,11 +326,7 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Radio = styled.input`
-  &:checked {
-    background-color: yellow;
-  }
-`;
+export const Radio = styled.input``;
 
 export const Label = styled.label`
   padding-left: 5px;

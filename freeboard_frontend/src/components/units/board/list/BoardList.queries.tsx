@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 export const FETCH_BOARDS = gql`
-  query {
-    fetchBoards {
+  query fetchboards($page: Int) {
+    fetchBoards(page: $page) {
       _id
       writer
       title
@@ -12,7 +12,7 @@ export const FETCH_BOARDS = gql`
 `;
 
 export const FETCH_BOARDS_OF_THE_BEST = gql`
-  query {
+  query fetchBoardsOfTheBest {
     fetchBoardsOfTheBest {
       _id
       writer
@@ -38,5 +38,12 @@ export const FETCH_BOARD = gql`
 export const DELETE_BOARD = gql`
   mutation deleteBoard($boardId: ID!) {
     deleteBoard(boardId: $boardId)
+  }
+`;
+
+/// 페이지네이션 ///
+export const FETCH_BOARDS_COUNT = gql`
+  query fetchBoardsCount {
+    fetchBoardsCount
   }
 `;

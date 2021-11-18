@@ -1,4 +1,4 @@
-import * as A from "../../../../../styles/list";
+import * as A from "./BoardList.styles";
 
 export default function BoardListUI(props) {
   return (
@@ -50,6 +50,23 @@ export default function BoardListUI(props) {
             </A.ColumnDelete>
           </A.Row>
         ))}
+        <A.Pages>
+          <A.PrevPage onClick={props.onClickPagePrev}>이전페이지</A.PrevPage>
+          <A.PageNums onClick={props.onClickPage}>
+            {" "}
+            {new Array(10).fill(1).map((_, index) => (
+              <span
+                key={props.startPage + index}
+                onClick={props.onClickPage}
+                id={String(props.startPage + index)}
+                style={{ margin: "10px", cursor: "pointer" }}
+              >
+                {props.startPage + index}
+              </span>
+            ))}{" "}
+          </A.PageNums>
+          <A.NextPage onClick={props.onClickPageNext}>다음페이지</A.NextPage>
+        </A.Pages>
       </A.Wrapper>
 
       {/* //버튼 */}

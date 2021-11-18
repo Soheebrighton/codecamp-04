@@ -14,11 +14,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "antd";
+import { IBoardCommentListUIItemProps } from "./BoardCommentList.types";
+import {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
 
-export default function BoardCommentListUIItem(props) {
+export default function BoardCommentListUIItem(
+  props: IBoardCommentListUIItemProps
+) {
   const router = useRouter();
   const [isEdit, setIsEdit] = useState(false);
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
 
   function onClickUpdate() {
     setIsEdit(true);

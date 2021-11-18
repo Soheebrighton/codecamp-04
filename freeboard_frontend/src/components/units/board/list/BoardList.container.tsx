@@ -4,21 +4,33 @@ import {
   FETCH_BOARDS_OF_THE_BEST,
   FETCH_BOARD,
   DELETE_BOARD,
+  FETCH_BOARDS_COUNT,
 } from "./BoardList.queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useState, ChangeEvent } from "react";
+import {
+  IMutation,
+  IMutationDeleteBoardArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardList() {
   const router = useRouter();
   /////////////// 데이터들 //////////////
   const { data: dataForBest } = useQuery(FETCH_BOARDS_OF_THE_BEST);
-  const { data: dataForBoards } = useQuery(FETCH_BOARDS);
-  const [deleteBoard] = useMutation(DELETE_BOARD);
+  const { data: dataForBoards, refetch } = useQuery(FETCH_BOARDS, {
+    variables: { page: 1 },
+  });
+  const { data: dataForCount } = useQuery(FETCH_BOARDS_COUNT);
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
 
   const { data: dataForEachBoard } = useQuery(FETCH_BOARD);
   ////////////////////////////////////
   ////////////// 클릭 ///////////////
-  async function onClickDelete(event) {
+  async function onClickDelete(event: ChangeEvent<HTMLInputElement>) {
     try {
       await deleteBoard({
         variables: { boardId: event.target.id },
@@ -32,9 +44,31 @@ export default function BoardList() {
     router.push(`/boards/new`);
   }
 
-  function onClickView(event) {
+  function onClickView(event: ChangeEvent<HTMLInputElement>) {
     console.log("상세보기로 이동");
     router.push(`/boards/${event.target.id}`);
+  }
+  ////// 페이지네이션 //////////
+
+  const [startPage, setStartPage] = useState(1);
+
+  const lastPage = dataForCount
+    ? Math.ceil(dataForCount?.fetchBoardsCount / 10)
+    : 0;
+
+  function onClickPagePrev() {
+    setStartPage((prev) => prev - 10);
+    console.log("이전");
+    console.log(dataForCount);
+  }
+
+  function onClickPageNext() {
+    setStartPage((prev) => prev + 10);
+    console.log("다음");
+  }
+
+  function onClickPage(event) {
+    refetch({ page: Number(event.target.id) });
   }
 
   /////////////////////////////////////
@@ -47,6 +81,11 @@ export default function BoardList() {
       onClickNew={onClickNew}
       onClickView={onClickView}
       dataForEachBoard={dataForEachBoard}
+      onClickPagePrev={onClickPagePrev}
+      onClickPageNext={onClickPageNext}
+      onClickPage={onClickPage}
+      startPage={startPage}
+      lastPage={lastPage}
     ></BoardListUI>
   );
 }

@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import BoardCommentWriteUI from "./BoardCommentWrite.presenter";
 import {
@@ -8,6 +8,11 @@ import {
   UPDATE_BOARD_COMMENT,
 } from "./BoardCommentWrite.queries";
 import { Modal } from "antd";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardCommentWrite(props) {
   const router = useRouter();
@@ -16,22 +21,28 @@ export default function BoardCommentWrite(props) {
   const [myContents, setMyContents] = useState("");
   const [myStar, setMyStar] = useState(0);
 
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
 
-  function onChangeMyWriter(event) {
+  function onChangeMyWriter(event: ChangeEvent<HTMLInputElement>) {
     setMyWriter(event.target.value);
   }
 
-  function onChangeMyPassword(event) {
+  function onChangeMyPassword(event: ChangeEvent<HTMLInputElement>) {
     setMyPassword(event.target.value);
   }
 
-  function onChangeMyContents(event) {
+  function onChangeMyContents(event: ChangeEvent<HTMLInputElement>) {
     setMyContents(event.target.value);
   }
 
-  function onChangeStar(value) {
+  function onChangeStar(value: number) {
     setMyStar(value);
   }
 

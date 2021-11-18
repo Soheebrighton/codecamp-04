@@ -12,6 +12,11 @@ import {
 import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Modal } from "antd";
+import {
+  IMutation,
+  IMutationDeleteBoardArgs,
+  IMutationLikeBoardArgs,
+} from "../../../../commons/types/generated/types";
 
 // const DELETE_BOARD = gql`
 //   mutation deleteBoard($boardId: ID!) {
@@ -22,8 +27,14 @@ import { Modal } from "antd";
 export default function BoardView() {
   const router = useRouter();
 
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-  const [likeBoard] = useMutation(LIKE_BOARD);
+  const [deleteBoard] = useMutation<
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
+  const [likeBoard] = useMutation<
+    Pick<IMutation, "likeBoard">,
+    IMutationLikeBoardArgs
+  >(LIKE_BOARD);
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);

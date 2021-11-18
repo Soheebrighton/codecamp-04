@@ -1,8 +1,12 @@
-import * as A from "../../../../../styles/new";
+import * as A from "./BoardWrite.styles";
+import DaumPostcode from "react-daum-postcode";
+import { useState } from "react";
+import { Modal } from "antd";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
 // 스타일에서 한꺼번에 다 받기
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <>
       <A.Main>
@@ -68,18 +72,36 @@ export default function BoardWriteUI(props) {
                   type="text"
                   placeholder="00000"
                   maxLength="5"
+                  value={props.myZonecode}
                 ></A.AddressPostcodeInput>
               </A.PostcodeSpan>
 
-              <A.AddressPostcodeButton>우편번호 검색</A.AddressPostcodeButton>
+              <A.AddressPostcodeButton onClick={props.showModal}>
+                우편번호 검색
+              </A.AddressPostcodeButton>
+              {props.isModalVisible && (
+                <Modal
+                  visible={true}
+                  onOk={props.handleOk}
+                  onCancel={props.handleCancel}
+                >
+                  <DaumPostcode onComplete={props.handleComplete} />
+                </Modal>
+              )}
             </A.PostcodeWrapper>
 
             <A.AddressMain>
-              <A.AddressMainInput type="text"></A.AddressMainInput>
+              <A.AddressMainInput
+                type="text"
+                value={props.myAddress}
+              ></A.AddressMainInput>
             </A.AddressMain>
 
             <A.AddressOptional>
-              <A.AddressOptionalInput type="text"></A.AddressOptionalInput>
+              <A.AddressOptionalInput
+                type="text"
+                onChange={props.onChangeOptionalAddress}
+              ></A.AddressOptionalInput>
             </A.AddressOptional>
           </A.Address>
 

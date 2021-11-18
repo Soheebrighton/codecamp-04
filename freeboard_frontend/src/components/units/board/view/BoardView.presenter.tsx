@@ -1,11 +1,12 @@
-import * as A from "../../../../../styles/view";
+import * as A from "./BoardView.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import styled from "@emotion/styled";
+import { IBoardDetailUIProps } from "./BoardView.types";
 
 const MyYoutube = styled(ReactPlayer)``;
-export default function BoardViewUI(props) {
+export default function BoardViewUI(props: IBoardDetailUIProps) {
   return (
     <>
       <A.Main>

@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
+import { IBoardWriteProps } from "./BoardWrite.types";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+} from "../../../../commons/types/generated/types";
 
-export default function BoardWrite(props) {
+export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -27,9 +33,15 @@ export default function BoardWrite(props) {
   //     setMyAaa(false);
   //   }
 
-  const [createBoard] = useMutation(CREATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
 
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.myId },
@@ -39,7 +51,7 @@ export default function BoardWrite(props) {
 
   console.log(createBoard);
 
-  function saveName(event) {
+  function saveName(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
     if (
       event.target.value !== "" &&
@@ -55,7 +67,7 @@ export default function BoardWrite(props) {
     }
   }
 
-  function savePassword(event) {
+  function savePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
     if (
       name !== "" &&
@@ -71,7 +83,7 @@ export default function BoardWrite(props) {
     }
   }
 
-  function saveTitle(event) {
+  function saveTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
     if (
       name !== "" &&
@@ -87,7 +99,7 @@ export default function BoardWrite(props) {
     }
   }
 
-  function saveContent(event) {
+  function saveContent(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
     if (name && password && title && event.target.value) {
       setMyAaa(true);
@@ -98,7 +110,7 @@ export default function BoardWrite(props) {
     }
   }
 
-  function saveYoutubeUrl(event) {
+  function saveYoutubeUrl(event: ChangeEvent<HTMLInputElement>) {
     setYoutubeUrl(event.target.value);
   }
 
@@ -151,6 +163,11 @@ export default function BoardWrite(props) {
           title: title,
           contents: content,
           youtubeUrl: youtubeUrl,
+          boardAddress: {
+            zipcode: myZonecode,
+            address: myAddress,
+            addressDetail: optionalAddress,
+          },
         },
       },
     });
@@ -188,6 +205,36 @@ export default function BoardWrite(props) {
     router.push(`/boards/${result.data.updateBoard._id}`);
   }
 
+  //// 우편번호 모달////
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [myAddress, setMyAddress] = useState("");
+  const [myZonecode, setMyZonecode] = useState("");
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleComplete = (data: any) => {
+    console.log(data.roadAddress);
+    // 모달 종료하기
+    setMyAddress(data.address);
+    setMyZonecode(data.zonecode);
+    setIsModalVisible(false);
+  };
+
+  const [optionalAddress, setOptionalAddress] = useState("");
+
+  function onChangeOptionalAddress(event: ChangeEvent<HTMLInputElement>) {
+    setOptionalAddress(event.target.value);
+  }
   return (
     <BoardWriteUI
       saveName={saveName}
@@ -207,6 +254,15 @@ export default function BoardWrite(props) {
       bbb={myBbb}
       data={data}
       saveYoutubeUrl={saveYoutubeUrl}
+      showModal={showModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      handleComplete={handleComplete}
+      isModalVisible={isModalVisible}
+      myAddress={myAddress}
+      myZonecode={myZonecode}
+      onChangeOptionalAddress={onChangeOptionalAddress}
+      optionalAddress={optionalAddress}
     ></BoardWriteUI>
   );
 }
