@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-export default function HelloStatePage() {
-  const bbb = Number(document.getElementById("hi").innerText);
-  const [aaa, SetAaa] = useState(0);
+export default function CounterStatePage(){
 
-  function hello() {
-    SetAaa("반갑습니다");
-  }
-  return (
-    <>
-      <div id="hi">{aaa}</div>
-      <button onClick={hello}>카운트증가</button>
-    </>
-  );
+    const [ qqq, setQqq ] = useState(0)
+
+    function zzz(){
+        setQqq(qqq + 1)
+    }
+
+    return (
+        <>
+            <div>{qqq}</div>
+            <button onClick={zzz}>카운트증가!!</button>
+        </>
+    )
+
 }

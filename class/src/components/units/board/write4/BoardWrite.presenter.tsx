@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
 import { MyInput, MyButton } from "./BoardWrite.styles";
-import { IBoardWriteUIprops } from "./BoardWrite.types";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-export default function BoardWriteUI(props: IBoardWriteUIprops) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
+  console.log(props.data);
   return (
     <>
       작성자:{" "}
@@ -25,24 +25,18 @@ export default function BoardWriteUI(props: IBoardWriteUIprops) {
         onChange={props.ccc}
         defaultValue={props.data?.fetchBoard.contents}
       />
-      {/* <MyButton onClick={props.ggg ? props.xxx : props.zzz} MyQqq={props.qqq}> */}
-      {/* <MyButton onClick={props.xxx} MyQqq={props.qqq}>
-        게시물 {props.ggg ? "수정" : "등록"}하기
-      </MyButton> */}
+      <br />
+      {/* <MyButton onClick={props.ggg ? props.xxx : props.zzz} qqq={props.qqq}>게시물 {props.ggg ? "수정" : "등록"}하기!!!</MyButton> */}
       {!props.ggg && (
-        <MyButton onClick={props.zzz} myQqq={props.qqq}>
-          게시물 등록하기
+        <MyButton onClick={props.zzz} qqq={props.qqq}>
+          게시물 등록하기!!!
         </MyButton>
       )}
       {props.ggg && (
-        <MyButton onClick={props.xxx} myQqq={props.qqq}>
-          게시물 수정하기
+        <MyButton onClick={props.xxx} qqq={props.qqq}>
+          게시물 수정하기!!!
         </MyButton>
       )}
-      {/* <MyButton onClick={props.xxx} MyQqq={props.qqq}>
-        게시물 {props.ggg ? "수정" : "등록"}하기
-      </MyButton> */}
-      {/* // mybutton 도 하나의 컴포넌트 */}
     </>
   );
 }

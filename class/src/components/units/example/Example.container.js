@@ -1,5 +1,5 @@
 import ExampleUI from "./Example.presenter";
 
-export default function Example(props) {
-  return <ExampleUI isEdit={props.isEdit}></ExampleUI>;
+export default function Example(props){
+    return <ExampleUI isEdit={props.isEdit}/>
 }

@@ -1,4 +1,4 @@
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/youtube";
 import styled from "@emotion/styled";
 
 const MyYoutube = styled(ReactPlayer)`

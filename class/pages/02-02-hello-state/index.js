@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-export default function HelloStatePage() {
-  const [aaa, SetAaa] = useState("안녕하세요");
+export default function HelloStatePage(){
 
-  function hello() {
-    SetAaa("반갑습니다");
-  }
-  return (
-    <>
-      <div>{aaa}</div>
-      <button onClick={hello}>버튼클릭</button>
-    </>
-  );
+    const [ qqq, setQqq ] = useState("안녕하세요")
+
+    function zzz(){
+        setQqq("반갑습니다")
+    }
+
+    return (
+        <>
+            <div>{qqq}</div>
+            <button onClick={zzz}>버튼클릭!!!</button>
+        </>
+    )
+
 }

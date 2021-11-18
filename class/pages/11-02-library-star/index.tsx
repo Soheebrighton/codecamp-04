@@ -1,11 +1,10 @@
-import { Rate } from "antd";
 import { useState } from "react";
+import { Rate } from "antd";
 
 export default function LibraryStarPage() {
-  // const desc = ['terrible,' 'bad', 'normal', 'good', 'wonderful']
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(3);
 
-  function handleChange(value: Number) {
+  function handleChange(value: number) {
     setValue(value);
   }
 

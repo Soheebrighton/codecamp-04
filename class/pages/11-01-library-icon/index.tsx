@@ -1,11 +1,11 @@
-import { PlayCircleOutlined } from "@ant-design/icons";
+import { StepForwardOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
-const MyIcon = styled(PlayCircleOutlined)`
+const MyIcon = styled(StepForwardOutlined)`
   font-size: 50px;
-  color: salmon;
+  color: red;
 `;
 
 export default function LibraryIconPage() {
-  return <MyIcon id="aaa" />;
+  return <MyIcon />;
 }
