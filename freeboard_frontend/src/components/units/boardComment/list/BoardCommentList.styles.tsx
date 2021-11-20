@@ -10,12 +10,12 @@ export const Wrapper = styled.div`
 `;
 
 export const CommentView = styled.div`
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid #f5f5f5;
   padding-bottom: 20px;
   display: flex;
   flex-direction: row;
   padding-top: 20px;
-  width: 800px;
+  width: 880px;
 `;
 
 export const CommentProfilePhoto = styled.div`

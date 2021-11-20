@@ -11,9 +11,9 @@ import {
 export default function BoardCommentWrite(props) {
   //새 댓글의 작성자, 비밀번호, 내용의 값을 변수에 담기//
   const router = useRouter();
-  const [myWriter, setMyWriter] = useState("");
-  const [myPassword, setMyPassword] = useState("");
-  const [myContents, setMyContents] = useState("");
+  const [writer, setMyWriter] = useState("");
+  const [password, setMyPassword] = useState("");
+  const [contents, setMyContents] = useState("");
   ///// ///// //// ///// /////
 
   const [createBoardComment] = useMutation(CREATED_BOARD_COMMENT);
@@ -36,9 +36,9 @@ export default function BoardCommentWrite(props) {
       await createBoardComment({
         variables: {
           createBoardCommentInput: {
-            writer: myWriter,
-            password: myPassword,
-            contents: myContents,
+            writer: writer,
+            password: password,
+            contents: contents,
             rating: 0,
           },
           boardId: String(router.query.myId),

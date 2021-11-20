@@ -7,7 +7,7 @@ export default function BannerUI() {
   }
 
   const contentStyle = {
-    height: "160px",
+    height: "300px",
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",
@@ -19,7 +19,9 @@ export default function BannerUI() {
       {" "}
       <Carousel afterChange={onChange}>
         <div>
-          <h3 style={contentStyle}>1</h3>
+          <h3 style={contentStyle}>
+            <img src="/images/캐러셀이미지.png" />
+          </h3>
         </div>
         <div>
           <h3 style={contentStyle}>2</h3>

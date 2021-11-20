@@ -1,6 +1,6 @@
 import * as A from "./BoardView.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import styled from "@emotion/styled";
 import { IBoardDetailUIProps } from "./BoardView.types";
@@ -28,7 +28,7 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
             <A.Profile>
               {" "}
               <A.Name>{props.data?.fetchBoard.writer}</A.Name>{" "}
-              {/* <FontAwesomeIcon icon={faLink} color="#c8c2fc" /> */}
+              {/* <FontAwesomeIcon icon={faLink} color="#1dbc67" /> */}
               <A.ProfilePhoto>
                 <img
                   src="/images/icon_noprofile.png"
@@ -50,7 +50,7 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
           <A.Likes>
             <A.Like onClick={props.onClickLike}>
               <div>
-                <FontAwesomeIcon icon={faThumbsUp} color="#c8c2fc" />
+                <FontAwesomeIcon icon={faLeaf} color="#1dbc67" />
               </div>
               <A.LikesText>{props.data?.fetchBoard.likeCount}</A.LikesText>
             </A.Like>
@@ -62,7 +62,7 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
             <LikesText>123</LikesText>
           </Dislike> */}
           </A.Likes>
-        </A.Wrapper>
+        </A.Wrapper>{" "}
         <A.ListButton onClick={props.onClickList}>목록으로</A.ListButton>
       </A.Main>
     </>

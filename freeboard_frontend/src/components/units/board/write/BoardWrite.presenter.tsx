@@ -15,9 +15,10 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             {!props.isEdit && <span>게시물 등록</span>}
             {props.isEdit && <span>게시물 수정</span>}
           </A.Title>
+          <A.Bar></A.Bar>
           <A.Writer>
             <A.WriterDiv>
-              <A.WriterNameTitle>작성자</A.WriterNameTitle>
+              <A.Titles>작성자</A.Titles>
               <A.WriterName
                 type="text"
                 placeholder="이름을 입력해주세요."
@@ -28,7 +29,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             </A.WriterDiv>
 
             <A.WriterDiv>
-              <A.WriterPasswordTitle>비밀번호</A.WriterPasswordTitle>
+              <A.Titles>비밀번호</A.Titles>
 
               <A.WriterPassword
                 type="password"
@@ -40,7 +41,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.Writer>
 
           <A.PostTitle>
-            <A.PostTitleTitle>제목</A.PostTitleTitle>
+            <A.Titles>제목</A.Titles>
 
             <A.PostTitleInput
               type="text"
@@ -52,7 +53,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.PostTitle>
 
           <A.PostContent>
-            <A.PostContentTitle>내용</A.PostContentTitle>
+            <A.Titles>내용</A.Titles>
             <A.PostContentInput
               type="text"
               placeholder="내용을 작성해주세요."
@@ -63,7 +64,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.PostContent>
 
           <A.Address>
-            <A.AddressTitle>주소</A.AddressTitle>
+            <A.Titles>주소</A.Titles>
 
             <A.PostcodeWrapper>
               <A.PostcodeSpan>
@@ -106,7 +107,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.Address>
 
           <A.Youtube>
-            <A.YoutubeTitle>유튜브</A.YoutubeTitle>
+            <A.Titles>유튜브</A.Titles>
             <A.YoutubeLinkInput
               type="text"
               placeholder="링크를 복사해주세요."
@@ -115,7 +116,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.Youtube>
 
           <A.UploadImages>
-            <A.UploadImagesTitle>사진첨부</A.UploadImagesTitle>
+            <A.Titles>사진첨부</A.Titles>
             <A.UploadImageDiv>
               <A.UploadImage>
                 <div>
@@ -142,7 +143,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           </A.UploadImages>
 
           <A.MainSetting>
-            <A.MainSettingTitle>메인설정</A.MainSettingTitle>
+            <A.Titles>메인설정</A.Titles>
 
             <A.Radio
               type="radio"

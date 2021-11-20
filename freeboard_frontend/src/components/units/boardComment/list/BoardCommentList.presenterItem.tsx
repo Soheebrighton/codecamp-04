@@ -112,12 +112,12 @@ export default function BoardCommentListUIItem(
               {/* <EditOutlined /> */}
               <A.CommentEdit onClick={onClickUpdate}>
                 {" "}
-                <FontAwesomeIcon icon={faEdit} color="#c8c2fc" />
+                <FontAwesomeIcon icon={faEdit} color="#eeeeee" />
               </A.CommentEdit>
               {/* <A.CommentDelete onClick={onClickDelete}> */}
               <A.CommentDelete onClick={showModal}>
                 {" "}
-                <FontAwesomeIcon icon={faTrashAlt} color="#c8c2fc" />
+                <FontAwesomeIcon icon={faTrashAlt} color="#eeeeee" />
                 <Modal
                   visible={isModalVisible}
                   onOk={onClickDelete}

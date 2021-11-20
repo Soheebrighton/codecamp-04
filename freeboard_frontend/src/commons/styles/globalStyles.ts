@@ -10,4 +10,19 @@ export const globalStyles = css`
     font-family: "myFont";
     src: url("/fonts/NotoSansKR-Regular.woff");
   }
+
+  @font-face {
+    font-family: "Montserrat";
+    src: url("/fonts/Montserrat-ExtraLight.ttf");
+  }
+
+  @font-face {
+    font-family: "Montserrat-Light";
+    src: url("/fonts/Montserrat-Light.ttf");
+  }
+
+  @font-face {
+    font-family: "Montserrat-Medium";
+    src: url("/fonts/Montserrat-Medium.ttf");
+  }
 `;

@@ -6,7 +6,7 @@ import {
   DELETE_BOARD,
   FETCH_BOARDS_COUNT,
 } from "./BoardList.queries";
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState, ChangeEvent } from "react";
 import {
@@ -28,6 +28,19 @@ export default function BoardList() {
   >(DELETE_BOARD);
 
   const { data: dataForEachBoard } = useQuery(FETCH_BOARD);
+
+  //// 짧은 베스트 제목 만들기 ////
+  // if (dataForBest.title >= 18) {
+  //   const shortTitle = dataForBest.title.slice(0, 18);
+  // } else {
+  // }
+
+  console.log(dataForBoards);
+
+  // const shortTitle =
+  //   dataForBest.title >= 18
+  //     ? dataForBest.title.slice(0, 18)
+  //     : dataForBest.title;
   ////////////////////////////////////
   ////////////// 클릭 ///////////////
   async function onClickDelete(event: ChangeEvent<HTMLInputElement>) {
@@ -57,12 +70,14 @@ export default function BoardList() {
     : 0;
 
   function onClickPagePrev() {
+    if (startPage === 1) return;
     setStartPage((prev) => prev - 10);
     console.log("이전");
     console.log(dataForCount);
   }
 
   function onClickPageNext() {
+    if (startPage + 10 > lastPage) return;
     setStartPage((prev) => prev + 10);
     console.log("다음");
   }

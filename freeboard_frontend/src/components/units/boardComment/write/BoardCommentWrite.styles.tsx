@@ -6,14 +6,17 @@ import styled from "@emotion/styled";
 // export const Star = styled(Rate)``;
 
 export const Wrapper = styled.div`
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: #f2f6f4; */
 `;
 
 export const CommentCreate = styled.div`
-  padding-top: 20px;
-  width: 800px;
+  padding: 60px;
+  width: 1000px;
+  background-color: white;
 `;
 
 // export const Star = styled(Rate)``;
@@ -32,7 +35,8 @@ export const CommentTop = styled.div`
 `;
 
 export const CommentWriteName = styled.input`
-  margin-right: 10px;
+  margin-right: 25px;
+  padding-bottom: 5px;
   height: 25px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
@@ -51,6 +55,7 @@ export const CommentWriteName = styled.input`
 
 export const CommentWritePassword = styled.input`
   margin-right: 10px;
+  padding-bottom: 5px;
   height: 25px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
@@ -78,21 +83,22 @@ export const CommentWrite = styled.div``;
 
 export const CommentInput = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 130px;
   padding: 10px;
   border: none;
-  border: 1px solid #dbdbdb;
-  border-radius: 4px;
+  background-color: #f2f6f4;
+  /* border: 1px solid #dbdbdb; */
+  /* border-radius: 4px; */
   &:focus {
     outline: none;
     &::placeholder {
       color: transparent;
     }
-    border: 1px solid #787878;
+    /* border: 1px solid #787878; */
   }
 
   &:hover {
-    border: 1px solid #787878;
+    /* border: 1px solid #787878; */
   }
 `;
 
@@ -117,18 +123,18 @@ export const CommentSubmitButton = styled.span`
   justify-content: center;
   width: 80px;
   height: 32px;
-  /* background-color: #988cff; */
+  /* background-color: #1dbc67; */
   /* background-color: black; */
   border-radius: 10px;
-  border: 1px solid #988cff;
+  border: 1px solid #1dbc67;
   font-size: 14px;
-  color: #988cff;
+  color: #1dbc67;
   font-weight: 600;
   align-self: center;
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
-    background-color: #988cff;
+    background-color: #1dbc67;
     color: white;
   }
 `;

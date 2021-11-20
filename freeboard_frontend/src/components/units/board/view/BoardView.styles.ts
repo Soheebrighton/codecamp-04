@@ -1,26 +1,28 @@
 import styled from "@emotion/styled";
 
 export const Main = styled.div`
-  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: #f2f6f4; */
 `;
 
 export const Wrapper = styled.div`
   padding: 60px;
-  width: 800px;
+  width: 1000px;
 
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
+  /* border-right: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb; */
   margin-bottom: 20px;
+  background-color: white;
   /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); */
 `;
 
 export const Date = styled.div`
   font-size: 13px;
+  font-family: "Montserrat";
   font-weight: 200;
   letter-spacing: 3px;
   align-self: center;

@@ -7,7 +7,14 @@ export const Title = styled.div`
   font-size: 25px;
   font-weight: 700;
   text-align: center;
-  padding-bottom: 50px;
+  padding-bottom: 3px;
+`;
+
+export const Bar = styled.div`
+  width: 60px;
+  height: 4px;
+  background-color: black;
+  align-self: center;
 `;
 
 export const Writer = styled.div`
@@ -17,8 +24,9 @@ export const Writer = styled.div`
   padding-bottom: 35px;
 `;
 
-export const WriterNameTitle = styled.div`
+export const Titles = styled.div`
   padding-bottom: 10px;
+  font-size: 16px;
   font-weight: 600;
 `;
 
@@ -39,11 +47,6 @@ export const WriterName = styled.input`
   &:hover {
     border-bottom: 1px solid #787878;
   }
-`;
-
-export const WriterPasswordTitle = styled.div`
-  padding-bottom: 10px;
-  font-weight: 600;
 `;
 
 export const WriterPassword = styled.input`
@@ -69,16 +72,13 @@ export const WriterDiv = styled.div`
   width: 48.5%;
   display: flex;
   flex-direction: column;
+  padding-top: 70px;
 `;
 
 export const PostTitle = styled.div`
   padding-bottom: 35px;
 `;
 
-export const PostTitleTitle = styled.div`
-  padding-bottom: 10px;
-  font-weight: 600;
-`;
 export const PostTitleInput = styled.input`
   width: 100%;
   padding: 10px;
@@ -102,10 +102,6 @@ export const PostContent = styled.div`
   padding-bottom: 35px;
 `;
 
-export const PostContentTitle = styled.div`
-  font-weight: 600;
-  padding-bottom: 10px;
-`;
 export const PostContentInput = styled.textarea`
   padding: 10px;
   width: 100%;
@@ -127,11 +123,6 @@ export const PostContentInput = styled.textarea`
 
 export const Address = styled.div`
   padding-bottom: 35px;
-`;
-
-export const AddressTitle = styled.div`
-  font-weight: 600;
-  padding-bottom: 10px;
 `;
 
 export const PostcodeWrapper = styled.div`
@@ -220,11 +211,6 @@ export const Youtube = styled.div`
   padding-bottom: 35px;
 `;
 
-export const YoutubeTitle = styled.div`
-  font-weight: 600;
-  padding-bottom: 10px;
-`;
-
 export const YoutubeLinkInput = styled.input`
   width: 100%;
   padding: 10px;
@@ -246,11 +232,6 @@ export const YoutubeLinkInput = styled.input`
 
 export const UploadImages = styled.div`
   padding-bottom: 35px;
-`;
-
-export const UploadImagesTitle = styled.div`
-  font-weight: 600;
-  padding-bottom: 10px;
 `;
 
 export const UploadImageDiv = styled.div`
@@ -281,11 +262,6 @@ export const MainSetting = styled.div`
   padding-bottom: 35px;
 `;
 
-export const MainSettingTitle = styled.div`
-  font-weight: 600;
-  padding-bottom: 15px;
-`;
-
 export const SubmitButton = styled.button`
   width: 150px;
   height: 42px;
@@ -312,7 +288,7 @@ export const SubmitButton = styled.button`
 
 export const Wrapper = styled.div`
   padding: 60px;
-  width: 800px;
+  width: 1000px;
   display: flex;
   flex-direction: column;
 
