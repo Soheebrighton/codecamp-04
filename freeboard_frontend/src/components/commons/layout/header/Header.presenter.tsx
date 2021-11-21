@@ -1,6 +1,6 @@
 import * as A from "./Header.styles";
 
-export default function HeaderUI() {
+export default function HeaderUI(props) {
   return (
     <A.Header>
       <A.Wrapper>
@@ -10,7 +10,7 @@ export default function HeaderUI() {
         </A.Logo>
         <A.Nav>
           <A.PageBtn>SHOP</A.PageBtn>
-          <A.PageBtn>COMMUNITY</A.PageBtn>
+          <A.PageBtn onClick={props.onClickCommunity}>COMMUNITY</A.PageBtn>
           <A.PageBtn>MY PAGE</A.PageBtn>
         </A.Nav>
         <A.LoginBtns>

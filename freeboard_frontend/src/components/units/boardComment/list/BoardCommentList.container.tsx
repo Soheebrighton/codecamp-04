@@ -6,15 +6,33 @@ import {
 } from "../../../../commons/types/generated/types";
 import BoardCommentListUI from "./BoardCommentList.presenter";
 import { FETCH_BOARD_COMMENTS } from "./BoardCommentList.queries";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function BoardCommentList() {
   const router = useRouter();
-  const { data } = useQuery<
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: String(router.query.myId) },
   });
 
-  return <BoardCommentListUI data={data} />;
+  function onLoadMore() {
+    if (!data) return;
+    fetchMore({
+      variables: { page: Math.ceil(data?.fetchBoardComments.length / 10) + 1 },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult?.fetchBoardComments)
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult?.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  }
+
+  return <BoardCommentListUI data={data} onLoadMore={onLoadMore} />;
 }

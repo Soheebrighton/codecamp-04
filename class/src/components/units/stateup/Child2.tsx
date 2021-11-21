@@ -1,15 +1,16 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export default Child2() {
-    const [ count, setCount ] = useState(0)
+export default function Child2(props) {
+  // const [count, setCount] = useState(0);
 
-    function onClickCounter( {
-        setCounter(prev => prev +1 )
-  
-    }
+  // function onClickCounter() {
+  //   setCount((prev) => prev + 1);
+  // }
 
-    return  (<>
-    <div>자식 2 {count}</div>
-    <button onClick={onClickCounter}> 카운트 올리기</button>
-  </>)
+  return (
+    <>
+      <div>자식 2 카운트 : {props.count}</div>
+      <button onClick={props.onClickCounter}> 카운트 올리기</button>
+    </>
+  );
 }

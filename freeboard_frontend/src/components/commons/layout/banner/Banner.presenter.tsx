@@ -11,7 +11,7 @@ export default function BannerUI() {
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",
-    background: "#364d79",
+    background: "white",
   };
 
   return (
@@ -20,7 +20,10 @@ export default function BannerUI() {
       <Carousel afterChange={onChange}>
         <div>
           <h3 style={contentStyle}>
-            <img src="/images/캐러셀이미지.png" />
+            <A.Wrapper>
+              {" "}
+              <img src="/images/캐러셀이미지.png" />
+            </A.Wrapper>
           </h3>
         </div>
         <div>

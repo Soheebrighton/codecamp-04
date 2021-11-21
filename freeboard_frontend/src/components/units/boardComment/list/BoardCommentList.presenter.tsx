@@ -1,12 +1,16 @@
 import BoardCommentListUIItem from "./BoardCommentList.presenterItem";
 import { IBoardCommentListUIProps } from "./BoardCommentList.types";
+import InfiniteScroll from "react-infinite-scroller";
+import { PrevPage } from "../../board/list/BoardList.styles";
 
 export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   return (
     <>
-      {props.data?.fetchBoardComments.map((el) => (
-        <BoardCommentListUIItem key={el._id} el={el} />
-      ))}
+      <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
+        {props.data?.fetchBoardComments.map((el) => (
+          <BoardCommentListUIItem key={el._id} el={el} />
+        ))}
+      </InfiniteScroll>
     </>
   );
 }
