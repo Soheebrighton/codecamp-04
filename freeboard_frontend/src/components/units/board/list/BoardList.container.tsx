@@ -55,26 +55,26 @@ export default function BoardList() {
 
   const [startPage, setStartPage] = useState(1);
 
-  const lastPage = dataForCount
-    ? Math.ceil(dataForCount?.fetchBoardsCount / 10)
-    : 0;
+  // const lastPage = dataForCount
+  //   ? Math.ceil(dataForCount?.fetchBoardsCount / 10)
+  //   : 0;
 
-  function onClickPagePrev() {
-    if (startPage === 1) return;
-    setStartPage((prev) => prev - 10);
-    console.log("이전");
-    console.log(dataForCount);
-  }
+  // function onClickPagePrev() {
+  //   if (startPage === 1) return;
+  //   setStartPage((prev) => prev - 10);
+  //   console.log("이전");
+  //   console.log(dataForCount);
+  // }
 
-  function onClickPageNext() {
-    if (startPage + 10 > lastPage) return;
-    setStartPage((prev) => prev + 10);
-    console.log("다음");
-  }
+  // function onClickPageNext() {
+  //   if (startPage + 10 > lastPage) return;
+  //   setStartPage((prev) => prev + 10);
+  //   console.log("다음");
+  // }
 
-  function onClickPage(event) {
-    refetch({ page: Number(event.target.id) });
-  }
+  // function onClickPage(event) {
+  //   refetch({ page: Number(event.target.id) });
+  // }
 
   /////////////////////////////////////
   return (
@@ -86,12 +86,14 @@ export default function BoardList() {
       onClickNew={onClickNew}
       onClickView={onClickView}
       dataForEachBoard={dataForEachBoard}
-      onClickPagePrev={onClickPagePrev}
-      onClickPageNext={onClickPageNext}
-      onClickPage={onClickPage}
+      // onClickPagePrev={onClickPagePrev}
+      // onClickPageNext={onClickPageNext}
+      // onClickPage={onClickPage}
       startPage={startPage}
-      lastPage={lastPage}
+      // lastPage={lastPage}
       refetch={refetch}
+      count={dataForCount?.fetchBoardsCount}
+      setStartPage={setStartPage}
     ></BoardListUI>
   );
 }

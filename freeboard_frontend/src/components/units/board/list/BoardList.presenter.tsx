@@ -4,6 +4,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
 
 export default function BoardListUI(props) {
   return (
@@ -64,7 +65,7 @@ export default function BoardListUI(props) {
             </A.ColumnDelete> */}
           </A.Row>
         ))}
-        <A.Pages>
+        {/* <A.Pages>
           <A.PrevPage onClick={props.onClickPagePrev}>
             {" "}
             <FontAwesomeIcon icon={faAngleLeft} color="#0dc56c" />
@@ -92,8 +93,13 @@ export default function BoardListUI(props) {
               <FontAwesomeIcon icon={faAngleRight} color="#0dc56c" />
             </span>
           </A.NextPage>
-        </A.Pages>
-        <A.Pages>{props.startPage}</A.Pages>
+        </A.Pages> */}
+        <Paginations01
+          refetch={props.refetch}
+          count={props.count}
+          startPage={props.startPage}
+          setStartPage={props.setStartPage}
+        />
       </A.Wrapper>
 
       {/* //버튼 */}

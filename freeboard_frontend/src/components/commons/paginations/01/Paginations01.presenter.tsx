@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-export default function Paginations01UI() {
+export default function Paginations01UI(props) {
   return (
     <A.Pages>
       <A.PrevPage onClick={props.onClickPagePrev}>
