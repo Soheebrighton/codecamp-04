@@ -29,18 +29,8 @@ export default function BoardList() {
 
   const { data: dataForEachBoard } = useQuery(FETCH_BOARD);
 
-  //// 짧은 베스트 제목 만들기 ////
-  // if (dataForBest.title >= 18) {
-  //   const shortTitle = dataForBest.title.slice(0, 18);
-  // } else {
-  // }
-
   console.log(dataForBoards);
 
-  // const shortTitle =
-  //   dataForBest.title >= 18
-  //     ? dataForBest.title.slice(0, 18)
-  //     : dataForBest.title;
   ////////////////////////////////////
   ////////////// 클릭 ///////////////
   async function onClickDelete(event: ChangeEvent<HTMLInputElement>) {
@@ -101,6 +91,7 @@ export default function BoardList() {
       onClickPage={onClickPage}
       startPage={startPage}
       lastPage={lastPage}
+      refetch={refetch}
     ></BoardListUI>
   );
 }

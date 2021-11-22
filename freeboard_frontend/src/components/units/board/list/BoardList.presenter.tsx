@@ -93,6 +93,7 @@ export default function BoardListUI(props) {
             </span>
           </A.NextPage>
         </A.Pages>
+        <A.Pages>{props.startPage}</A.Pages>
       </A.Wrapper>
 
       {/* //버튼 */}
