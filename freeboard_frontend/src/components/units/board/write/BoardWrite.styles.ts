@@ -280,10 +280,10 @@ export const SubmitButton = styled.button`
     color: white;
   }
   background-color: ${(props) =>
-    props.MyAaa === true ? "#b36bff" : "#ededed"};
+    props.changeBtnBC === true ? "#1dbc67" : "#ededed"};
 
   color: ${(props: ISubmitButtonProps) =>
-    props.MyBbb === true ? "white" : "gray"};
+    props.changeBtnColor === true ? "gray" : "white"};
 `;
 
 export const Wrapper = styled.div`

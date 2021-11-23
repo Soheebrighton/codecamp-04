@@ -2,9 +2,9 @@ import * as A from "./Banner.styles";
 import { Carousel } from "antd";
 
 export default function BannerUI() {
-  function onChange(a, b, c) {
-    console.log(a, b, c);
-  }
+  // function onChange(a, b, c) {
+  //   console.log(a, b, c);
+  // }
 
   const contentStyle = {
     height: "300px",
@@ -14,10 +14,18 @@ export default function BannerUI() {
     background: "white",
   };
 
+  const contentStyle2 = {
+    height: "300px",
+    color: "#80e957",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#80e957",
+  };
+
   return (
     <A.Banner>
       {" "}
-      <Carousel afterChange={onChange}>
+      <Carousel autoplay>
         <div>
           <h3 style={contentStyle}>
             <A.Wrapper>
@@ -27,10 +35,22 @@ export default function BannerUI() {
           </h3>
         </div>
         <div>
-          <h3 style={contentStyle}>2</h3>
+          <h3 style={contentStyle}>
+            {" "}
+            <A.Wrapper>
+              {" "}
+              <img src="/images/캐러셀이미지_zero.png" />
+            </A.Wrapper>
+          </h3>
         </div>
         <div>
-          <h3 style={contentStyle}>3</h3>
+          <h3 style={contentStyle2}>
+            {" "}
+            <A.Wrapper>
+              {" "}
+              <img src="/images/캐러셀이미지_less.png" />
+            </A.Wrapper>
+          </h3>
         </div>
         <div>
           <h3 style={contentStyle}>4</h3>

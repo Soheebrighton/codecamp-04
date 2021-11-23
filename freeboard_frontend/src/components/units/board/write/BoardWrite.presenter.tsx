@@ -170,15 +170,18 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           {!props.isEdit && (
             <A.SubmitButton
               onClick={props.checkValid}
-              MyAaa={props.aaa}
-              MyBbb={props.bbb}
+              changeBtnBC={props.changeBtnBC}
+              changeBtnColor={props.changeBtnColor}
             >
               <div>등록하기</div>
             </A.SubmitButton>
           )}
 
           {props.isEdit && (
-            <A.SubmitButton onClick={props.editBoard} MyAaa={props.aaa}>
+            <A.SubmitButton
+              onClick={props.editBoard}
+              changeBtnBC={props.changeBtnBC}
+            >
               수정하기
             </A.SubmitButton>
           )}

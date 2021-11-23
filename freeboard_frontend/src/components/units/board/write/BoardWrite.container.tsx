@@ -24,13 +24,13 @@
 //   const [titleError, setTitleError] = useState("");
 //   const [contentError, setContentError] = useState("");
 
-//   const [myAaa, setMyAaa] = useState(false);
-//   const [myBbb, setMyBbb] = useState(false);
+//   const [changeBtnBC, setChangeBtnBC] = useState(false);
+//   const [changeBtnColor, setChangeBtnColor] = useState(false);
 
 //   //   if (name !== "" && password !== "" && title !== "" && content !== "") {
-//   //     setMyAaa(true);
+//   //     setChangeBtnBC(true);
 //   //   } else {
-//   //     setMyAaa(false);
+//   //     setChangeBtnBC(false);
 //   //   }
 
 //   const [createBoard] = useMutation<
@@ -62,11 +62,11 @@
 //       title !== "" &&
 //       content !== ""
 //     ) {
-//       setMyAaa(true);
-//       setMyBbb(true);
+//       setChangeBtnBC(true);
+//       setChangeBtnColor(true);
 //     } else {
-//       setMyAaa(false);
-//       setMyBbb(false);
+//       setChangeBtnBC(false);
+//       setChangeBtnColor(false);
 //     }
 //   }
 
@@ -81,11 +81,11 @@
 //       title !== "" &&
 //       content !== ""
 //     ) {
-//       setMyAaa(true);
-//       setMyBbb(true);
+//       setChangeBtnBC(true);
+//       setChangeBtnColor(true);
 //     } else {
-//       setMyAaa(false);
-//       setMyBbb(false);
+//       setChangeBtnBC(false);
+//       setChangeBtnColor(false);
 //     }
 //   }
 
@@ -100,11 +100,11 @@
 //       event.target.value !== "" &&
 //       content !== ""
 //     ) {
-//       setMyAaa(true);
-//       setMyBbb(true);
+//       setChangeBtnBC(true);
+//       setChangeBtnColor(true);
 //     } else {
-//       setMyAaa(false);
-//       setMyBbb(false);
+//       setChangeBtnBC(false);
+//       setChangeBtnColor(false);
 //     }
 //   }
 
@@ -115,11 +115,11 @@
 //       setContentError("");
 //     }
 //     if (name && password && title && event.target.value) {
-//       setMyAaa(true);
-//       setMyBbb(true);
+//       setChangeBtnBC(true);
+//       setChangeBtnColor(true);
 //     } else {
-//       setMyAaa(false);
-//       setMyBbb(false);
+//       setChangeBtnBC(false);
+//       setChangeBtnColor(false);
 //     }
 //   }
 
@@ -276,10 +276,10 @@
 //       titleError={titleError}
 //       contentError={contentError}
 //       checkValid={checkValid}
-//       aaa={myAaa}
+//       aaa={changeBtnBC}
 //       isEdit={props.isEdit}
 //       editBoard={editBoard}
-//       bbb={myBbb}
+//       bbb={changeBtnColor}
 //       data={data}
 //       saveYoutubeUrl={saveYoutubeUrl}
 //       showModal={showModal}
@@ -310,13 +310,6 @@ import {
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
 
-  const [myInputs, setMyInputs] = useState({
-    name: "",
-    password: "",
-    title: "",
-    content: "",
-  });
-
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -331,8 +324,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentError, setContentError] = useState("");
 
-  const [myAaa, setMyAaa] = useState(false);
-  const [myBbb, setMyBbb] = useState(false);
+  const [changeBtnBC, setChangeBtnBC] = useState(false);
+  const [changeBtnColor, setChangeBtnColor] = useState(false);
+
+  const myInputs = {
+    writer: name,
+    password: password,
+    title: title,
+    contents: content,
+    youtubeUrl: youtubeUrl,
+    boardAddress: {
+      zipcode: myZonecode,
+      address: myAddress,
+      addressDetail: optionalAddress,
+    },
+  };
 
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
@@ -354,73 +360,58 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   function saveName(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
-    if (event.target.value !== "") {
+    if (event.target.value) {
       setNameError("");
     }
-    if (
-      event.target.value !== "" &&
-      password !== "" &&
-      title !== "" &&
-      content !== ""
-    ) {
-      setMyAaa(true);
-      setMyBbb(true);
+    if (event.target.value && password && title && content) {
+      setChangeBtnBC(true);
+      setChangeBtnColor(true);
     } else {
-      setMyAaa(false);
-      setMyBbb(false);
+      setChangeBtnBC(false);
+      setChangeBtnColor(false);
     }
   }
 
   function savePassword(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
-    if (event.target.value !== "") {
+    if (event.target.value) {
       setPasswordError("");
     }
-    if (
-      name !== "" &&
-      event.target.value !== "" &&
-      title !== "" &&
-      content !== ""
-    ) {
-      setMyAaa(true);
-      setMyBbb(true);
+    if (name && event.target.value && title && content) {
+      setChangeBtnBC(true);
+      setChangeBtnColor(true);
     } else {
-      setMyAaa(false);
-      setMyBbb(false);
+      setChangeBtnBC(false);
+      setChangeBtnColor(false);
     }
   }
 
   function saveTitle(event: ChangeEvent<HTMLInputElement>) {
     setTitle(event.target.value);
-    if (event.target.value !== "") {
+    if (event.target.value) {
       setTitleError("");
     }
-    if (
-      name !== "" &&
-      password !== "" &&
-      event.target.value !== "" &&
-      content !== ""
-    ) {
-      setMyAaa(true);
-      setMyBbb(true);
+    if (name && password && event.target.value && content) {
+      setChangeBtnBC(true);
+      setChangeBtnColor(true);
     } else {
-      setMyAaa(false);
-      setMyBbb(false);
+      setChangeBtnBC(false);
+      setChangeBtnColor(false);
     }
   }
 
   function saveContent(event: ChangeEvent<HTMLInputElement>) {
     setContent(event.target.value);
 
-    if (event.target.value !== "") {
+    if (event.target.value) {
       setContentError("");
     }
     if (name && password && title && event.target.value) {
-      setMyAaa(true);
-      setMyBbb(true);
+      setChangeBtnBC(true);
+      setChangeBtnColor(true);
     } else {
-      setMyAaa(false);
-      setMyBbb(false);
+      setChangeBtnBC(false);
+      setChangeBtnColor(false);
     }
   }
 
@@ -448,16 +439,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const result = await createBoard({
         variables: {
           createBoardInput: {
-            writer: name,
-            password: password,
-            title: title,
-            contents: content,
-            youtubeUrl: youtubeUrl,
-            boardAddress: {
-              zipcode: myZonecode,
-              address: myAddress,
-              addressDetail: optionalAddress,
-            },
+            ...myInputs,
           },
         },
       });
@@ -534,10 +516,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
       titleError={titleError}
       contentError={contentError}
       checkValid={checkValid}
-      aaa={myAaa}
+      changeBtnBC={changeBtnBC}
       isEdit={props.isEdit}
       editBoard={editBoard}
-      bbb={myBbb}
+      bbb={changeBtnColor}
       data={data}
       saveYoutubeUrl={saveYoutubeUrl}
       showModal={showModal}

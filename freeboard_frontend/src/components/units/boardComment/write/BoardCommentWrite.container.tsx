@@ -50,16 +50,24 @@ export default function BoardCommentWrite(props) {
   //   setMyStar(value);
   // }
 
+  const myInputs = {
+    writer: myWriter,
+    password: myPassword,
+    contents: myContents,
+    rating: myStar,
+  };
+
   async function onClickWrite() {
     try {
       await createBoardComment({
         variables: {
-          createBoardCommentInput: {
-            writer: myWriter,
-            password: myPassword,
-            contents: myContents,
-            rating: myStar,
-          },
+          createBoardCommentInput: { ...myInputs },
+          // createBoardCommentInput: {
+          //   writer: myWriter,
+          //   password: myPassword,
+          //   contents: myContents,
+          //   rating: myStar,
+          // },
           boardId: String(router.query.myId),
         },
         refetchQueries: [
