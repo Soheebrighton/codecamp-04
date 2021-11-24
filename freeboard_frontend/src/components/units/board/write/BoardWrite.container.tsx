@@ -326,6 +326,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const [changeBtnBC, setChangeBtnBC] = useState(false);
   const [changeBtnColor, setChangeBtnColor] = useState(false);
+  const [select, setSelect] = useState("optionA");
+
+  function handleSelectChange(event) {
+    const value = event.target.value;
+    setSelect(value);
+  }
 
   const myInputs = {
     writer: name,
@@ -531,6 +537,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       myZonecode={myZonecode}
       onChangeOptionalAddress={onChangeOptionalAddress}
       optionalAddress={optionalAddress}
+      select={select}
+      handleSelectChange={handleSelectChange}
     ></BoardWriteUI>
   );
 }

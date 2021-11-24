@@ -146,18 +146,14 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <A.MainSetting>
             <A.Titles>메인설정</A.Titles>
 
-            <A.Radio
-              type="radio"
-              id="youtube"
-              name="setting"
-              value="youtube"
-            ></A.Radio>
+            <A.Radio type="radio" name="setting" value="youtube"></A.Radio>
             <A.Label htmlfor="youtube">유튜브</A.Label>
             <A.Radio
               type="radio"
-              id="photo"
               name="setting"
               value="photo"
+              checked={props.select === "optionA"}
+              onChange={(event) => props.handleSelectChange(event)}
               style={{ border: "10px solid #90DDD0" }}
             ></A.Radio>
 

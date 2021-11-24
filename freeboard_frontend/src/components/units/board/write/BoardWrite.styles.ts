@@ -302,11 +302,16 @@ export const Main = styled.div`
   align-items: center;
 `;
 
-export const Radio = styled.input``;
+export const Radio = styled.input`
+  :checked {
+    background: yellow;
+  }
+`;
 
 export const Label = styled.label`
   padding-left: 5px;
   padding-right: 10px;
+  border: 1px solid red;
 `;
 
 export const Error = styled.div`

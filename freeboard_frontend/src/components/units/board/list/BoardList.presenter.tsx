@@ -11,28 +11,32 @@ export default function BoardListUI(props) {
     <A.Main>
       <A.BestList>
         {props.dataForBest?.fetchBoardsOfTheBest.map((el) => (
-          <A.BestContent>
-            <A.BestPhotos></A.BestPhotos>
-            <A.BestTitle id={el._id} onClick={props.onClickView}>
-              {el.title.length > 18 ? el.title.slice(0, 17) + "..." : el.title}
-            </A.BestTitle>
-            <A.BestBottom>
-              {" "}
-              <A.ProfilePhoto>
+          <>
+            <A.BestContent>
+              <A.BestPhotos></A.BestPhotos>
+              <A.BestTitle id={el._id} onClick={props.onClickView}>
+                {el.title.length > 18
+                  ? el.title.slice(0, 17) + "..."
+                  : el.title}
+              </A.BestTitle>
+              <A.BestBottom>
                 {" "}
-                <Avatar size="small" icon={<UserOutlined />} />
-              </A.ProfilePhoto>
-              <div>
-                {" "}
-                <A.BestWriter>
-                  <A.BestName>{el.writer}</A.BestName>
-                  <A.BestDate>{el.createdAt.split("T")[0]}</A.BestDate>
-                </A.BestWriter>
-              </div>
-            </A.BestBottom>
+                <A.ProfilePhoto>
+                  {" "}
+                  <Avatar size="small" icon={<UserOutlined />} />
+                </A.ProfilePhoto>
+                <div>
+                  {" "}
+                  <A.BestWriter>
+                    <A.BestName>{el.writer}</A.BestName>
+                    <A.BestDate>{el.createdAt.split("T")[0]}</A.BestDate>
+                  </A.BestWriter>
+                </div>
+              </A.BestBottom>
 
-            <A.BestLikes></A.BestLikes>
-          </A.BestContent>
+              <A.BestLikes></A.BestLikes>
+            </A.BestContent>
+          </>
         ))}
       </A.BestList>
       <A.Wrapper>
