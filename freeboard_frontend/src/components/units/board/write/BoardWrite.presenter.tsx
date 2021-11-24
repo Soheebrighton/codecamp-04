@@ -56,6 +56,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <A.Titles>내용</A.Titles>
             <A.PostContentInput
               type="text"
+              name="name"
               placeholder="내용을 작성해주세요."
               defaultValue={props.data?.fetchBoard.contents}
               onChange={props.saveContent}
