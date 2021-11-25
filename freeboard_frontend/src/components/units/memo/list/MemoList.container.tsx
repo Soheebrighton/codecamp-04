@@ -1,4 +1,4 @@
-import MemoListUI from "./MemoList.presenter";
+import MemoListUIItem from "./MemoList.presenterItem";
 import { db } from "";
 import { firebaseApp } from "../../../../../pages/_app";
 import {
@@ -31,6 +31,7 @@ export default function MemoList() {
   //   });
   // }
 
+  const [data, setData] = useState();
   const [query3, setQuery3] = useState();
   const [ids, setIds] = useState();
 
@@ -38,10 +39,13 @@ export default function MemoList() {
     const query2 = await getDocs(
       collection(getFirestore(firebaseApp), "board")
     );
+
+    setData(query2);
     // const ids = query2.docs.map((el) => el.id);
     setIds(query2.docs.map((el) => el.id));
     // const query = query2.docs.map((el) => el.data());
     setQuery3(query2.docs.map((el) => el.data()));
+
     console.log(ids);
     // console.log(query);
   }
@@ -57,18 +61,22 @@ export default function MemoList() {
     deleteDoc(docRef);
   }
 
+  const [isEdit, SetIsEdit] = useState(false);
 
-  const q = query(collection(getFirestore(firebaseApp), "board"))
-  const display = onSnapshot(q, (snapshot) => {
-    snapshot.docChanges().
-  })
+  function onClickEdit() {
+    SetIsEdit(true);
+    console.log("edited!");
+  }
 
   return (
-    <MemoListUI
+    <MemoListUIItem
       onClickFetch={onClickFetch}
       onClickDelete={onClickDelete}
       query3={query3}
       ids={ids}
+      onClickEdit={onClickEdit}
+      isEdit={isEdit}
+      data={data}
     />
   );
 }

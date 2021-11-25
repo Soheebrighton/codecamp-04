@@ -22,3 +22,5 @@ export const MemoBox = styled.div`
 `;
 
 export const DeleteBtn = styled.button``;
+
+export const EditBtn = styled.button``;
