@@ -108,6 +108,11 @@ export const Content = styled.div`
   font-weight: 400;
 `;
 
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
 export const Likes = styled.div`
   display: flex;
   flex-direction: row;

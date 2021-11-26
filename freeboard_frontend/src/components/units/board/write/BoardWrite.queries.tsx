@@ -8,6 +8,7 @@ export const CREATE_BOARD = gql`
       title
       contents
       youtubeUrl
+      images
       boardAddress {
         _id
         zipcode
@@ -34,6 +35,7 @@ export const UPDATE_BOARD = gql`
       title
       contents
       youtubeUrl
+      images
     }
   }
 `;
@@ -48,6 +50,15 @@ export const FETCH_BOARD = gql`
       createdAt
       likeCount
       youtubeUrl
+      images
+    }
+  }
+`;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
     }
   }
 `;

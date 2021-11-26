@@ -258,6 +258,12 @@ export const UploadImage = styled.div`
   }
 `;
 
+export const UploadInput = styled.input`
+  width: 100%;
+  height: 100%;
+  display: none;
+`;
+
 export const MainSetting = styled.div`
   padding-bottom: 35px;
 `;

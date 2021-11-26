@@ -295,17 +295,23 @@
 //   );
 // }
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
+import {
+  CREATE_BOARD,
+  UPDATE_BOARD,
+  FETCH_BOARD,
+  UPLOAD_FILE,
+} from "./BoardWrite.queries";
 import { IBoardWriteProps } from "./BoardWrite.types";
 import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
 } from "../../../../commons/types/generated/types";
+import { removeClientSetsFromDocument } from "@apollo/client/utilities";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
@@ -328,9 +334,49 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [changeBtnColor, setChangeBtnColor] = useState(false);
   const [select, setSelect] = useState("optionA");
 
-  function handleSelectChange(event) {
+  const [images, setImages] = useState([]);
+
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const fileRef = useRef(null);
+
+  /// 사진 업로드 //
+  async function onChangeFile(event) {
+    const myFile = event.target.files?.[0];
+    console.log("asdf");
+
+    if (!myFile?.size) {
+      alert("파일이 없습니다!");
+      return;
+    }
+
+    if (myFile.size > 5 * 1024 * 1024) {
+      alert("파일 용량이 너무 큽니다. 5MB 미만 업로드 가능");
+      return;
+    }
+
+    if (!myFile.type.includes("jpeg") && !myFile.type.includes("png")) {
+      alert("jpeg 또는 png만 업로드 가능합니다.");
+      return;
+    }
+
+    const result = await uploadFile({
+      variables: {
+        file: myFile,
+      },
+    });
+    console.log(result.data.uploadFile.url);
+    setImages([result.data.uploadFile.url]);
+  }
+
+  /////////////////////////////////////////////
+
+  function handleSelectChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setSelect(value);
+  }
+
+  function onClickImage() {
+    fileRef.current?.click();
   }
 
   const myInputs = {
@@ -339,6 +385,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     title: title,
     contents: content,
     youtubeUrl: youtubeUrl,
+    images: images,
     boardAddress: {
       zipcode: myZonecode,
       address: myAddress,
@@ -450,7 +497,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
         },
       });
 
-      router.push(`/boards/${result.data.createBoard._id}`);
+      router.push(`/boards/${result.data?.createBoard._id}`);
     }
   }
 
@@ -539,6 +586,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       optionalAddress={optionalAddress}
       select={select}
       handleSelectChange={handleSelectChange}
+      onChangeFile={onChangeFile}
+      onClickImage={onClickImage}
+      fileRef={fileRef}
     ></BoardWriteUI>
   );
 }
