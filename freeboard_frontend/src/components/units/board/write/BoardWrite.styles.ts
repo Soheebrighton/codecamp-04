@@ -238,32 +238,6 @@ export const UploadImageDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const UploadImage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 20px;
-  width: 70px;
-  height: 70px;
-  background-color: #f5f5f5;
-  color: #4f4f4f;
-  font-size: 0.7rem;
-  border-radius: 5px;
-
-  cursor: pointer;
-  &:hover {
-    background-color: white;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-export const UploadInput = styled.input`
-  width: 100%;
-  height: 100%;
-  display: none;
-`;
-
 export const MainSetting = styled.div`
   padding-bottom: 35px;
 `;

@@ -19,6 +19,30 @@ export const Wrapper = styled.div`
   background-color: white;
 `;
 
+/// 검색 UI ///
+export const SearchWrapper = styled.div`
+  width: 1200px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+`;
+export const SearchInput = styled.input`
+  width: 180px;
+  border: none;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  :focus {
+    outline: none;
+    background-color: white;
+  }
+`;
+export const SearchIcon = styled.div`
+  width: 40px;
+  text-align: center;
+  cursor: pointer;
+`;
+
 export const Row = styled.div`
   /* background-color: red; */
   display: flex;

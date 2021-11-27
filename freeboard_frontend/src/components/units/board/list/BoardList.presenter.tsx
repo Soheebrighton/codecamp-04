@@ -2,6 +2,7 @@ import * as A from "./BoardList.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
@@ -39,6 +40,13 @@ export default function BoardListUI(props) {
           </>
         ))}
       </A.BestList>
+      <A.SearchWrapper>
+        <A.SearchInput type="text" onChange={props.onChangeSearch} />
+        <A.SearchIcon>
+          {" "}
+          <FontAwesomeIcon icon={faSearch} color="#0dc56c" />
+        </A.SearchIcon>
+      </A.SearchWrapper>
       <A.Wrapper>
         {/* //게시글 목록 설명 */}
 

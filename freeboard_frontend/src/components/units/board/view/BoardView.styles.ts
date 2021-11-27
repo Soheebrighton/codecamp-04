@@ -32,13 +32,13 @@ export const Date = styled.div`
   color: gray;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h1`
   /* align-self: ; */
   align-self: center;
   font-size: 39px;
   font-weight: 600;
   /* background-color: turquoise; */
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
   /* border-bottom: 1px solid #bdbdbd; */
 `;
 
@@ -109,8 +109,12 @@ export const Content = styled.div`
 `;
 
 export const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
+
+export const ImageWrapper = styled.div`
   width: 100%;
-  height: 100%;
 `;
 
 export const Likes = styled.div`
@@ -135,12 +139,10 @@ export const Like = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid #dbdbdb;
-  /* border: none; */
   width: 70px;
   height: 70px;
   border-radius: 70px;
   padding: 10px;
-  /* background-color: #fcfcfc; */
   cursor: pointer;
 `;
 

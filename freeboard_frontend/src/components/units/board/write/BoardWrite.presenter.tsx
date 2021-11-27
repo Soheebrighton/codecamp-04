@@ -3,6 +3,7 @@ import DaumPostcode from "react-daum-postcode";
 import { useState } from "react";
 import { Modal } from "antd";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 
 // 스타일에서 한꺼번에 다 받기
 
@@ -119,35 +120,8 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <A.UploadImages>
             <A.Titles>사진첨부</A.Titles>
             <A.UploadImageDiv>
-              <A.UploadImage onClick={props.onClickImage}>
-                <div>
-                  <img src="/images/Vector (4).png" />
-                </div>
-                {/* <div>Upload</div> */}
-              </A.UploadImage>
-
-              <A.UploadImage>
-                <div>
-                  <img src="/images/Vector (4).png" />
-                </div>
-                {/* <div>Upload</div> */}
-              </A.UploadImage>
-
-              <A.UploadImage>
-                <div>
-                  {" "}
-                  <img src="/images/Vector (4).png" />
-                </div>
-                {/* <div>Upload</div> */}
-              </A.UploadImage>
+              <Uploads01 />
             </A.UploadImageDiv>
-            <A.UploadInput
-              type="file"
-              ref={props.fileRef}
-              onChange={props.onChangeFile}
-            />
-            <A.UploadInput type="file" />
-            <A.UploadInput type="file" />
           </A.UploadImages>
 
           <A.MainSetting>

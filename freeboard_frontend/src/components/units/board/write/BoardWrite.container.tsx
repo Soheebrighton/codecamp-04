@@ -295,16 +295,11 @@
 //   );
 // }
 
-import { useState, ChangeEvent, useRef } from "react";
+import { useState, ChangeEvent } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
-import {
-  CREATE_BOARD,
-  UPDATE_BOARD,
-  FETCH_BOARD,
-  UPLOAD_FILE,
-} from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
 import { IBoardWriteProps } from "./BoardWrite.types";
 import {
   IMutation,
@@ -324,6 +319,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [myAddress, setMyAddress] = useState("");
   const [myZonecode, setMyZonecode] = useState("");
   const [optionalAddress, setOptionalAddress] = useState("");
+  const [images, setImages] = useState(["", "", ""]);
 
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -333,11 +329,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [changeBtnBC, setChangeBtnBC] = useState(false);
   const [changeBtnColor, setChangeBtnColor] = useState(false);
   const [select, setSelect] = useState("optionA");
-
-  const [images, setImages] = useState([]);
-
-  const [uploadFile] = useMutation(UPLOAD_FILE);
-  const fileRef = useRef(null);
 
   /// 사진 업로드 //
   async function onChangeFile(event) {
@@ -354,7 +345,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
       return;
     }
 
-    if (!myFile.type.includes("jpeg") && !myFile.type.includes("png")) {
+    if (
+      !myFile.type.includes("jpeg") &&
+      !myFile.type.includes("png") &&
+      !myFile.type.includes("jpg")
+    ) {
       alert("jpeg 또는 png만 업로드 가능합니다.");
       return;
     }
@@ -558,6 +553,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   function onChangeOptionalAddress(event: ChangeEvent<HTMLInputElement>) {
     setOptionalAddress(event.target.value);
   }
+
   return (
     <BoardWriteUI
       saveName={saveName}
@@ -588,7 +584,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
       handleSelectChange={handleSelectChange}
       onChangeFile={onChangeFile}
       onClickImage={onClickImage}
-      fileRef={fileRef}
     ></BoardWriteUI>
   );
 }

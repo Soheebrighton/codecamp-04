@@ -13,6 +13,8 @@ import {
   IMutation,
   IMutationDeleteBoardArgs,
 } from "../../../../commons/types/generated/types";
+import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardList() {
   const router = useRouter();
@@ -77,6 +79,14 @@ export default function BoardList() {
   // }
 
   /////////////////////////////////////
+
+  ///// 검색기능 /////
+
+  function onChangeSearch() {
+    console.log("working");
+  }
+
+  /////////////////
   return (
     <BoardListUI
       dataForBoards={dataForBoards}
@@ -94,6 +104,7 @@ export default function BoardList() {
       refetch={refetch}
       count={dataForCount?.fetchBoardsCount}
       setStartPage={setStartPage}
+      onChangeSearch={onChangeSearch}
     ></BoardListUI>
   );
 }
