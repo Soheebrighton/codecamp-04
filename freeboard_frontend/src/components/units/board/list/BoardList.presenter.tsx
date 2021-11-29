@@ -111,6 +111,7 @@ export default function BoardListUI(props) {
           count={props.count}
           startPage={props.startPage}
           setStartPage={props.setStartPage}
+          onClickPage={props.onClickPage}
         />
       </A.Wrapper>
 

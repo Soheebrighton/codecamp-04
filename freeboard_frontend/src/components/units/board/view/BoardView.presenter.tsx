@@ -47,9 +47,12 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
               <MyYoutube url={props.data?.fetchBoard.youtubeUrl} />
               <A.ImageWrapper>
                 {" "}
-                <A.Image
-                  src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
-                />
+                {!props.data?.fetchBoard.images[0] && <A.Image />}
+                {props.data?.fetchBoard.images[0] && (
+                  <A.Image
+                    src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
+                  />
+                )}
               </A.ImageWrapper>
             </p>
           </A.Content>

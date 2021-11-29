@@ -36,6 +36,12 @@ export const UPDATE_BOARD = gql`
       contents
       youtubeUrl
       images
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
@@ -51,6 +57,12 @@ export const FETCH_BOARD = gql`
       likeCount
       youtubeUrl
       images
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;

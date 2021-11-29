@@ -17,6 +17,21 @@ import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 
 export default function BoardList() {
+  const [myKeyword, SetMyKeyword] = useState("");
+  const getDebounce = _.debounce((data) => {
+    refetch({ search: data, page: 1 });
+    SetMyKeyword(data);
+  }, 1000);
+
+  function onChangeSearch(event) {
+    getDebounce(event.target.value);
+  }
+
+  function onClickPage(event) {
+    if (event.target) {
+      refetch({ search: myKeyword, page: event.target.id });
+    }
+  }
   const router = useRouter();
   /////////////// 데이터들 //////////////
   const { data: dataForBest } = useQuery(FETCH_BOARDS_OF_THE_BEST);
@@ -80,13 +95,6 @@ export default function BoardList() {
 
   /////////////////////////////////////
 
-  ///// 검색기능 /////
-
-  function onChangeSearch() {
-    console.log("working");
-  }
-
-  /////////////////
   return (
     <BoardListUI
       dataForBoards={dataForBoards}
@@ -105,6 +113,7 @@ export default function BoardList() {
       count={dataForCount?.fetchBoardsCount}
       setStartPage={setStartPage}
       onChangeSearch={onChangeSearch}
+      onClickPage={onClickPage}
     ></BoardListUI>
   );
 }

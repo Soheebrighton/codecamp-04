@@ -331,36 +331,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [select, setSelect] = useState("optionA");
 
   /// 사진 업로드 //
-  async function onChangeFile(event) {
-    const myFile = event.target.files?.[0];
-    console.log("asdf");
-
-    if (!myFile?.size) {
-      alert("파일이 없습니다!");
-      return;
-    }
-
-    if (myFile.size > 5 * 1024 * 1024) {
-      alert("파일 용량이 너무 큽니다. 5MB 미만 업로드 가능");
-      return;
-    }
-
-    if (
-      !myFile.type.includes("jpeg") &&
-      !myFile.type.includes("png") &&
-      !myFile.type.includes("jpg")
-    ) {
-      alert("jpeg 또는 png만 업로드 가능합니다.");
-      return;
-    }
-
-    const result = await uploadFile({
-      variables: {
-        file: myFile,
-      },
-    });
-    console.log(result.data.uploadFile.url);
-    setImages([result.data.uploadFile.url]);
+  function onChangeFileUrls(fileUrl: string, index: number) {
+    const newFileUrls = [...images];
+    newFileUrls[index] = fileUrl;
+    setImages(newFileUrls);
   }
 
   /////////////////////////////////////////////
@@ -368,10 +342,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
   function handleSelectChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setSelect(value);
-  }
-
-  function onClickImage() {
-    fileRef.current?.click();
   }
 
   const myInputs = {
@@ -517,6 +487,40 @@ export default function BoardWrite(props: IBoardWriteProps) {
       myVariablesForEdit.updateBoardInput.contents = data.fetchBoard.contents;
     }
 
+    if (youtubeUrl) {
+      myVariablesForEdit.updateBoardInput.youtubeUrl = youtubeUrl;
+    } else {
+      myVariablesForEdit.updateBoardInput.youtubeUrl =
+        data.fetchBoard.youtubeUrl;
+    }
+
+    if (images) {
+      myVariablesForEdit.updateBoardInput.images = images;
+    } else {
+      myVariablesForEdit.updateBoardInput.images = data.fetchBoard.images;
+    }
+
+    // if (myZonecode) {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.zipcode = myZonecode;
+    // } else {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.zipcode =
+    //     data.fetchBoard.zipcode;
+    // }
+
+    // if (myAddress) {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.address = myAddress;
+    // } else {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.address =
+    //     data.fetchBoard.address;
+    // }
+
+    // if (optionalAddress) {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.addressDetail = optionalAddress;
+    // } else {
+    //   myVariablesForEdit.updateBoardInput.boardAddress.addressDetail =
+    //     data.fetchBoard.addressDetail;
+    // }
+
     try {
       await updateBoard({
         variables: myVariablesForEdit,
@@ -582,8 +586,8 @@ export default function BoardWrite(props: IBoardWriteProps) {
       optionalAddress={optionalAddress}
       select={select}
       handleSelectChange={handleSelectChange}
-      onChangeFile={onChangeFile}
-      onClickImage={onClickImage}
+      onChangeFileUrls={onChangeFileUrls}
+      images={images}
     ></BoardWriteUI>
   );
 }

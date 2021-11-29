@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Modal } from "antd";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import Uploads01UI from "../../../commons/uploads/01/Uploads01.presenter";
 
 // 스타일에서 한꺼번에 다 받기
 
@@ -75,7 +76,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
                   type="text"
                   placeholder="00000"
                   maxLength="5"
-                  value={props.myZonecode}
+                  value={
+                    props.myZonecode ||
+                    props.data?.fetchBoard.boardAddress.zipcode ||
+                    ""
+                  }
                 ></A.AddressPostcodeInput>
               </A.PostcodeSpan>
 
@@ -96,7 +101,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             <A.AddressMain>
               <A.AddressMainInput
                 type="text"
-                value={props.myAddress}
+                value={
+                  props.myAddress ||
+                  props.data?.fetchBoard.boardAddress.address ||
+                  ""
+                }
               ></A.AddressMainInput>
             </A.AddressMain>
 
@@ -104,6 +113,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               <A.AddressOptionalInput
                 type="text"
                 onChange={props.onChangeOptionalAddress}
+                defaultValue={props.data?.fetchBoard.boardAddress.addressDetail}
               ></A.AddressOptionalInput>
             </A.AddressOptional>
           </A.Address>
@@ -114,13 +124,22 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               type="text"
               placeholder="링크를 복사해주세요."
               onChange={props.saveYoutubeUrl}
+              defaultValue={props.data?.fetchBoard.youtubeUrl}
             ></A.YoutubeLinkInput>
           </A.Youtube>
 
           <A.UploadImages>
             <A.Titles>사진첨부</A.Titles>
             <A.UploadImageDiv>
-              <Uploads01 />
+              {props.images.map((el, index) => (
+                <Uploads01
+                  onChangeFileUrls={props.onChangeFileUrls}
+                  key={index}
+                  index={index}
+                  fileUrl={el}
+                  isEdit={props.isEdit}
+                />
+              ))}
             </A.UploadImageDiv>
           </A.UploadImages>
 
