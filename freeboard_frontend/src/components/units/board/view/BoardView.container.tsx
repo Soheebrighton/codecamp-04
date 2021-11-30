@@ -184,6 +184,11 @@ export default function BoardView() {
     router.push(`/boards/list`);
   }
 
+  //// 이미지 에러 //////
+  function onErrorImage(event) {
+    event.target.src = "/images/unnamed.png";
+  }
+
   return (
     <BoardViewUI
       data={data}
@@ -208,6 +213,7 @@ export default function BoardView() {
       updateBoardComment={updateBoardComment}
       onClickUpdateComment={onClickUpdateComment}
       isEdit={isEdit}
+      onErrorImage={onErrorImage}
     ></BoardViewUI>
   );
 }

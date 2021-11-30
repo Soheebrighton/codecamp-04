@@ -15,8 +15,8 @@ export default function HeaderUI(props) {
         </A.Nav>
         <A.LoginBtns>
           {" "}
-          <A.Login>Log in</A.Login>
-          <A.SignUp>Sign up</A.SignUp>
+          <A.Login onClick={props.onClickLogIn}>Log in</A.Login>
+          <A.SignUp onClick={props.onClickSingUp}>Sign up</A.SignUp>
         </A.LoginBtns>
       </A.Wrapper>
     </A.Header>

@@ -6,7 +6,20 @@ export default function Header() {
 
   function onClickCommunity() {
     router.push("/boards/list");
-    console.log("go to");
   }
-  return <HeaderUI onClickCommunity={onClickCommunity} />;
+
+  function onClickSingUp() {
+    router.push("/register");
+  }
+
+  function onClickLogIn() {
+    router.push("/login");
+  }
+  return (
+    <HeaderUI
+      onClickCommunity={onClickCommunity}
+      onClickSingUp={onClickSingUp}
+      onClickLogIn={onClickLogIn}
+    />
+  );
 }
