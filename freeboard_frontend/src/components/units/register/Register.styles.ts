@@ -41,7 +41,6 @@ export const RightWrapper = styled.div`
   @media (max-width: 1200px) {
     width: 100%;
   }
-  /* align-items: center; */
 `;
 
 export const Register = styled.div`
@@ -52,7 +51,6 @@ export const Register = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: lightgreen; */
 `;
 
 export const Title = styled.div`
