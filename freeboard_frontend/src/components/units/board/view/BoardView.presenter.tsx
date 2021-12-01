@@ -41,21 +41,17 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
           <A.Title>{props.data?.fetchBoard.title}</A.Title>
           <A.SmallBar></A.SmallBar>
           <A.Content>
-            <p> {props.data?.fetchBoard.contents}</p>
-            <p>
-              {" "}
-              <MyYoutube url={props.data?.fetchBoard.youtubeUrl} />
-              <A.ImageWrapper>
-                {" "}
-                {!props.data?.fetchBoard.images[0] && <A.Image />}
-                {props.data?.fetchBoard.images[0] && (
-                  <A.Image
-                    src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
-                    onError={props.onErrorImage}
-                  />
-                )}
-              </A.ImageWrapper>
-            </p>
+            {props.data?.fetchBoard.contents}
+            <A.ImageWrapper>
+              {!props.data?.fetchBoard.images[0] && <A.Image />}
+              {props.data?.fetchBoard.images[0] && (
+                <A.Image
+                  src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
+                  onError={props.onErrorImage}
+                />
+              )}
+            </A.ImageWrapper>
+            <MyYoutube url={props.data?.fetchBoard.youtubeUrl} />
           </A.Content>
           <A.Likes>
             <A.Like onClick={props.onClickLike}>

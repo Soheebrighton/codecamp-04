@@ -5,10 +5,18 @@ import { Modal } from "antd";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import Uploads01UI from "../../../commons/uploads/01/Uploads01.presenter";
+import Radio from "@mui/material/Radio";
+import { teal } from "@mui/material/colors";
 
 // 스타일에서 한꺼번에 다 받기
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
+  const [selectedValue, setSelectedValue] = useState("a");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
     <>
       <A.Main>
@@ -146,18 +154,34 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <A.MainSetting>
             <A.Titles>메인설정</A.Titles>
 
-            <A.Radio type="radio" name="setting" value="youtube"></A.Radio>
-            <A.Label htmlfor="youtube">유튜브</A.Label>
-            <A.Radio
-              type="radio"
-              name="setting"
-              value="photo"
-              checked={props.select === "optionA"}
-              onChange={(event) => props.handleSelectChange(event)}
-              style={{ border: "10px solid #90DDD0" }}
-            ></A.Radio>
-
-            <A.Label htmlfor="photo">사진</A.Label>
+            <div>
+              <Radio
+                checked={selectedValue === "a"}
+                onChange={handleChange}
+                value="a"
+                name="radio-buttons"
+                inputProps={{ "aria-label": "A" }}
+                sx={{
+                  "&.Mui-checked": {
+                    color: teal["A700"],
+                  },
+                }}
+              />{" "}
+              <A.Label htmlfor="a">유튜브</A.Label>
+              <Radio
+                checked={selectedValue === "b"}
+                onChange={handleChange}
+                value="b"
+                name="radio-buttons"
+                inputProps={{ "aria-label": "B" }}
+                sx={{
+                  "&.Mui-checked": {
+                    color: teal["A700"],
+                  },
+                }}
+              />{" "}
+              <A.Label htmlfor="b">사진</A.Label>
+            </div>
           </A.MainSetting>
           {/* 
           <SubmitButton onClick={props.checkValid}>

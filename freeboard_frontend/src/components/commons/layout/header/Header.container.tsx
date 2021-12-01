@@ -4,6 +4,10 @@ import { useRouter } from "next/router";
 export default function Header() {
   const router = useRouter();
 
+  function onClickHome() {
+    router.push("/");
+  }
+
   function onClickCommunity() {
     router.push("/boards/list");
   }
@@ -15,8 +19,10 @@ export default function Header() {
   function onClickLogIn() {
     router.push("/login");
   }
+
   return (
     <HeaderUI
+      onClickHome={onClickHome}
       onClickCommunity={onClickCommunity}
       onClickSingUp={onClickSingUp}
       onClickLogIn={onClickLogIn}

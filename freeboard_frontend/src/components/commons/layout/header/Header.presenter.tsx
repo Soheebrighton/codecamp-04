@@ -6,7 +6,11 @@ export default function HeaderUI(props) {
       <A.Wrapper>
         {" "}
         <A.Logo>
-          <img src="/images/logo_small.png" alt="images" />
+          <img
+            src="/images/logo_small.png"
+            alt="images"
+            onClick={props.onClickHome}
+          />
         </A.Logo>
         <A.Nav>
           <A.PageBtn>SHOP</A.PageBtn>

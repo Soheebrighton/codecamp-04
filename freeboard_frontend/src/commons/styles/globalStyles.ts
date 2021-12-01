@@ -25,4 +25,9 @@ export const globalStyles = css`
     font-family: "Montserrat-Medium";
     src: url("/fonts/Montserrat-Medium.ttf");
   }
+
+  @font-face {
+    font-family: "Shippori";
+    src: url("/fonts/ShipporiAntiqueB1-Regular.ttf");
+  }
 `;
