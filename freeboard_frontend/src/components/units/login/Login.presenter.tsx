@@ -20,9 +20,6 @@ export default function LoginUI(props) {
           </A.Logo>
           <A.Register>
             {" "}
-            <A.Title>
-              WELCOME TO <A.ColorTitle>SOY.</A.ColorTitle>MARKET
-            </A.Title>
             {/* <A.Input
             type="text"
             placeholder="이메일"
@@ -31,6 +28,10 @@ export default function LoginUI(props) {
           />{" "} */}
             {/* 이메일 */}
             <A.InputWrapper>
+              <A.Title>
+                WELCOME BACK TO <br />
+                <A.ColorTitle>SOY.</A.ColorTitle>MARKET
+              </A.Title>
               <A.InputBox noValidate autoComplete="off">
                 <A.EmailInputStyle
                   id="standard-basic"
@@ -62,7 +63,7 @@ export default function LoginUI(props) {
                       onChange={props.onChangePassword}
                       endAdornment={
                         <InputAdornment position="end">
-                          <IconButton
+                          <A.Icon
                             aria-label="toggle password visibility"
                             onClick={props.handleClickShowPassword}
                             onMouseDown={props.handleMouseDownPassword}
@@ -72,7 +73,7 @@ export default function LoginUI(props) {
                             ) : (
                               <Visibility />
                             )}
-                          </IconButton>
+                          </A.Icon>
                         </InputAdornment>
                       }
                     />
@@ -80,27 +81,12 @@ export default function LoginUI(props) {
                 </div>
               </Box>
               <A.Error>{props.passwordError}</A.Error>
-              {/* 사용자 이름 */}
-              {/* <A.Input
-            type="text"
-            placeholder="사용자 이름"
-            name="name"
-            onChange={props.onChangeName}
-          /> */}
-              <A.InputBox noValidate autoComplete="off">
-                <A.EmailInputStyle
-                  id="standard-basic"
-                  label="사용자 이름"
-                  variant="standard"
-                  name="name"
-                  onChange={props.onChangeName}
-                />
-              </A.InputBox>
-              <A.Error>{props.nameError}</A.Error>
             </A.InputWrapper>
-            <A.RegisterBtn onClick={props.onClickRegister}>
-              회원가입
-            </A.RegisterBtn>
+            <A.RegisterBtn onClick={props.onClickLogin}>로그인</A.RegisterBtn>
+            <A.SignUpBtn onClick={props.onClickRegister}>
+              아직 소이마켓 회원이 아니세요?{" "}
+              <A.SignUpText>회원가입</A.SignUpText>
+            </A.SignUpBtn>
           </A.Register>
         </A.RightWrapper>
       </A.Background>

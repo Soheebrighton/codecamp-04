@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
 
 export const Background = styled.div`
-  background-image: url(/images/soy_register_bw.png);
+  background-image: url(/images/login_background.png);
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
@@ -26,6 +27,9 @@ export const LogoImg = styled.img`
 export const LeftWrapper = styled.div`
   width: 50%;
   height: 100%;
+  @media (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 export const RightWrapper = styled.div`
@@ -34,6 +38,9 @@ export const RightWrapper = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
   /* align-items: center; */
 `;
 
@@ -50,9 +57,9 @@ export const Register = styled.div`
 
 export const Title = styled.div`
   padding-bottom: 30px;
+  padding-left: 5px;
   font-family: "Montserrat";
   font-size: 33px;
-  text-align: center;
 `;
 
 export const ColorTitle = styled.span`
@@ -95,7 +102,7 @@ export const RegisterBtn = styled.div`
   justify-content: center;
   text-align: center;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   width: 430px;
   height: 60px;
   padding: 8px;
@@ -126,7 +133,7 @@ export const InputBox = styled(Box)({
   },
 
   "& .MuiInput-underline": {
-    padding: "10px",
+    padding: "5px",
 
     borderBottom: "1px solid #f5f5f5",
   },
@@ -158,7 +165,7 @@ export const FormBox = styled(FormControl)({
   },
 
   "& .MuiInput-underline": {
-    padding: "10px",
+    padding: "5px",
     borderBottom: "1px solid #f5f5f5",
   },
 
@@ -180,3 +187,34 @@ export const FormBox = styled(FormControl)({
     color: "#1dbc67",
   },
 });
+
+export const Icon = styled(IconButton)({
+  marginBottom: "15px",
+});
+
+export const SignUpBtn = styled.div`
+  margin-top: 45px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #565656;
+  font-size: 14px;
+  width: 430px;
+  height: 40px;
+  padding: 8px;
+  background-color: #f5f6fa;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  :hover {
+    background-color: #f2f3f7;
+  }
+`;
+
+export const SignUpText = styled.u`
+  padding-left: 5px;
+  color: #272727;
+`;

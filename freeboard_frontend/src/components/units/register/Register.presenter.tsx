@@ -63,7 +63,7 @@ export default function RegisterUI(props) {
                       onChange={props.onChangePassword}
                       endAdornment={
                         <InputAdornment position="end">
-                          <IconButton
+                          <A.Icon
                             aria-label="toggle password visibility"
                             onClick={props.handleClickShowPassword}
                             onMouseDown={props.handleMouseDownPassword}
@@ -73,7 +73,7 @@ export default function RegisterUI(props) {
                             ) : (
                               <Visibility />
                             )}
-                          </IconButton>
+                          </A.Icon>
                         </InputAdornment>
                       }
                     />
@@ -102,6 +102,10 @@ export default function RegisterUI(props) {
             <A.RegisterBtn onClick={props.onClickRegister}>
               회원가입
             </A.RegisterBtn>
+            <A.LoginBtn onClick={props.onClickLogin}>
+              이미 소이마켓 회원계정이 있으세요?
+              <A.LoginText>로그인</A.LoginText>
+            </A.LoginBtn>
           </A.Register>
         </A.RightWrapper>
       </A.Background>

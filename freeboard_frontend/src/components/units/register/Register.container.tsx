@@ -53,7 +53,9 @@ export default function Register() {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
     }
     if (!testPassword) {
-      setPasswordError("올바른 비밀번호를 입력해주세요.");
+      setPasswordError(
+        "영문자로 시작하여 숫자, 특수문자 포함 8글자 이상 16글자 이하"
+      );
     }
     if (!inputs.name) {
       setNameError("사용자 이름을 작성해주세요.");
@@ -77,6 +79,10 @@ export default function Register() {
 
   function onClickHome() {
     router.push("/");
+  }
+
+  function onClickLogin() {
+    router.push("/login");
   }
 
   // 비밀번호 보여주기 //
@@ -108,6 +114,7 @@ export default function Register() {
       handleClickShowPassword={handleClickShowPassword}
       handleMouseDownPassword={handleMouseDownPassword}
       values={values}
+      onClickLogin={onClickLogin}
       // handleChange={handleChange}
     />
   );
