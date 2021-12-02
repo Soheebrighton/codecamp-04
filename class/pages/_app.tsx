@@ -30,7 +30,7 @@ const firebaseConfig = {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 
-export const GlobalContext = createContext(null);
+export const GlobalContext = createContext({});
 
 function MyApp({ Component, pageProps }) {
   const [myAccessToken, SetMyAccessToken] = useState("");

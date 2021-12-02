@@ -1,11 +1,23 @@
 import LoginUI from "./Login.presenter";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, ChangeEvent, useContext } from "react";
+
+import {
+  IMutation,
+  IMutationLoginUserArgs,
+} from "../../../commons/types/generated/types";
+import { LOGIN_USER } from "./Login.queries";
 import { useMutation } from "@apollo/client";
+import { GlobalContext } from "../../../../pages/_app";
 
 export default function Login() {
   const router = useRouter();
+  const [loginUser] = useMutation<
+    Pick<IMutation, "loginUser">,
+    IMutationLoginUserArgs
+  >(LOGIN_USER);
 
+  const { setAccessToken } = useContext(GlobalContext);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -19,14 +31,14 @@ export default function Login() {
     inputs.password
   );
 
-  function onChangeEmail(event) {
+  function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
       setEmailError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
-  function onChangePassword(event) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     if (
       /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
         event.target.value
@@ -37,7 +49,7 @@ export default function Login() {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
-  function onClickLogin() {
+  async function onClickLogin() {
     if (!testEmail) {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
     }
@@ -46,7 +58,17 @@ export default function Login() {
     }
 
     if (testEmail && testPassword) {
-      router.push("/");
+      try {
+        const result = await loginUser({
+          variables: {
+            ...inputs,
+          },
+        });
+        setAccessToken(result.data?.loginUser.accessToken);
+        router.push("/");
+      } catch (error) {
+        alert(error.message);
+      }
     }
   }
 

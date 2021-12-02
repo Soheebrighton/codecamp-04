@@ -51,3 +51,18 @@ export const SignUp = styled.span`
   cursor: pointer;
   padding-left: 25px;
 `;
+
+export const User = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const UserName = styled.span`
+  font-family: "myFont";
+  font-weight: 600;
+  padding-right: 10px;
+`;
+export const UserIcon = styled.span`
+  padding-bottom: 3px;
+`;
