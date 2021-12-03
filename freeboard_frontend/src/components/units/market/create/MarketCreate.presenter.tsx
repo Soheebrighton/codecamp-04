@@ -25,7 +25,17 @@ export default function MarketCreateUI() {
 
             <A.PostTitleInput
               type="text"
-              placeholder="제목을 작성해주세요."
+              placeholder="상품명을 작성해주세요."
+            ></A.PostTitleInput>
+            <A.Error>zd</A.Error>
+          </A.PostTitle>
+
+          <A.PostTitle>
+            <A.Titles>한줄요약</A.Titles>
+
+            <A.PostTitleInput
+              type="text"
+              placeholder="상품을 한 줄로 설명해주세요."
             ></A.PostTitleInput>
             <A.Error>zd</A.Error>
           </A.PostTitle>
@@ -35,26 +45,55 @@ export default function MarketCreateUI() {
             <A.PostContentInput
               type="text"
               name="name"
-              placeholder="내용을 작성해주세요."
+              placeholder="상품을 자세히 설명해주세요."
             ></A.PostContentInput>
             <A.Error>asdf</A.Error>
           </A.PostContent>
 
+          <A.Writer>
+            <A.WriterDiv>
+              <A.Titles>판매가격</A.Titles>
+              <A.WriterName
+                type="text"
+                placeholder="판매할 상품의 가격을 입력해주세요."
+              ></A.WriterName>
+              <A.Error>ㅁㄴㅇㄹ</A.Error>
+            </A.WriterDiv>
+
+            <A.WriterDiv>
+              <A.Titles>태그입력</A.Titles>
+
+              <A.WriterPassword
+                type="password"
+                placeholder="#태그 #태그 #태그"
+              ></A.WriterPassword>
+              <A.Error>ㅁㄴㅇㄹ</A.Error>
+            </A.WriterDiv>
+          </A.Writer>
+
           <A.Address>
-            <A.Titles>주소</A.Titles>
+            <A.Titles>GPS</A.Titles>
 
             <A.PostcodeWrapper>
               <A.PostcodeSpan>
                 {" "}
                 <A.AddressPostcodeInput
                   type="text"
-                  placeholder="00000"
+                  placeholder="위도"
                 ></A.AddressPostcodeInput>
               </A.PostcodeSpan>
-
-              <A.AddressPostcodeButton>우편번호 검색</A.AddressPostcodeButton>
+              <A.PostcodeSpan>
+                {" "}
+                <A.AddressPostcodeInput
+                  type="text"
+                  placeholder="경도"
+                ></A.AddressPostcodeInput>
+              </A.PostcodeSpan>
             </A.PostcodeWrapper>
+          </A.Address>
 
+          <A.Youtube>
+            <A.Titles>주소</A.Titles>
             <A.AddressMain>
               <A.AddressMainInput type="text"></A.AddressMainInput>
             </A.AddressMain>
@@ -62,14 +101,6 @@ export default function MarketCreateUI() {
             <A.AddressOptional>
               <A.AddressOptionalInput type="text"></A.AddressOptionalInput>
             </A.AddressOptional>
-          </A.Address>
-
-          <A.Youtube>
-            <A.Titles>유튜브</A.Titles>
-            <A.YoutubeLinkInput
-              type="text"
-              placeholder="링크를 복사해주세요."
-            ></A.YoutubeLinkInput>
           </A.Youtube>
 
           <A.UploadImages>
@@ -78,7 +109,7 @@ export default function MarketCreateUI() {
           </A.UploadImages>
 
           <A.MainSetting>
-            <A.Titles>메인설정</A.Titles>
+            <A.Titles>메인 사진 설정</A.Titles>
 
             <div>
               <Radio
@@ -93,7 +124,7 @@ export default function MarketCreateUI() {
                   },
                 }}
               />{" "}
-              <A.Label htmlfor="a">유튜브</A.Label>
+              <A.Label htmlfor="a">사진 1</A.Label>
               <Radio
                 checked={selectedValue === "b"}
                 onChange={handleChange}
@@ -106,7 +137,7 @@ export default function MarketCreateUI() {
                   },
                 }}
               />{" "}
-              <A.Label htmlfor="b">사진</A.Label>
+              <A.Label htmlfor="b">사진 2</A.Label>
             </div>
           </A.MainSetting>
           {/* 
