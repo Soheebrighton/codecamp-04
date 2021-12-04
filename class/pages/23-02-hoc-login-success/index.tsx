@@ -16,8 +16,6 @@ function LoginSuccessPage(props) {
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
-  // 다른페이지에 코드 복붙은 좋은 방법이 아니다.
-
   return (
     <>
       <div>로그인에 성공하였습니다!!!</div>
@@ -27,3 +25,5 @@ function LoginSuccessPage(props) {
 }
 
 export default withAuth(LoginSuccessPage);
+
+// loginSuccessPage보다 withAuth()가 먼저실행

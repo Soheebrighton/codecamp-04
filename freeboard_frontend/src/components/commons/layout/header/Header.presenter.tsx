@@ -1,20 +1,11 @@
 import * as A from "./Header.styles";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { gql, useQuery } from "@apollo/client";
-
-const FETCH_USER_LOGGED_IN = gql`
-  query fetchUserLoggedIn {
-    fetchUserLoggedIn {
-      email
-      name
-      picture
-    }
-  }
-`;
+import { useContext } from "react";
+import { GlobalContext } from "../../../../../pages/_app";
 
 export default function HeaderUI(props) {
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const { userInfo } = useContext(GlobalContext);
   return (
     <A.Header>
       <A.Wrapper>
@@ -33,9 +24,9 @@ export default function HeaderUI(props) {
         </A.Nav>
         <A.LoginBtns>
           {" "}
-          {data?.fetchUserLoggedIn.name ? (
+          {userInfo?.name ? (
             <A.User>
-              <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "}
+              <A.UserName>{userInfo?.name}님</A.UserName>{" "}
               <A.UserIcon>
                 <Avatar size="small" icon={<UserOutlined />} />
               </A.UserIcon>

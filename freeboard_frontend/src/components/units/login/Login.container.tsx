@@ -6,8 +6,8 @@ import {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../../commons/types/generated/types";
-import { LOGIN_USER } from "./Login.queries";
-import { useMutation } from "@apollo/client";
+import { LOGIN_USER, FETCH_USER_LOGGED_IN } from "./Login.queries";
+import { useApolloClient, useMutation } from "@apollo/client";
 import { GlobalContext } from "../../../../pages/_app";
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
     IMutationLoginUserArgs
   >(LOGIN_USER);
 
-  const { setAccessToken } = useContext(GlobalContext);
+  const { setAccessToken, setUserInfo } = useContext(GlobalContext);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -26,10 +26,13 @@ export default function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const client = useApolloClient();
+
   const testEmail = /\w+@\w+\.\w+/.test(inputs.email);
-  const testPassword = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
-    inputs.password
-  );
+  const testPassword =
+    /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
+      inputs.password
+    );
 
   function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
@@ -64,7 +67,20 @@ export default function Login() {
             ...inputs,
           },
         });
-        setAccessToken(result.data?.loginUser.accessToken);
+        const accessToken = result.data?.loginUser.accessToken;
+        localStorage.setItem("accessToken", accessToken || "");
+        setAccessToken?.(accessToken || "");
+
+        const resultUserInfo = await client.query({
+          query: FETCH_USER_LOGGED_IN,
+          context: {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          },
+        });
+        setUserInfo(resultUserInfo.data.fetchUserLoggedIn);
+
         router.push("/");
       } catch (error) {
         alert(error.message);
