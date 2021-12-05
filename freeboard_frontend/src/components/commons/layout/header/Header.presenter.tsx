@@ -18,7 +18,7 @@ export default function HeaderUI(props) {
           />
         </A.Logo>
         <A.Nav>
-          <A.PageBtn>SHOP</A.PageBtn>
+          <A.PageBtn onClick={props.onClickShop}>SHOP</A.PageBtn>
           <A.PageBtn onClick={props.onClickCommunity}>COMMUNITY</A.PageBtn>
           <A.PageBtn>MY PAGE</A.PageBtn>
         </A.Nav>

@@ -8,6 +8,10 @@ export default function Header() {
     router.push("/");
   }
 
+  function onClickShop() {
+    router.push("/market");
+  }
+
   function onClickCommunity() {
     router.push("/boards/list");
   }
@@ -26,6 +30,7 @@ export default function Header() {
       onClickCommunity={onClickCommunity}
       onClickSingUp={onClickSingUp}
       onClickLogIn={onClickLogIn}
+      onClickShop={onClickShop}
     />
   );
 }
