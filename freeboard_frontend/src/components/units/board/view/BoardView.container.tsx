@@ -53,7 +53,7 @@ export default function BoardView() {
 
   //splice, slice적용할 경우엔 값을 일일히 가져오면서 런타임 에러
 
-  /////// 라이크 ////////
+  // /////라이크////////
 
   async function onClickLike() {
     console.log("likes!");

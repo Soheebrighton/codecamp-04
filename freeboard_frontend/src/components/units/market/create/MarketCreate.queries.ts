@@ -12,3 +12,39 @@ export const CREATE_USEDITEM = gql`
     }
   }
 `;
+
+export const FETCH_USEDITEM = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
+      _id
+      name
+      remarks
+      contents
+      price
+      tags
+      createdAt
+      seller {
+        name
+      }
+    }
+  }
+`;
+
+export const UPDATE_USEDITEM = gql`
+  mutation updateUseditem(
+    $updateUseditemInput: UpdateUseditemInput!
+    $useditemId: ID!
+  ) {
+    updateUseditem(
+      updateUseditemInput: $updateUseditemInput
+      useditemId: $useditemId
+    ) {
+      _id
+      name
+      remarks
+      contents
+      price
+      tags
+    }
+  }
+`;

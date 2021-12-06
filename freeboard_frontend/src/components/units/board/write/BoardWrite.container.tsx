@@ -306,7 +306,6 @@ import {
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
 } from "../../../../commons/types/generated/types";
-import { removeClientSetsFromDocument } from "@apollo/client/utilities";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();

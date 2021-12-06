@@ -1,7 +1,6 @@
 import * as A from "./MarketCreate.styles";
-
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { Context } from "../../../../../pages/market/[myId]/edit";
 import Radio from "@mui/material/Radio";
 import { teal } from "@mui/material/colors";
 
@@ -11,13 +10,22 @@ export default function MarketCreateUI(props) {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const { isEdit } = useContext(Context);
   return (
     <>
       <A.Main>
         <A.Wrapper>
-          <form onSubmit={props.handleSubmit(props.onClickSubmit)}>
+          <form
+            onSubmit={
+              isEdit
+                ? props.handleSubmit(props.onClickEdit)
+                : props.handleSubmit(props.onClickSubmit)
+            }
+          >
+            {/* <form onSubmit={props.handleSubmit(props.onClickSubmit)}> */}
             <A.Title>
-              <span>상품 등록</span>
+              {isEdit && <span>상품 수정</span>}
+              {!isEdit && <span>상품 등록</span>}
             </A.Title>
             <A.Bar></A.Bar>
 
@@ -28,6 +36,7 @@ export default function MarketCreateUI(props) {
                 type="text"
                 placeholder="상품명을 작성해주세요."
                 {...props.register("name")}
+                defaultValue={props.dataForFetch?.fetchUseditem.name}
               ></A.PostTitleInput>
               <A.Error>{props.formState.errors.name?.message}</A.Error>
             </A.PostTitle>
@@ -39,6 +48,7 @@ export default function MarketCreateUI(props) {
                 type="text"
                 placeholder="상품을 한 줄로 설명해주세요."
                 {...props.register("remarks")}
+                defaultValue={props.dataForFetch?.fetchUseditem.remarks}
               ></A.PostTitleInput>
               <A.Error>{props.formState.errors.remarks?.message}</A.Error>
             </A.PostTitle>
@@ -49,6 +59,7 @@ export default function MarketCreateUI(props) {
                 type="text"
                 name="name"
                 placeholder="상품을 자세히 설명해주세요."
+                defaultValue={props.dataForFetch?.fetchUseditem.contents}
                 {...props.register("contents")}
               ></A.PostContentInput>
               <A.Error>{props.formState.errors.contents?.message}</A.Error>
@@ -60,6 +71,7 @@ export default function MarketCreateUI(props) {
                 <A.WriterName
                   type="text"
                   placeholder="판매할 상품의 가격을 입력해주세요."
+                  defaultValue={props.dataForFetch?.fetchUseditem.price}
                   {...props.register("price")}
                 ></A.WriterName>
                 <A.Error>{props.formState.errors.price?.message}</A.Error>
@@ -145,14 +157,17 @@ export default function MarketCreateUI(props) {
                 <A.Label htmlfor="b">사진 2</A.Label>
               </div>
             </A.MainSetting>
-            {/* 
-        <SubmitButton onClick={props.checkValid}>
-          등록하기
-        </SubmitButton> */}
+            {!isEdit && (
+              <A.SubmitButton>
+                <div>등록하기</div>
+              </A.SubmitButton>
+            )}
 
-            <A.SubmitButton>
-              <div>등록하기</div>
-            </A.SubmitButton>
+            {isEdit && (
+              <A.SubmitButton>
+                <div>수정하기</div>
+              </A.SubmitButton>
+            )}
           </form>
         </A.Wrapper>
       </A.Main>
