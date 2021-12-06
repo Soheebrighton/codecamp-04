@@ -81,7 +81,7 @@ export default function Login() {
         });
         setUserInfo(resultUserInfo.data.fetchUserLoggedIn);
 
-        router.push("/");
+        router.back();
       } catch (error) {
         alert(error.message);
       }

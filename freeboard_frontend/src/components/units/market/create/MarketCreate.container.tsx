@@ -9,13 +9,17 @@ import {
   UPDATE_USEDITEM,
 } from "./MarketCreate.queries";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDefaultValues } from "@apollo/client/utilities";
 
 const schema = yup.object().shape({
   name: yup.string().required("필수 입력 사항입니다."),
   remarks: yup.string().required("필수 입력 사항입니다"),
   contents: yup.string().required("필수 입력 사항입니다"),
-  price: yup.number().required("필수 입력 사항입니다"),
+  price: yup
+    .number()
+    .typeError("숫자만 입력가능합니다.")
+    .required("필수 입력 사항입니다"),
   tags: yup.string(),
 });
 
@@ -26,20 +30,23 @@ interface FormValues {
 
 export default function MarketCreate() {
   const router = useRouter();
-  const { handleSubmit, register, formState } = useForm({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
-
   const [createUseditem] = useMutation(CREATE_USEDITEM);
   const { data: dataForFetch } = useQuery(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
 
-  async function onClickSubmit(data: FormValues) {
-    console.log(data);
-    console.log(data.name);
+  const { handleSubmit, register, formState } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: dataForFetch?.fetchUseditem.name,
+      remarks: dataForFetch?.fetchUseditem.remarks,
+      contents: dataForFetch?.fetchUseditem.contents,
+      price: dataForFetch?.fetchUseditem.price,
+    },
+  });
 
+  async function onClickSubmit(data: FormValues) {
     const result = await createUseditem({
       variables: {
         createUseditemInput: {
@@ -57,10 +64,7 @@ export default function MarketCreate() {
   async function onClickEdit(data: FormValues) {
     console.log("수정됨");
 
-    // const variablesForEdit = {
-    //   updateUseditemInput: { ...data },
-    //   useditemId: router.query.myId,
-    // };
+    console.log(data.name);
 
     try {
       await updateUseditem({
