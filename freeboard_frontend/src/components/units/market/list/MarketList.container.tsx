@@ -26,7 +26,7 @@ export default function MarketList() {
       return;
     }
     const { __typename, ...newEl } = el;
-    todayItems.push(newEl);
+    todayItems.unshift(newEl);
     localStorage.setItem("todayItems", JSON.stringify(todayItems));
     console.log(el);
     router.push(`/market/${el._id}`);
