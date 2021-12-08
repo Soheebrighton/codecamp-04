@@ -24,6 +24,10 @@ export default function Header() {
     router.push("/login");
   }
 
+  function onClickMyPage() {
+    router.push("/mypage");
+  }
+
   return (
     <HeaderUI
       onClickHome={onClickHome}
@@ -31,6 +35,7 @@ export default function Header() {
       onClickSingUp={onClickSingUp}
       onClickLogIn={onClickLogIn}
       onClickShop={onClickShop}
+      onClickMyPage={onClickMyPage}
     />
   );
 }

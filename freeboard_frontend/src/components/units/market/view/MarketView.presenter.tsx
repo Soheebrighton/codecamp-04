@@ -8,6 +8,7 @@ export default function MarketViewUI(props) {
       <div>{props.data?.fetchUseditem.seller.name}</div>
       <div>{props.data?.fetchUseditem.name}</div>
       <div>{props.data?.fetchUseditem.remarks}</div>
+      <div>{props.data?.fetchUseditem.price} 포인트</div>
       {process.browser ? (
         <div
           dangerouslySetInnerHTML={{
@@ -21,6 +22,7 @@ export default function MarketViewUI(props) {
       )}
       <button onClick={props.onClickDeleteItem}>삭제하기</button>
       <button onClick={props.onClickEditItem}>수정하기</button>
+      <button onClick={props.onClickPayment}>구매하기</button>
     </>
   );
 }
