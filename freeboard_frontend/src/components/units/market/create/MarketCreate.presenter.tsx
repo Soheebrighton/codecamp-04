@@ -1,9 +1,12 @@
 import * as A from "./MarketCreate.styles";
+import "react-quill/dist/quill.snow.css";
 import { useContext, useState } from "react";
 import { Context } from "../../../../../pages/market/[myId]/edit";
 import Radio from "@mui/material/Radio";
 import { teal } from "@mui/material/colors";
+import dynamic from "next/dynamic";
 
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 export default function MarketCreateUI(props) {
   const [selectedValue, setSelectedValue] = useState("a");
 
@@ -11,6 +14,7 @@ export default function MarketCreateUI(props) {
     setSelectedValue(event.target.value);
   };
   const { isEdit } = useContext(Context);
+
   return (
     <>
       <A.Main>
@@ -55,15 +59,15 @@ export default function MarketCreateUI(props) {
 
             <A.PostContent>
               <A.Titles>상품설명</A.Titles>
-              <A.PostContentInput
-                type="text"
-                name="name"
+
+              <ReactQuill
+                onChange={props.handleChangeQuill}
                 placeholder="상품을 자세히 설명해주세요."
                 defaultValue={props.dataForFetch?.fetchUseditem.contents}
-                {...props.register("contents")}
-              ></A.PostContentInput>
-              <A.Error>{props.formState.errors.contents?.message}</A.Error>
+                style={{ height: "100%" }}
+              />
             </A.PostContent>
+            <A.Error>{props.formState.errors.contents?.message}</A.Error>
 
             <A.Writer>
               <A.WriterDiv>

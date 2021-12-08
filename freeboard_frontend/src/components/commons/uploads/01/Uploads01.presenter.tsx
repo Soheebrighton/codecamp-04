@@ -3,19 +3,14 @@ import * as A from "./Uploads01.styles";
 export default function Uploads01UI(props) {
   return (
     <>
-      {props.data?.fetchBoard.images[0] && (
+      {props.fileUrl || props.defaultFileUrl ? (
         <A.Thumbnail
           onClick={props.onClickUpload}
-          src={`https://storage.googleapis.com/${
-            props.fileUrl || props.data?.fetchBoard.images[0]
-          }`}
-        />
-      )}
-
-      {props.fileUrl ? (
-        <A.Thumbnail
-          onClick={props.onClickUpload}
-          src={`https://storage.googleapis.com/${props.fileUrl}`}
+          src={
+            props.fileUrl
+              ? `https://storage.googleapis.com/${props.fileUrl}`
+              : `https://storage.googleapis.com/${props.defaultFileUrl}`
+          }
         />
       ) : (
         <A.UploadImageBtn onClick={props.onClickUpload}>

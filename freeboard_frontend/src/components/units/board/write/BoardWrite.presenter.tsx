@@ -7,6 +7,7 @@ import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import Uploads01UI from "../../../commons/uploads/01/Uploads01.presenter";
 import Radio from "@mui/material/Radio";
 import { teal } from "@mui/material/colors";
+import { v4 as uuidv4 } from "uuid";
 
 // 스타일에서 한꺼번에 다 받기
 
@@ -139,13 +140,13 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
           <A.UploadImages>
             <A.Titles>사진첨부</A.Titles>
             <A.UploadImageDiv>
-              {props.images.map((el, index) => (
+              {props.fileUrls.map((el, index) => (
                 <Uploads01
-                  onChangeFileUrls={props.onChangeFileUrls}
-                  key={index}
+                  key={uuidv4}
                   index={index}
                   fileUrl={el}
-                  isEdit={props.isEdit}
+                  defaultFileUrl={props.data?.fetchBoard.images?.[index]}
+                  onChangeFileUrls={props.onChangeFileUrls}
                 />
               ))}
             </A.UploadImageDiv>

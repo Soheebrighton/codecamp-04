@@ -99,6 +99,7 @@ export const PostTitleInput = styled.input`
 
 export const PostContent = styled.div`
   padding-bottom: 35px;
+  height: 300px;
 `;
 
 export const PostContentInput = styled.textarea`

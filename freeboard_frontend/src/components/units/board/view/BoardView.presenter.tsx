@@ -43,13 +43,16 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
           <A.Content>
             {props.data?.fetchBoard.contents}
             <A.ImageWrapper>
-              {!props.data?.fetchBoard.images[0] && <A.Image />}
-              {props.data?.fetchBoard.images[0] && (
-                <A.Image
-                  src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[0]}`}
-                  onError={props.onErrorImage}
-                />
-              )}
+              {!props.data?.fetchBoard.images && <A.Image />}
+              {props.data?.fetchBoard.images
+                ?.filter((el: string) => el)
+                .map((el: string) => (
+                  <A.Image
+                    key={el}
+                    src={`https://storage.googleapis.com/${el}`}
+                    onError={props.onErrorImage}
+                  />
+                ))}
             </A.ImageWrapper>
             <MyYoutube url={props.data?.fetchBoard.youtubeUrl} />
           </A.Content>
@@ -60,6 +63,7 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
               </div>
               <A.LikesText>{props.data?.fetchBoard.likeCount}</A.LikesText>
             </A.Like>
+
             {/* <Dislike>
             <div>
               {" "}

@@ -10,7 +10,6 @@ import {
 } from "./MarketCreate.queries";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getDefaultValues } from "@apollo/client/utilities";
 
 const schema = yup.object().shape({
   name: yup.string().required("필수 입력 사항입니다."),
@@ -35,16 +34,16 @@ export default function MarketCreate() {
     variables: { useditemId: router.query.myId },
   });
 
-  const { handleSubmit, register, formState } = useForm({
+  const { handleSubmit, register, formState, setValue, trigger } = useForm({
     mode: "onChange",
     resolver: yupResolver(schema),
-    defaultValues: {
-      name: dataForFetch?.fetchUseditem.name,
-      remarks: dataForFetch?.fetchUseditem.remarks,
-      contents: dataForFetch?.fetchUseditem.contents,
-      price: dataForFetch?.fetchUseditem.price,
-    },
   });
+
+  function handleChangeQuill(value: String) {
+    console.log(value);
+    setValue("contents", value === "<p><br></p>" ? "" : value);
+    trigger("contents");
+  }
 
   async function onClickSubmit(data: FormValues) {
     const result = await createUseditem({
@@ -91,6 +90,7 @@ export default function MarketCreate() {
       dataForFetch={dataForFetch}
       onClickEdit={onClickEdit}
       images={images}
+      handleChangeQuill={handleChangeQuill}
     />
   );
 }
