@@ -4,7 +4,7 @@ import Header from "./header/Header.container";
 import Footer from "./footer/Footer.container";
 import { useRouter } from "next/router";
 
-const HIDDEN = ["/register", "/login"];
+const HIDDEN = ["/auth/register", "/auth/login"];
 
 export default function Layout(props) {
   const router = useRouter();

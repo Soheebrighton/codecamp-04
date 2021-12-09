@@ -134,6 +134,7 @@ export default function MarketCreateUI(props) {
 
               <div>
                 <Radio
+                  size="small"
                   checked={selectedValue === "a"}
                   onChange={handleChange}
                   value="a"
@@ -147,6 +148,7 @@ export default function MarketCreateUI(props) {
                 />{" "}
                 <A.Label htmlfor="a">사진 1</A.Label>
                 <Radio
+                  size="small"
                   checked={selectedValue === "b"}
                   onChange={handleChange}
                   value="b"

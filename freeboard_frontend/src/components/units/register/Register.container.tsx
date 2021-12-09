@@ -19,9 +19,10 @@ export default function Register() {
   const [nameError, setNameError] = useState("");
 
   const testEmail = /\w+@\w+\.\w+/.test(inputs.email);
-  const testPassword = /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
-    inputs.password
-  );
+  const testPassword =
+    /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
+      inputs.password
+    );
 
   function onChangeEmail(event) {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
@@ -70,7 +71,7 @@ export default function Register() {
             },
           },
         });
-        router.push("/login");
+        router.push("/auth/login");
       } catch (error) {
         alert(error.message);
       }
@@ -82,7 +83,7 @@ export default function Register() {
   }
 
   function onClickLogin() {
-    router.push("/login");
+    router.push("/auth/login");
   }
 
   // 비밀번호 보여주기 //

@@ -157,6 +157,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
 
             <div>
               <Radio
+                size="small"
                 checked={selectedValue === "a"}
                 onChange={handleChange}
                 value="a"
@@ -170,6 +171,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               />{" "}
               <A.Label htmlfor="a">유튜브</A.Label>
               <Radio
+                size="small"
                 checked={selectedValue === "b"}
                 onChange={handleChange}
                 value="b"

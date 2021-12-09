@@ -93,7 +93,7 @@ export default function Login() {
   }
 
   function onClickRegister() {
-    router.push("/register");
+    router.push("/auth/register");
   }
 
   // 비밀번호 보여주기 //

@@ -17,11 +17,11 @@ export default function Header() {
   }
 
   function onClickSingUp() {
-    router.push("/register");
+    router.push("/auth/register");
   }
 
   function onClickLogIn() {
-    router.push("/login");
+    router.push("/auth/login");
   }
 
   function onClickMyPage() {
