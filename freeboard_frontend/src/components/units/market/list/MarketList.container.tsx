@@ -21,10 +21,12 @@ export default function MarketList() {
         isExists = true;
       }
     });
+
     if (isExists) {
       router.push(`/market/${el._id}`);
       return;
     }
+
     const { __typename, ...newEl } = el;
     todayItems.unshift(newEl);
     localStorage.setItem("todayItems", JSON.stringify(todayItems));

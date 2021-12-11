@@ -4,18 +4,42 @@ import { UserOutlined } from "@ant-design/icons";
 import { useContext } from "react";
 import { GlobalContext } from "../../../../../pages/_app";
 
+import { useQuery, gql } from "@apollo/client";
+
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      email
+      name
+      picture
+    }
+  }
+`;
+
 export default function HeaderUI(props) {
   const { userInfo } = useContext(GlobalContext);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   return (
-    <A.Header>
+    <A.Header
+      colorChange={props.colorChange}
+      colorChangeTxt={props.colorChangeTxt}
+    >
       <A.Wrapper>
         {" "}
         <A.Logo>
-          <img
-            src="/images/logo_small.png"
-            alt="images"
-            onClick={props.onClickHome}
-          />
+          {props.colorChangeLogo ? (
+            <img
+              src="/images/logo_small.png"
+              alt="images"
+              onClick={props.onClickHome}
+            />
+          ) : (
+            <img
+              src="/images/logo_white.png"
+              alt="images"
+              onClick={props.onClickHome}
+            />
+          )}
         </A.Logo>
         <A.Nav>
           <A.PageBtn onClick={props.onClickShop}>SHOP</A.PageBtn>
@@ -24,9 +48,9 @@ export default function HeaderUI(props) {
         </A.Nav>
         <A.LoginBtns>
           {" "}
-          {userInfo?.name ? (
+          {data?.fetchUserLoggedIn.name ? (
             <A.User>
-              <A.UserName>{userInfo?.name}님</A.UserName>{" "}
+              <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "}
               <A.UserIcon>
                 <Avatar size="small" icon={<UserOutlined />} />
               </A.UserIcon>

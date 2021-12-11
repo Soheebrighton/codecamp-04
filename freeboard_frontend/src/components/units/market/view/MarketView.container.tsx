@@ -43,6 +43,7 @@ export default function MarketView() {
         },
       });
       alert("구매하셨습니다!");
+
       console.log(result);
     } catch (error) {
       alert(error.message);

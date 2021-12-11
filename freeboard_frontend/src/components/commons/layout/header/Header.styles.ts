@@ -5,9 +5,12 @@ export const Header = styled.div`
   align-items: center;
   justify-content: center;
   height: 80px;
-  background-color: white;
+  background-color: ${(props) =>
+    props.colorChange === true ? "white" : "#1dbd67"};
+  color: ${(props) => (props.colorChangeTxt === true ? "black" : "white")};
   position: sticky;
-  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.2s ease;
+  /* border-bottom: 1px solid #f5f5f5; */
   top: 0px;
   z-index: 1;
 `;
@@ -30,11 +33,13 @@ export const Nav = styled.div``;
 
 export const PageBtn = styled.span`
   font-size: 15px;
+
   padding-right: 25px;
   font-family: "Montserrat-Medium";
   cursor: pointer;
   :hover {
-    color: gray;
+    opacity: 0.6;
+    /* color: gray; */
   }
 `;
 
@@ -61,6 +66,7 @@ export const User = styled.div`
 export const UserName = styled.span`
   font-family: "myFont";
   font-weight: 600;
+  font-size: 15px;
   padding-right: 10px;
 `;
 export const UserIcon = styled.span`

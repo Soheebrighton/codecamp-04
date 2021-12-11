@@ -83,7 +83,7 @@ export default function Register() {
   }
 
   function onClickLogin() {
-    router.push("/auth/login");
+    router.replace("/auth/login");
   }
 
   // 비밀번호 보여주기 //

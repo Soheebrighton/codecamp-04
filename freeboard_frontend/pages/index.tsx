@@ -1,9 +1,9 @@
 // import Head from "next/head";
 // import Image from "next/image";
 // import styles from "../styles/Home.module.css";
-
+import HomeUI from "../src/components/units/home/Home.presenter";
 export default function Home() {
-  return <div />;
+  return <HomeUI />;
   // return (
   //   <div className={styles.container}>
   //     <Head>

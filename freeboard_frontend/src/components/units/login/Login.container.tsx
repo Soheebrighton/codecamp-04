@@ -1,6 +1,6 @@
 import LoginUI from "./Login.presenter";
 import { useRouter } from "next/router";
-import { useState, ChangeEvent, useContext } from "react";
+import { useState, ChangeEvent, useContext, useEffect } from "react";
 
 import {
   IMutation,
@@ -52,6 +52,10 @@ export default function Login() {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
+  const prev = sessionStorage.getItem("prevPath");
+
+  console.log(prev);
+
   async function onClickLogin() {
     if (!testEmail) {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
@@ -68,8 +72,11 @@ export default function Login() {
           },
         });
         const accessToken = result.data?.loginUser.accessToken;
-        localStorage.setItem("accessToken", accessToken || "");
-        setAccessToken?.(accessToken || "");
+        // localStorage.setItem("accessToken", accessToken || "");
+        // setAccessToken?.(accessToken || "");
+
+        localStorage.setItem("refreshToken", "true");
+        setAccessToken?.(result.data?.loginUser.accessToken || "");
 
         const resultUserInfo = await client.query({
           query: FETCH_USER_LOGGED_IN,
@@ -79,9 +86,9 @@ export default function Login() {
             },
           },
         });
-        setUserInfo(resultUserInfo.data.fetchUserLoggedIn);
 
-        router.back();
+        setUserInfo(resultUserInfo.data.fetchUserLoggedIn);
+        router.push(prev);
       } catch (error) {
         alert(error.message);
       }
@@ -93,7 +100,7 @@ export default function Login() {
   }
 
   function onClickRegister() {
-    router.push("/auth/register");
+    router.replace("/auth/register");
   }
 
   // 비밀번호 보여주기 //
