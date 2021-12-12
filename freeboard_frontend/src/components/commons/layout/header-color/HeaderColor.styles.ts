@@ -1,16 +1,17 @@
 import styled from "@emotion/styled";
-import Button from "@mui/material/Button";
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80px;
-  background-color: white;
-  color: black;
+  background-color: ${(props) =>
+    props.colorChange === true ? "white" : "#1dbd67"};
+  color: ${(props) => (props.colorChangeTxt === true ? "black" : "white")};
   position: sticky;
   transition: all 0.2s ease;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: ${(props) =>
+    props.bar === true ? "1px solid #f5f5f5" : "none"};
   top: 0px;
   z-index: 2;
 `;
@@ -72,13 +73,3 @@ export const UserName = styled.span`
 export const UserIcon = styled.span`
   padding-bottom: 3px;
 `;
-
-export const Btn = styled(Button)({
-  color: "black",
-  fontSize: "15px",
-  fontWeight: "600",
-  "&:hover, &.Mui-focusVisible": {
-    backgroundColor: "white",
-    opacity: "0.6",
-  },
-});

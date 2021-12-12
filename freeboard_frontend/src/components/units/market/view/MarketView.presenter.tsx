@@ -8,7 +8,7 @@ export default function MarketViewUI(props) {
       <div>{props.data?.fetchUseditem.seller.name}</div>
       <div>{props.data?.fetchUseditem.name}</div>
       <div>{props.data?.fetchUseditem.remarks}</div>
-      <div>{props.data?.fetchUseditem.price} 포인트</div>
+      <div>{props.data?.fetchUseditem.price.toLocaleString()} 포인트</div>
       {process.browser ? (
         <div
           dangerouslySetInnerHTML={{

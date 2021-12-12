@@ -5,7 +5,6 @@ export const Background = styled.div`
   justify-content: center;
 `;
 export const Wrapper = styled.div`
-  background-color: yellowgreen;
   width: 1000px;
   display: grid;
   grid-template-columns: 30% 30% 30%;
@@ -19,19 +18,32 @@ export const Row = styled.div`
 
 export const ItemDiv = styled.div`
   width: 300px;
+
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 `;
 
 export const ItemPhoto = styled.div`
-  background-color: yellow;
   height: 300px;
+
+  width: 300px;
+  overflow: hidden;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const ItemDetails = styled.div``;
 
 export const Title = styled.div`
-  height: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 0px 10px 0px;
+  width: 100%;
   cursor: pointer;
   overflow: hidden;
 `;

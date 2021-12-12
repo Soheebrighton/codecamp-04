@@ -64,7 +64,7 @@ export default function MarketList() {
   useEffect(() => {
     const todayItems = JSON.parse(localStorage.getItem("todayItems") || "[]");
     SetItems(todayItems);
-  });
+  }, []);
 
   return (
     <MarketListUI

@@ -1,10 +1,14 @@
 import * as A from "./Header.styles";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { useContext } from "react";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import { useState, useContext } from "react";
+
 import { GlobalContext } from "../../../../../pages/_app";
 
-import { useQuery, gql } from "@apollo/client";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -17,29 +21,27 @@ const FETCH_USER_LOGGED_IN = gql`
 `;
 
 export default function HeaderUI(props) {
-  const { userInfo } = useContext(GlobalContext);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = async () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <A.Header
-      colorChange={props.colorChange}
-      colorChangeTxt={props.colorChangeTxt}
-    >
+    <A.Header>
       <A.Wrapper>
         {" "}
         <A.Logo>
-          {props.colorChangeLogo ? (
-            <img
-              src="/images/logo_small.png"
-              alt="images"
-              onClick={props.onClickHome}
-            />
-          ) : (
-            <img
-              src="/images/logo_white.png"
-              alt="images"
-              onClick={props.onClickHome}
-            />
-          )}
+          <img
+            src="/images/logo_small.png"
+            alt="images"
+            onClick={props.onClickHome}
+          />
         </A.Logo>
         <A.Nav>
           <A.PageBtn onClick={props.onClickShop}>SHOP</A.PageBtn>
@@ -50,7 +52,32 @@ export default function HeaderUI(props) {
           {" "}
           {data?.fetchUserLoggedIn.name ? (
             <A.User>
-              <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "}
+              <div>
+                <A.Btn
+                  id="fade-button"
+                  aria-controls="fade-menu"
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  {data?.fetchUserLoggedIn.name}님
+                </A.Btn>
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  TransitionComponent={Fade}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+              </div>
+              {/* <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "} */}
               <A.UserIcon>
                 <Avatar size="small" icon={<UserOutlined />} />
               </A.UserIcon>
