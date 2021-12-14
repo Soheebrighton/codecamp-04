@@ -1,4 +1,8 @@
 import * as A from "./MarketList.styels";
+import InfiniteScroll from "react-infinite-scroller";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+
 export default function MarketListUI(props) {
   function onError(event) {
     event.target.src = "/images/unnamed.png";
@@ -7,41 +11,82 @@ export default function MarketListUI(props) {
     <>
       <A.Background>
         {" "}
-        <A.Wrapper>
-          {props.data?.fetchUseditems.map((el) => (
-            <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
-              <A.ItemPhoto>
-                <A.Img
-                  src={`https://storage.googleapis.com/${el.images[0]}`}
-                  onError={onError}
-                />
-              </A.ItemPhoto>
-              <A.ItemDetails>
-                <A.Title>{el.name}</A.Title>
-                <A.PriceAndPicked>
-                  <A.Price>{Number(el.price).toLocaleString()}</A.Price>
-                  <A.Picked></A.Picked>
-                </A.PriceAndPicked>
-              </A.ItemDetails>
-              {/* <span>{el.remarks}</span> */}
-              <button onClick={props.onClickAddItemToCart(el)}>
-                add to cart
-              </button>
-            </A.ItemDiv>
-          ))}
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={props.onLoadMore}
+          hasMore={true}
+        >
+          <A.Wrapper>
+            <button onClick={props.onClickCreateItem}>상품등록하기</button>
+            <button onClick={props.onClickCart}>장바구니</button>
+            {/* 베스트목록 */}
 
+            {props.dataForBest?.fetchUseditemsOfTheBest.map((el) => (
+              <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
+                <A.ItemPhoto>
+                  <A.Img
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    onError={onError}
+                  />
+                </A.ItemPhoto>
+                <A.ItemDetails>
+                  <A.Title>{el.name}</A.Title>
+                  <A.PriceAndPicked>
+                    <A.Price>{Number(el.price).toLocaleString()}</A.Price>
+                    <A.Picked>❤️ {el.pickedCount}</A.Picked>
+                  </A.PriceAndPicked>
+                </A.ItemDetails>
+              </A.ItemDiv>
+            ))}
+
+            {/* 상품목록 */}
+
+            {props.data?.fetchUseditems.map((el) => (
+              <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
+                <A.ItemPhoto>
+                  <A.Img
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    onError={onError}
+                  />
+                </A.ItemPhoto>
+                <A.ItemDetails>
+                  <A.Title>{el.name}</A.Title>
+                  <A.PriceAndPicked>
+                    <A.Price>
+                      {" "}
+                      {/* <FontAwesomeIcon
+                        icon={faCoins}
+                        color="#f1e679"
+                        style={{ fontSize: "11px", marginRight: "5px" }}
+                      /> */}
+                      {Number(el.price).toLocaleString()}
+                      <span style={{ fontSize: "15px" }}>원</span>
+                    </A.Price>
+                    <A.Picked>{el.pickedCount} 찜</A.Picked>
+                  </A.PriceAndPicked>
+                </A.ItemDetails>
+                {/* <span>{el.remarks}</span> */}
+                {/* <button
+                  onClick={props.onClickAddItemToCart(el)}
+                  style={{ border: "none", backgroundColor: "transparent" }}
+                >
+                  add to cart
+                </button> */}
+              </A.ItemDiv>
+            ))}
+          </A.Wrapper>
+        </InfiniteScroll>
+        <A.TodayWrapper>
+          {" "}
           <div>오늘 본 상품</div>
           {props.items?.map((el, index) => (
             <div key={el._id}>
               <span>{index + 1}</span>
               <span>{el.name}</span>
-              <span></span>
+              <span> </span>
             </div>
           ))}
-
-          <button onClick={props.onClickCreateItem}>상품등록하기</button>
-          <button onClick={props.onClickCart}>장바구니</button>
-        </A.Wrapper>
+        </A.TodayWrapper>
       </A.Background>
     </>
   );

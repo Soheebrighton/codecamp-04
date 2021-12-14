@@ -3,9 +3,11 @@ import {
   FETCH_USEDITEM,
   DELETE_USEDITEM,
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
+  TOGGLE_USEDITEM_PICK,
 } from "./MarketView.queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function MarketView() {
   const router = useRouter();
@@ -50,12 +52,54 @@ export default function MarketView() {
     }
   }
 
+  // 찜하기
+
+  const [toggleUseditemPick] = useMutation(TOGGLE_USEDITEM_PICK);
+
+  async function onClickPickItem() {
+    await toggleUseditemPick({
+      variables: {
+        useditemId: router.query.myId,
+      },
+      refetchQueries: [
+        {
+          query: FETCH_USEDITEM,
+          variables: { useditemId: router.query.myId },
+        },
+      ],
+    });
+  }
+
+  // 장바구니 담기
+
+  const onClickAddItemToCart = (el) => () => {
+    const carts = JSON.parse(localStorage.getItem("cart") || "[]") || [];
+
+    let isExists = false;
+    carts.forEach((cartEl) => {
+      if (el._id === cartEl._id) {
+        isExists = true;
+      }
+    });
+    if (isExists) {
+      alert("이미 장바구니에 담긴 상품입니다.");
+      return;
+    }
+
+    console.log(el.name);
+    const { __typename, ...newEl } = el;
+    carts.push(newEl);
+    localStorage.setItem("cart", JSON.stringify(carts));
+  };
+
   return (
     <MarketViewUI
       data={data}
       onClickDeleteItem={onClickDeleteItem}
       onClickEditItem={onClickEditItem}
       onClickPayment={onClickPayment}
+      onClickPickItem={onClickPickItem}
+      onClickAddItemToCart={onClickAddItemToCart}
     />
   );
 }

@@ -3,7 +3,7 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { useState, useContext } from "react";
-
+import { useRouter } from "next/router";
 import { GlobalContext } from "../../../../../pages/_app";
 
 import Menu from "@mui/material/Menu";
@@ -20,16 +20,30 @@ const FETCH_USER_LOGGED_IN = gql`
   }
 `;
 
+const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
+
 export default function HeaderUI(props) {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-
+  const [logoutUser] = useMutation(LOGOUT_USER);
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = async () => {
+  const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCloseLogout = async () => {
+    setAnchorEl(null);
+    await logoutUser();
+    localStorage.removeItem("refreshToken");
+    router.reload();
   };
 
   return (
@@ -74,7 +88,7 @@ export default function HeaderUI(props) {
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
                 </Menu>
               </div>
               {/* <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "} */}

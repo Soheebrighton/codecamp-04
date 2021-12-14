@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     .number()
     .typeError("숫자만 입력가능합니다.")
     .required("필수 입력 사항입니다"),
-  tags: yup.string(),
+  // tags: yup.string().required("필수 입력 사항입니다."),
 });
 
 interface FormValues {
@@ -33,6 +33,7 @@ export default function MarketCreate() {
   const { data: dataForFetch } = useQuery(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
+  const [tags, setTags] = useState([]);
 
   const { handleSubmit, register, formState, setValue, trigger } = useForm({
     mode: "onChange",
@@ -50,10 +51,11 @@ export default function MarketCreate() {
       variables: {
         createUseditemInput: {
           ...data,
+          tags: tags,
         },
       },
     });
-
+    console.log(result.data);
     router.push(`/market/${result.data?.createUseditem._id}`);
   }
 
@@ -91,6 +93,8 @@ export default function MarketCreate() {
       onClickEdit={onClickEdit}
       images={images}
       handleChangeQuill={handleChangeQuill}
+      tags={tags}
+      setTags={setTags}
     />
   );
 }

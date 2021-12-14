@@ -8,7 +8,20 @@ export const FETCH_USEDITEMS = gql`
       remarks
       contents
       price
+      pickedCount
       images
+    }
+  }
+`;
+
+export const FETCH_USEDITEMS_OF_THE_BEST = gql`
+  query fetchUseditemsOfTheBest {
+    fetchUseditemsOfTheBest {
+      _id
+      name
+      images
+      pickedCount
+      price
     }
   }
 `;

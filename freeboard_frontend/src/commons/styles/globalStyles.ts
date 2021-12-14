@@ -27,6 +27,11 @@ export const globalStyles = css`
   }
 
   @font-face {
+    font-family: "Montserrat-Bold";
+    src: url("/fonts/Montserrat-Bold.ttf");
+  }
+
+  @font-face {
     font-family: "Shippori";
     src: url("/fonts/ShipporiAntiqueB1-Regular.ttf");
   }

@@ -5,8 +5,30 @@ import { Context } from "../../../../../pages/market/[myId]/edit";
 import Radio from "@mui/material/Radio";
 import { teal } from "@mui/material/colors";
 import dynamic from "next/dynamic";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
+import styled from "@emotion/styled";
+
+const TagInput = styled(ReactTagInput)`
+  .react-tag-input {
+    font-size: 40px;
+  }
+  .react-tag-input__input {
+    font-size: 40px;
+  }
+  .react-tag-input__tag {
+    color: red;
+  }
+  .react-tag-input__tag__content {
+    color: red;
+    font-size: 40px;
+  }
+  .react-tag-input__tag__remove {
+  }
+`;
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 export default function MarketCreateUI(props) {
   const [selectedValue, setSelectedValue] = useState("a");
 
@@ -83,11 +105,17 @@ export default function MarketCreateUI(props) {
 
               <A.WriterDiv>
                 <A.Titles>태그입력</A.Titles>
-
+                {/* 
                 <A.WriterPassword
                   type="text"
                   placeholder="#태그 #태그 #태그"
-                ></A.WriterPassword>
+                  {...props.register("tags")}
+                ></A.WriterPassword> */}
+                <TagInput
+                  placeholder="태그를 입력하세요."
+                  tags={props.tags}
+                  onChange={(newTags) => props.setTags(newTags)}
+                />
                 <A.Error>{props.formState.errors.tags?.message}</A.Error>
               </A.WriterDiv>
             </A.Writer>
