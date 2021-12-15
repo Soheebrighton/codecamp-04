@@ -60,9 +60,13 @@ export default function MarketListUI(props) {
                         style={{ fontSize: "11px", marginRight: "5px" }}
                       /> */}
                       {Number(el.price).toLocaleString()}
-                      <span style={{ fontSize: "15px" }}>원</span>
+                      <span style={{ fontSize: "15px", paddingLeft: "2px" }}>
+                        원
+                      </span>
                     </A.Price>
-                    <A.Picked>{el.pickedCount} 찜</A.Picked>
+                    <A.Picked>
+                      {el.pickedCount} <i class="fi fi-rr-심장"></i>찜
+                    </A.Picked>
                   </A.PriceAndPicked>
                 </A.ItemDetails>
                 {/* <span>{el.remarks}</span> */}

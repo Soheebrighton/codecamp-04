@@ -52,6 +52,12 @@ export default function MarketCreate() {
         createUseditemInput: {
           ...data,
           tags: tags,
+          images: fileUrls,
+          useditemAddress: {
+            zipcode: zipcode,
+            address: address,
+            addressDetail: addressDetail,
+          },
         },
       },
     });
@@ -70,7 +76,7 @@ export default function MarketCreate() {
     try {
       await updateUseditem({
         variables: {
-          updateUseditemInput: { ...data },
+          updateUseditemInput: { ...data, images: fileUrls },
           useditemId: router.query.myId,
         },
       });
@@ -81,7 +87,47 @@ export default function MarketCreate() {
   }
 
   // 이미지 업로드
-  const [images, setImages] = useState(["", ""]);
+
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+
+  function onChangeFileUrls(fileUrl: string, index: number) {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  }
+
+  // 우편번호
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [address, setAddress] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleComplete = (data: any) => {
+    console.log(data.roadAddress);
+    // 모달 종료하기
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsModalVisible(false);
+  };
+
+  function onChangeOptionalAddress(event) {
+    setAddressDetail(event.target.value);
+  }
+
+  console.log(address, zipcode, addressDetail);
 
   return (
     <MarketCreateUI
@@ -91,10 +137,19 @@ export default function MarketCreate() {
       formState={formState}
       dataForFetch={dataForFetch}
       onClickEdit={onClickEdit}
-      images={images}
       handleChangeQuill={handleChangeQuill}
       tags={tags}
       setTags={setTags}
+      showModal={showModal}
+      isModalVisible={isModalVisible}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      handleComplete={handleComplete}
+      onChangeOptionalAddress={onChangeOptionalAddress}
+      address={address}
+      zipcode={zipcode}
+      onChangeFileUrls={onChangeFileUrls}
+      fileUrls={fileUrls}
     />
   );
 }

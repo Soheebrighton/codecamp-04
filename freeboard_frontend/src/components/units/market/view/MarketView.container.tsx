@@ -4,6 +4,7 @@ import {
   DELETE_USEDITEM,
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
   TOGGLE_USEDITEM_PICK,
+  FETCH_USER_LOGGED_IN,
 } from "./MarketView.queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -14,6 +15,10 @@ export default function MarketView() {
   const { data } = useQuery(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
+  const { data: dataForLoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const sellerId = data?.fetchUseditem.seller._id;
+  const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
 
   // 삭제하기
   const [deleteUseditem] = useMutation(DELETE_USEDITEM);
@@ -100,6 +105,8 @@ export default function MarketView() {
       onClickPayment={onClickPayment}
       onClickPickItem={onClickPickItem}
       onClickAddItemToCart={onClickAddItemToCart}
+      sellerId={sellerId}
+      myId={myId}
     />
   );
 }

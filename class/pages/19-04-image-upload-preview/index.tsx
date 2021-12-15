@@ -40,11 +40,11 @@ export default function ImageUploadPage() {
 
     const result = await uploadFile({
       variables: {
-        file: myFile,
+        file: myile,
       },
     });
 
-    setMyImages([result.data.uploadFile.url]);
+    setMyImages([result.data?.uploadFile.url]);
   }
 
   return (
