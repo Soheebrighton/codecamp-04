@@ -6,8 +6,15 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const CommentView = styled.div`
+export const CommentQandA = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   border-bottom: 1px solid #f5f5f5;
+  padding-top: 20px;
+`;
+
+export const CommentView = styled.div`
   padding-bottom: 20px;
   display: flex;
   flex-direction: row;
@@ -35,6 +42,13 @@ export const CommentViewTop = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+
+//
+//
+//
+//
+//
+
 export const CommentWriter = styled.div``;
 
 export const CommentViewRating = styled.div`
@@ -70,3 +84,5 @@ export const CommentDelete = styled.span`
     color: gray;
   }
 `;
+
+// 대댓글

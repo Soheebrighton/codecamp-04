@@ -1,6 +1,8 @@
 // import * as A from "./MarketView.styles";
 import DOMPurify from "dompurify";
 import { useEffect } from "react";
+import * as A from "./MarketView.styles";
+
 declare const window: typeof globalThis & {
   kakao: any;
 };
@@ -56,6 +58,14 @@ export default function MarketViewUI(props) {
   }, []);
   return (
     <>
+      <A.Wrapper>
+        <A.TopWrapper>
+          <A.ImgWrapper></A.ImgWrapper>
+          <A.DetailWrapper></A.DetailWrapper>
+        </A.TopWrapper>
+        <A.ContentWrapper></A.ContentWrapper>
+      </A.Wrapper>
+
       <div>{props.data?.fetchUseditem.createdAt}</div>
       <div>판매자: {props.data?.fetchUseditem.seller.name}</div>
       <div>상품명: {props.data?.fetchUseditem.name}</div>

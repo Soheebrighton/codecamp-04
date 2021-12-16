@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import * as Sentry from "@sentry/nextjs";
 import "antd/dist/antd.css";
 import {
   ApolloClient,
@@ -33,6 +34,9 @@ const firebaseConfig = {
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
 
+Sentry.init({
+  dsn: "https://94cc5f6ca564488184e2f06253f6734b@o1091865.ingest.sentry.io/6109513",
+});
 export const GlobalContext = createContext({});
 
 function MyApp({ Component, pageProps }) {

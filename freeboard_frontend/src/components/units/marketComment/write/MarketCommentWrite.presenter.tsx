@@ -15,8 +15,14 @@ export default function MarketCommentWriteUI(props) {
             <A.CommentWords>
               <span>{props.contents.length}</span>/100
             </A.CommentWords>
-            <A.CommentSubmitButton onClick={props.onClickSubmitQuestion}>
-              등록하기
+            <A.CommentSubmitButton
+              onClick={
+                !props.isEditQuestion
+                  ? props.onClickSubmitQuestion
+                  : props.onClickUpdateQuestion
+              }
+            >
+              {!props.isEditQuestion ? "등록하기" : "수정하기"}
             </A.CommentSubmitButton>
           </A.CommentBottom>
         </A.CommentWrite>

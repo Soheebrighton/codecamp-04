@@ -4,7 +4,11 @@ export default function MarketCommentListUI(props) {
   return (
     <>
       {props.data?.fetchUseditemQuestions.map((el) => (
-        <MarketCommentListUIItem key={el._id} el={el} />
+        <MarketCommentListUIItem
+          key={el._id}
+          el={el}
+          dataForUserInfo={props.dataForUserInfo}
+        />
       ))}
     </>
   );
