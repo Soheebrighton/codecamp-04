@@ -38,8 +38,6 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function MarketCreateUI(props) {
   const [selectedValue, setSelectedValue] = useState("a");
-  const [la, setLa] = useState("");
-  const [ma, setMa] = useState("");
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -89,7 +87,6 @@ export default function MarketCreateUI(props) {
 
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);
-            console.log(coords);
           }
         });
       });
@@ -187,7 +184,6 @@ export default function MarketCreateUI(props) {
                   {" "}
                   <A.AddressPostcodeInput
                     type="text"
-                    value={la}
                     placeholder="위도"
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
@@ -195,7 +191,6 @@ export default function MarketCreateUI(props) {
                   {" "}
                   <A.AddressPostcodeInput
                     type="text"
-                    value={ma}
                     placeholder="경도"
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>

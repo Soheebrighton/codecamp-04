@@ -42,3 +42,40 @@ function solution(dartResult) {
   }
   return result;
 }
+
+//
+//
+
+const bonus = ["S", "D", "T"];
+
+function solution(dartResult) {
+  const answer = [];
+  let score = "";
+  dartResult.split("").forEach((el) => {
+    if (!Number.isNaN(Number(el))) {
+      score += el;
+    } else if (bonus.includes(el)) {
+      if (el === "D") {
+        // 숫자 타입으로 변환하지 않아도 자동으로 숫자 타입으로 변환
+        score = Math.pow(score, 2);
+      } else if (el === "T") {
+        score = Math.pow(score, 3);
+      }
+      answer.push(Number(score));
+      score = "";
+    } else {
+      if (el === "#") {
+        // 아차상
+        answer[answer.length - 1] *= -1;
+      } else {
+        // 스타상
+        answer[answer.length - 1] *= 2;
+
+        if (answer.length >= 2) {
+          answer[answer.length - 2] *= 2;
+        }
+      }
+    }
+  });
+  return answer.reduce((acc, cur) => acc + cur);
+}

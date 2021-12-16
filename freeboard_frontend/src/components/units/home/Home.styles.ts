@@ -31,7 +31,7 @@ export const TextDiv = styled.div`
 
 export const Text = styled.div`
   font-weight: 600;
-  font-size: 38px;
+  font-size: 2.5rem;
   text-shadow: 0 2px 10px #108245;
 `;
 export const SubText = styled.div`

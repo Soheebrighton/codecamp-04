@@ -1,7 +1,6 @@
 // import * as A from "./MarketView.styles";
 import DOMPurify from "dompurify";
 import { useEffect } from "react";
-
 declare const window: typeof globalThis & {
   kakao: any;
 };

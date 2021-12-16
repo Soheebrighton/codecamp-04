@@ -96,6 +96,8 @@ export default function MarketCreate() {
     setFileUrls(newFileUrls);
   }
 
+  //지도
+
   // 우편번호
 
   const [isModalVisible, setIsModalVisible] = useState(false);
