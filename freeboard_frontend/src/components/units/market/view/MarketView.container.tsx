@@ -97,6 +97,9 @@ export default function MarketView() {
     localStorage.setItem("cart", JSON.stringify(carts));
   };
 
+  function onClickBuyPoint() {
+    router.push("/mypage");
+  }
   return (
     <MarketViewUI
       data={data}
@@ -107,6 +110,7 @@ export default function MarketView() {
       onClickAddItemToCart={onClickAddItemToCart}
       sellerId={sellerId}
       myId={myId}
+      onClickBuyPoint={onClickBuyPoint}
     />
   );
 }

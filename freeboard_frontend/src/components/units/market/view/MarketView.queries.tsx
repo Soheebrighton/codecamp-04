@@ -13,8 +13,11 @@ export const FETCH_USEDITEM = gql`
       images
       useditemAddress {
         address
+        lat
+        lng
       }
       createdAt
+      soldAt
       seller {
         _id
         name

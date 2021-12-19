@@ -2,6 +2,10 @@
 import DOMPurify from "dompurify";
 import { useEffect } from "react";
 import * as A from "./MarketView.styles";
+import { displayedAt } from "../../../../commons/libraries/utils";
+import { faClock, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "antd";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -18,6 +22,11 @@ export default function MarketViewUI(props) {
         const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
         const options = {
           // 지도를 생성할 때 필요한 기본 옵션
+          // center: new window.kakao.maps.LatLng(
+          //   props.data?.fetchUseditem.useditemAddress.lat,
+          //   props.data?.fetchUseditem.useditemAddress.lng || 33.450701,
+          //   126.570667
+          // ),
           center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표.
           level: 3, // 지도의 레벨(확대, 축소 정도)
         };
@@ -56,60 +65,117 @@ export default function MarketViewUI(props) {
       });
     };
   }, []);
+
+  function onChange(a, b, c) {
+    console.log(a, b, c);
+  }
+
+  const contentStyle = {
+    height: "500px",
+    width: "100%",
+    color: "#fff",
+    textAlign: "center",
+    overflow: "hidden",
+    border: "1px solid #f7f7f7",
+    borderRadius: "7px",
+  };
   return (
     <>
-      <A.Wrapper>
-        <A.TopWrapper>
-          <A.ImgWrapper></A.ImgWrapper>
-          <A.DetailWrapper></A.DetailWrapper>
-        </A.TopWrapper>
-        <A.ContentWrapper></A.ContentWrapper>
-      </A.Wrapper>
-
-      <div>{props.data?.fetchUseditem.createdAt}</div>
-      <div>판매자: {props.data?.fetchUseditem.seller.name}</div>
-      <div>상품명: {props.data?.fetchUseditem.name}</div>
-      <div>{props.data?.fetchUseditem.remarks}</div>
-      <div>
+      <A.Background>
         {" "}
-        태그:
-        {props.data?.fetchUseditem.tags.map((el) => (
-          <span key={el}>#{el} </span>
-        ))}
-      </div>
-      <div>가격: {props.data?.fetchUseditem.price.toLocaleString()} 포인트</div>
-      {process.browser ? (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              String(props.data?.fetchUseditem.contents)
-            ),
-          }}
-        />
-      ) : (
-        <div />
-      )}
-      {props.data?.fetchUseditem.images
-        ?.filter((el) => el)
-        .map((el) => (
-          <div key={el}>
-            <img src={`https://storage.googleapis.com/${el}`} />
-          </div>
-        ))}
-      <div id="map" style={{ width: "500px", height: "400px" }}></div>
-      {props.sellerId === props.myId && (
-        <>
-          <button onClick={props.onClickDeleteItem}>삭제하기</button>
-          <button onClick={props.onClickEditItem}>수정하기</button>
-        </>
-      )}
-
-      <button onClick={props.onClickPayment}>구매하기</button>
-      <button onClick={props.onClickAddItemToCart(props.data?.fetchUseditem)}>
-        add to cart
-      </button>
-      <button onClick={props.onClickPickItem}>찜하기</button>
-      <div>{props.data?.fetchUseditem.pickedCount}</div>
+        <A.Wrapper>
+          {props.sellerId === props.myId && (
+            <>
+              <A.DeleteAndEdit>
+                {" "}
+                <A.DandEBtns onClick={props.onClickDeleteItem}>
+                  삭제
+                </A.DandEBtns>
+                <A.DandEBtns onClick={props.onClickEditItem}>수정</A.DandEBtns>
+              </A.DeleteAndEdit>
+            </>
+          )}
+          <A.TopWrapper>
+            <A.ImgWrapper>
+              <Carousel afterChange={onChange}>
+                {props.data?.fetchUseditem.images
+                  ?.filter((el) => el)
+                  .map((el) => (
+                    <div key={el}>
+                      <h3 style={contentStyle}>
+                        {" "}
+                        <A.Img src={`https://storage.googleapis.com/${el}`} />
+                      </h3>
+                    </div>
+                  ))}
+              </Carousel>
+            </A.ImgWrapper>
+            <A.DetailWrapper>
+              <A.Detail>
+                <A.Name>{props.data?.fetchUseditem.name}</A.Name>
+                <A.Price>
+                  {props.data?.fetchUseditem.price.toLocaleString()}
+                </A.Price>
+                <A.Tags>
+                  {props.data?.fetchUseditem.tags.map((el) => (
+                    <A.Tag key={el}>#{el} </A.Tag>
+                  ))}
+                </A.Tags>
+                <A.CreatedAt>
+                  <FontAwesomeIcon icon={faClock} color="#cccccc" />{" "}
+                  {displayedAt(props.data?.fetchUseditem.createdAt)}
+                </A.CreatedAt>{" "}
+              </A.Detail>{" "}
+              <A.SoyPoint>
+                <A.SoyPointTxt>
+                  {" "}
+                  이 상품은 소이포인트로만 결제 가능합니다. <br />
+                  포인트가 없으세요?
+                </A.SoyPointTxt>
+                <A.BuyPointBtn onClick={props.onClickBuyPoint}>
+                  충전하기
+                </A.BuyPointBtn>
+              </A.SoyPoint>
+              <A.Btns>
+                {" "}
+                {/* <A.BuyBtn onClick={props.onClickPayment} disabled> */}
+                <A.BuyBtn onClick={props.onClickPayment}>구매하기</A.BuyBtn>
+                <A.BtnBottom>
+                  {" "}
+                  <A.PickBtn onClick={props.onClickPickItem}>
+                    <FontAwesomeIcon icon={faHeart} color="white" />
+                    <span style={{ padding: "0px 5px 0px 10px" }}>찜하기</span>
+                    {props.data?.fetchUseditem.pickedCount}
+                  </A.PickBtn>
+                  <A.CartBtn
+                    onClick={props.onClickAddItemToCart(
+                      props.data?.fetchUseditem
+                    )}
+                  >
+                    장바구니
+                  </A.CartBtn>
+                </A.BtnBottom>
+              </A.Btns>
+            </A.DetailWrapper>
+          </A.TopWrapper>
+          <A.ContentWrapper>
+            <A.Title>상품설명</A.Title>
+            <div>판매자: {props.data?.fetchUseditem.seller.name}</div>
+            {process.browser ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    String(props.data?.fetchUseditem.contents)
+                  ),
+                }}
+              />
+            ) : (
+              <div />
+            )}
+            <div id="map" style={{ width: "480px", height: "150px" }}></div>{" "}
+          </A.ContentWrapper>
+        </A.Wrapper>
+      </A.Background>
     </>
   );
 }

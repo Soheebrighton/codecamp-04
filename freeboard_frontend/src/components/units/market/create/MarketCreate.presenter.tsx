@@ -77,7 +77,8 @@ export default function MarketCreateUI(props) {
               map: map,
               position: coords,
             });
-
+            props.setLat(coords.La);
+            props.setLng(coords.Ma);
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             const infowindow = new window.kakao.maps.InfoWindow({
               content:
@@ -185,6 +186,7 @@ export default function MarketCreateUI(props) {
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="위도"
+                    value={props.lat}
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
                 <A.PostcodeSpan>
@@ -192,6 +194,7 @@ export default function MarketCreateUI(props) {
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="경도"
+                    value={props.lng}
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
               </A.PostcodeWrapper>

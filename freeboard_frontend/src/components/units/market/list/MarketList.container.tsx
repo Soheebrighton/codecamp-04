@@ -36,7 +36,7 @@ export default function MarketList() {
     todayItems.unshift(newEl);
 
     localStorage.setItem("todayItems", JSON.stringify(todayItems));
-    console.log(el);
+
     router.push(`/market/${el._id}`);
   };
 
@@ -83,6 +83,10 @@ export default function MarketList() {
     SetItems(todayItems);
   }, []);
 
+  function onClickTodayItem(event) {
+    router.push(`/market/${event.target.id}`);
+  }
+
   // 무한스크롤
 
   function onLoadMore() {
@@ -112,6 +116,7 @@ export default function MarketList() {
       dataForBest={dataForBest}
       items={items}
       onLoadMore={onLoadMore}
+      onClickTodayItem={onClickTodayItem}
     />
   );
 }

@@ -7,6 +7,8 @@ export default function MarketListUI(props) {
   function onError(event) {
     event.target.src = "/images/unnamed.png";
   }
+  console.log(props.items);
+
   return (
     <>
       <A.Background>
@@ -44,6 +46,13 @@ export default function MarketListUI(props) {
             {props.data?.fetchUseditems.map((el) => (
               <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
                 <A.ItemPhoto>
+                  {el.soldAt !== null && (
+                    <A.Sold>
+                      {" "}
+                      <div>판매완료</div>
+                    </A.Sold>
+                  )}
+
                   <A.Img
                     src={`https://storage.googleapis.com/${el.images[0]}`}
                     onError={onError}
@@ -82,13 +91,23 @@ export default function MarketListUI(props) {
         </InfiniteScroll>
         <A.TodayWrapper>
           {" "}
-          <div>오늘 본 상품</div>
+          <A.TodayTitle>오늘 본 상품</A.TodayTitle>
           {props.items?.map((el, index) => (
-            <div key={el._id}>
-              <span>{index + 1}</span>
-              <span>{el.name}</span>
-              <span> </span>
-            </div>
+            <A.TodayItemWrapper key={el._id}>
+              <A.ItemImg>
+                {" "}
+                <A.TodayImg
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                />
+              </A.ItemImg>
+              <A.ItemDetail>
+                {" "}
+                <A.TodayName id={el._id} onClick={props.onClickTodayItem}>
+                  {el.name}
+                </A.TodayName>
+                <A.TodayPrice>{el.price.toLocaleString()}</A.TodayPrice>
+              </A.ItemDetail>
+            </A.TodayItemWrapper>
           ))}
         </A.TodayWrapper>
       </A.Background>

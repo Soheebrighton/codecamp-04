@@ -54,9 +54,7 @@ export default function MarketCreate() {
           tags: tags,
           images: fileUrls,
           useditemAddress: {
-            zipcode: zipcode,
-            address: address,
-            addressDetail: addressDetail,
+            ...UseditemAddressInputs,
           },
         },
       },
@@ -76,7 +74,13 @@ export default function MarketCreate() {
     try {
       await updateUseditem({
         variables: {
-          updateUseditemInput: { ...data, images: fileUrls },
+          updateUseditemInput: {
+            ...data,
+            images: fileUrls,
+            useditemAddress: {
+              ...UseditemAddressInputs,
+            },
+          },
           useditemId: router.query.myId,
         },
       });
@@ -104,6 +108,16 @@ export default function MarketCreate() {
   const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
+
+  const UseditemAddressInputs = {
+    address: address,
+    zipcode: zipcode,
+    addressDetail: addressDetail,
+    lat: lat,
+    lng: lng,
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -152,6 +166,10 @@ export default function MarketCreate() {
       zipcode={zipcode}
       onChangeFileUrls={onChangeFileUrls}
       fileUrls={fileUrls}
+      lat={lat}
+      lng={lng}
+      setLat={setLat}
+      setLng={setLng}
     />
   );
 }
