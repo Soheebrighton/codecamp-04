@@ -41,6 +41,7 @@ export const PageBtn = styled.span`
     opacity: 0.6;
     /* color: gray; */
   }
+  z-index: 3;
 `;
 
 export const LoginBtns = styled.div``;

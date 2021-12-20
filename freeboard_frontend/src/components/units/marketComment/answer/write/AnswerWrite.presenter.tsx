@@ -12,7 +12,7 @@ export default function AnswerWriteUI(props) {
         ></A.CommentInput>
         <A.CommentBottom>
           <A.CommentWords>
-            <span>0</span>/100
+            <span>{props.contents.length}</span>/100
           </A.CommentWords>
           <A.CommentSubmitButton
             onClick={

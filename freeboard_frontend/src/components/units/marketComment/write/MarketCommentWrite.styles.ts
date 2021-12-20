@@ -1,15 +1,14 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  padding-top: 60px;
+  /* padding-top: 60px; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: #f2f6f4; */
 `;
 
 export const CommentCreate = styled.div`
-  padding: 60px;
+  padding: 0px 60px 0px 60px;
   width: 1000px;
   background-color: white;
 `;

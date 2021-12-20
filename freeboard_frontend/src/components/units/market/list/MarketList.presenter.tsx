@@ -1,7 +1,10 @@
 import * as A from "./MarketList.styels";
 import InfiniteScroll from "react-infinite-scroller";
+import { faStore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import StickyBox from "react-sticky-box";
+import SearchBars from "../../../commons/searchbars/SearchBars.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MarketListUI(props) {
   function onError(event) {
@@ -18,28 +21,47 @@ export default function MarketListUI(props) {
           loadMore={props.onLoadMore}
           hasMore={true}
         >
-          <A.Wrapper>
-            <button onClick={props.onClickCreateItem}>상품등록하기</button>
-            <button onClick={props.onClickCart}>장바구니</button>
-            {/* 베스트목록 */}
+          <A.Best>
+            <A.BestItemsTitle>베스트 상품</A.BestItemsTitle>
+            <A.BestWrapper>
+              {props.dataForBest?.fetchUseditemsOfTheBest.map((el, index) => (
+                <A.BestDiv key={el._id} onClick={props.onClickViewItem(el)}>
+                  <A.BestPhoto>
+                    <A.Label>
+                      <A.LabelTxt>{index + 1}</A.LabelTxt>
+                    </A.Label>
+                    <A.BImg
+                      src={`https://storage.googleapis.com/${el.images[0]}`}
+                      onError={onError}
+                    />{" "}
+                  </A.BestPhoto>
+                  <A.BestDetails>
+                    <A.BestTitle>{el.name}</A.BestTitle>
+                    <A.BestPriceAndPicked>
+                      <A.BestPrice>
+                        {Number(el.price).toLocaleString()}
+                      </A.BestPrice>
+                      <A.BestPicked>{el.pickedCount} 찜</A.BestPicked>
+                    </A.BestPriceAndPicked>
+                  </A.BestDetails>
+                </A.BestDiv>
+              ))}
+            </A.BestWrapper>
+          </A.Best>
 
-            {props.dataForBest?.fetchUseditemsOfTheBest.map((el) => (
-              <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
-                <A.ItemPhoto>
-                  <A.Img
-                    src={`https://storage.googleapis.com/${el.images[0]}`}
-                    onError={onError}
-                  />
-                </A.ItemPhoto>
-                <A.ItemDetails>
-                  <A.Title>{el.name}</A.Title>
-                  <A.PriceAndPicked>
-                    <A.Price>{Number(el.price).toLocaleString()}</A.Price>
-                    <A.Picked>❤️ {el.pickedCount}</A.Picked>
-                  </A.PriceAndPicked>
-                </A.ItemDetails>
-              </A.ItemDiv>
-            ))}
+          <A.ListMiddleWrapper>
+            {" "}
+            <A.CreateItemBtn onClick={props.onClickCreateItem}>
+              <FontAwesomeIcon icon={faStore} color="#cccccc" /> 상품등록
+            </A.CreateItemBtn>
+            <SearchBars
+              onChangeKeyword={props.onChangeKeyword}
+              refetch={props.refetch}
+            />{" "}
+          </A.ListMiddleWrapper>
+
+          <A.Wrapper>
+            {/* 베스트목록 */}
 
             {/* 상품목록 */}
 
@@ -59,7 +81,19 @@ export default function MarketListUI(props) {
                   />
                 </A.ItemPhoto>
                 <A.ItemDetails>
-                  <A.Title>{el.name}</A.Title>
+                  <A.Title>
+                    {el.name
+                      .replaceAll(props.keyword, `!@#$${props.keyword}!@#$`)
+                      .split("!@#$")
+                      .map((el) => (
+                        <A.TextToken
+                          key={uuidv4()}
+                          isMatched={props.keyword === el}
+                        >
+                          {el}
+                        </A.TextToken>
+                      ))}
+                  </A.Title>
                   <A.PriceAndPicked>
                     <A.Price>
                       {" "}
@@ -88,28 +122,33 @@ export default function MarketListUI(props) {
               </A.ItemDiv>
             ))}
           </A.Wrapper>
-        </InfiniteScroll>
-        <A.TodayWrapper>
-          {" "}
-          <A.TodayTitle>오늘 본 상품</A.TodayTitle>
-          {props.items?.map((el, index) => (
-            <A.TodayItemWrapper key={el._id}>
-              <A.ItemImg>
-                {" "}
-                <A.TodayImg
-                  src={`https://storage.googleapis.com/${el.images[0]}`}
-                />
-              </A.ItemImg>
-              <A.ItemDetail>
-                {" "}
-                <A.TodayName id={el._id} onClick={props.onClickTodayItem}>
-                  {el.name}
-                </A.TodayName>
-                <A.TodayPrice>{el.price.toLocaleString()}</A.TodayPrice>
-              </A.ItemDetail>
-            </A.TodayItemWrapper>
-          ))}
-        </A.TodayWrapper>
+        </InfiniteScroll>{" "}
+        <div>
+          <StickyBox offsetTop={100}>
+            <A.TodayWrapper>
+              {" "}
+              <A.TodayTitle>오늘 본 상품</A.TodayTitle>
+              {props.items?.map((el, index) => (
+                <A.TodayItemWrapper key={el._id}>
+                  <A.ItemImg>
+                    {" "}
+                    <A.TodayImg
+                      src={`https://storage.googleapis.com/${el.images[0]}`}
+                      onError={onError}
+                    />
+                  </A.ItemImg>
+                  <A.ItemDetail>
+                    {" "}
+                    <A.TodayName id={el._id} onClick={props.onClickTodayItem}>
+                      {el.name}
+                    </A.TodayName>
+                    <A.TodayPrice>{el.price.toLocaleString()}</A.TodayPrice>
+                  </A.ItemDetail>{" "}
+                </A.TodayItemWrapper>
+              ))}{" "}
+            </A.TodayWrapper>{" "}
+          </StickyBox>
+        </div>
       </A.Background>
     </>
   );

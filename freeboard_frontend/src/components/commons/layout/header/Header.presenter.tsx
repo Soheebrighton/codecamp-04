@@ -46,6 +46,11 @@ export default function HeaderUI(props) {
     router.reload();
   };
 
+  const handleCloseCart = async () => {
+    setAnchorEl(null);
+    router.push("/market/cart");
+  };
+
   return (
     <A.Header>
       <A.Wrapper>
@@ -88,6 +93,7 @@ export default function HeaderUI(props) {
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleCloseCart}>장바구니</MenuItem>
                   <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
                 </Menu>
               </div>

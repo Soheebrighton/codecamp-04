@@ -4,7 +4,6 @@ export default function MarketCommentWriteUI(props) {
   return (
     <A.Wrapper>
       <A.CommentCreate>
-        <A.CommentTop></A.CommentTop>
         <A.CommentWrite>
           <A.CommentInput
             placeholder="댓글을 입력해주세요"

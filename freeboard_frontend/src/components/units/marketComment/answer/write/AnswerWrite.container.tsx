@@ -38,6 +38,7 @@ export default function AnswerWrite(props) {
           },
         ],
       });
+      props.setIsAnswerWrite((prev) => !prev);
       console.log(result);
     } catch (error) {
       alert(error.message);
@@ -67,6 +68,7 @@ export default function AnswerWrite(props) {
       onClickUpdateAnswer={onClickUpdateAnswer}
       isEditAnswer={props.isEditAnswer}
       setIsEditAnswer={props.setIsEditAnswer}
+      contents={contents}
     />
   );
 }

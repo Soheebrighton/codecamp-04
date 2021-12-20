@@ -1,6 +1,10 @@
 import * as A from "./Home.styles";
-
+import { useRouter } from "next/router";
 export default function HomeUI() {
+  const router = useRouter();
+  function onClickMarket() {
+    router.push("/market");
+  }
   return (
     <>
       <A.Background>
@@ -14,7 +18,7 @@ export default function HomeUI() {
               소이마켓과 함께하세요.
             </A.Text>
             <A.SubText>지속가능한 소비문화를 만들어요</A.SubText>
-            <A.Button>시작하기</A.Button>
+            <A.Button onClick={onClickMarket}>시작하기</A.Button>
           </A.TextDiv>
 
           <A.Img src={"/images/background2.png"} />

@@ -25,7 +25,7 @@ export default function BannerUI() {
   return (
     <A.Banner>
       {" "}
-      <Carousel autoplay>
+      <Carousel autoplay dots={false}>
         <div>
           <h3 style={contentStyle}>
             <A.Wrapper>

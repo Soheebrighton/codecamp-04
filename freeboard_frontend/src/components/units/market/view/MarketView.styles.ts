@@ -4,14 +4,14 @@ export const Background = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 30px 30px 0px 30px;
 `;
 
 export const Wrapper = styled.div`
   width: 1000px;
   display: flex;
   flex-direction: column;
-  padding: 60px;
+  padding: 60px 60px 0px 60px;
 `;
 
 export const DeleteAndEdit = styled.div`
@@ -169,10 +169,26 @@ export const CartBtn = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
 `;
 
+export const Contents = styled.div`
+  width: 100%;
+`;
 export const Title = styled.div`
+  margin: 20px 0px 20px 0px;
   font-size: 17px;
+  color: #1dbc67;
+  text-align: center;
   font-weight: 400;
+  width: 70px;
+  /* border-bottom: 2px solid #1dbc67; */
+`;
+
+export const MapWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;

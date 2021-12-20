@@ -64,35 +64,41 @@ export default function MarketCreateUI(props) {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(props.address, function (result, status) {
-          // 정상적으로 검색이 완료됐으면
-          if (status === window.kakao.maps.services.Status.OK) {
-            const coords = new window.kakao.maps.LatLng(
-              result[0].y,
-              result[0].x
-            );
+        geocoder.addressSearch(
+          props.address ||
+            props.dataForFetch?.fetchUseditem.useditemAddress.address,
+          function (result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = new window.kakao.maps.LatLng(
+                result[0].y,
+                result[0].x
+              );
 
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            const marker = new window.kakao.maps.Marker({
-              map: map,
-              position: coords,
-            });
-            props.setLat(coords.La);
-            props.setLng(coords.Ma);
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            const infowindow = new window.kakao.maps.InfoWindow({
-              content:
-                '<div style="width:150px;text-align:center;padding:6px 0;">{}</div>',
-            });
-            infowindow.open(map, marker);
+              // 결과값으로 받은 위치를 마커로 표시합니다
+              const marker = new window.kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+              props.setLat(coords.La);
+              props.setLng(coords.Ma);
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
+              const infowindow = new window.kakao.maps.InfoWindow({
+                content:
+                  '<div style="width:150px;text-align:center;padding:6px 0;">거래장소</div>',
+              });
+              infowindow.open(map, marker);
 
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
+              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              map.setCenter(coords);
+            }
           }
-        });
+        );
       });
     };
-  }, [props.address]);
+  }, [
+    props.address || props.dataForFetch?.fetchUseditem.useditemAddress.address,
+  ]);
 
   return (
     <>
@@ -141,9 +147,8 @@ export default function MarketCreateUI(props) {
 
               <ReactQuill
                 onChange={props.handleChangeQuill}
-                placeholder="상품을 자세히 설명해주세요."
                 defaultValue={props.dataForFetch?.fetchUseditem.contents}
-                style={{ height: "100%" }}
+                // style={{ height: "100%" }}
               />
             </A.PostContent>
             <A.Error>{props.formState.errors.contents?.message}</A.Error>
@@ -169,14 +174,14 @@ export default function MarketCreateUI(props) {
                   {...props.register("tags")}
                 ></A.WriterPassword> */}
                 <TagInput
-                  placeholder="태그를 입력하세요."
+                  placeholder="태그를 입력하고 엔터키를 누르세요."
                   tags={props.tags}
                   onChange={(newTags) => props.setTags(newTags)}
                 />
                 <A.Error>{props.formState.errors.tags?.message}</A.Error>
               </A.WriterDiv>
             </A.Writer>
-            <div id="map" style={{ width: "500px", height: "400px" }}></div>
+            <div id="map" style={{ width: "100%", height: "200px" }}></div>
             <A.Address>
               <A.Titles>GPS</A.Titles>
 
@@ -186,7 +191,11 @@ export default function MarketCreateUI(props) {
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="위도"
-                    value={props.lat}
+                    value={
+                      props.lat ||
+                      props.dataForFetch?.fetchUseditem.useditemAddress.lat ||
+                      ""
+                    }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
                 <A.PostcodeSpan>
@@ -194,7 +203,11 @@ export default function MarketCreateUI(props) {
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="경도"
-                    value={props.lng}
+                    value={
+                      props.lng ||
+                      props.dataForFetch?.fetchUseditem.useditemAddress.lng ||
+                      ""
+                    }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
               </A.PostcodeWrapper>
@@ -208,18 +221,26 @@ export default function MarketCreateUI(props) {
                     type="text"
                     placeholder="00000"
                     maxLength="5"
-                    value={props.zipcode}
+                    value={
+                      props.zipcode ||
+                      props.dataForFetch?.fetchUseditem.useditemAddress
+                        .zipcode ||
+                      "000000"
+                    }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
 
-                <A.AddressPostcodeButton onClick={props.showModal}>
+                <A.AddressPostcodeButton
+                  type="button"
+                  onClick={props.onToggleModal}
+                >
                   우편번호 검색
                 </A.AddressPostcodeButton>
-                {props.isModalVisible && (
+                {props.isOpen && (
                   <Modal
                     visible={true}
-                    onOk={props.handleOk}
-                    onCancel={props.handleCancel}
+                    onOk={props.onToggleModal}
+                    onCancel={props.onToggleModal}
                   >
                     <DaumPostcode onComplete={props.handleComplete} />
                   </Modal>
@@ -229,14 +250,24 @@ export default function MarketCreateUI(props) {
               <A.Titles>주소</A.Titles>
               <A.AddressMain>
                 <A.AddressMainInput
-                  value={props.address}
+                  value={
+                    props.address ||
+                    props.dataForFetch?.fetchUseditem.useditemAddress
+                      ?.address ||
+                    ""
+                  }
                   type="text"
                 ></A.AddressMainInput>
               </A.AddressMain>
 
               <A.AddressOptional>
                 <A.AddressOptionalInput
-                  onChange={props.onChangeOptionalAddress}
+                  onChange={
+                    props.onChangeOptionalAddress ||
+                    props.dataForFetch?.fetchUseditem.useditemAddress
+                      ?.addressDetail ||
+                    ""
+                  }
                   type="text"
                 ></A.AddressOptionalInput>
               </A.AddressOptional>

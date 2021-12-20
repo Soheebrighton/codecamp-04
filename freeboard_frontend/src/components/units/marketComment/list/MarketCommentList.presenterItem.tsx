@@ -17,6 +17,7 @@ import { useState } from "react";
 import AnswerWrite from "../answer/write/AnswerWrite.container";
 import AnswerList from "../answer/list/AnswerList.container";
 import MarketCommentWrite from "../write/MarketCommentWrite.container";
+import { displayedAt } from "../../../../commons/libraries/utils";
 
 export default function MarketCommentListUIItem(props) {
   const [deleteUseditemQuestion] = useMutation(DELETE_USEDITEM_QUESTION);
@@ -69,7 +70,9 @@ export default function MarketCommentListUIItem(props) {
 
                 <A.CommentViewText>{props.el?.contents}</A.CommentViewText>
 
-                <A.CommentViewDate>{props.el?.createdAt}</A.CommentViewDate>
+                <A.CommentViewDate>
+                  {displayedAt(props.el?.createdAt)}
+                </A.CommentViewDate>
               </A.CommentViewDetails>{" "}
               <A.CommentEandD>
                 {props.el?.user._id ===
@@ -99,7 +102,10 @@ export default function MarketCommentListUIItem(props) {
             {/* 대댓글 */}
             <AnswerList usedQId={props.el?._id} />
             {isAnswerWrite && (
-              <AnswerWrite useditemQuestionId={props.el?._id} />
+              <AnswerWrite
+                useditemQuestionId={props.el?._id}
+                setIsAnswerWrite={setIsAnswerWrite}
+              />
             )}
           </A.CommentQandA>
         </A.Wrapper>

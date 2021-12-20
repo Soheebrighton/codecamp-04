@@ -8,7 +8,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 export default function MarketList() {
   const router = useRouter();
-  const { data, fetchMore } = useQuery(FETCH_USEDITEMS);
+  const { data, fetchMore, refetch } = useQuery(FETCH_USEDITEMS);
   const { data: dataForBest } = useQuery(FETCH_USEDITEMS_OF_THE_BEST);
 
   function onClickCreateItem() {
@@ -43,10 +43,10 @@ export default function MarketList() {
   useEffect(() => {
     const todayItems =
       JSON.parse(localStorage.getItem("todayItems") || "[]") || [];
-    if (todayItems.length > 5) {
+    if (todayItems.length > 3) {
       localStorage.setItem(
         "todayItems",
-        JSON.stringify(todayItems.slice(0, 5))
+        JSON.stringify(todayItems.slice(0, 3))
       );
     }
   }, []);
@@ -70,10 +70,6 @@ export default function MarketList() {
   //   carts.push(newEl);
   //   localStorage.setItem("cart", JSON.stringify(carts));
   // };
-
-  function onClickCart() {
-    router.push("/market/cart");
-  }
 
   // 오늘 본 상품
 
@@ -106,17 +102,25 @@ export default function MarketList() {
     });
   }
 
+  const [startPage, setStartPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
+
+  function onChangeKeyword(value) {
+    setKeyword(value);
+  }
   return (
     <MarketListUI
       onClickCreateItem={onClickCreateItem}
       onClickViewItem={onClickViewItem}
       // onClickAddItemToCart={onClickAddItemToCart}
-      onClickCart={onClickCart}
+      onChangeKeyword={onChangeKeyword}
       data={data}
       dataForBest={dataForBest}
       items={items}
       onLoadMore={onLoadMore}
       onClickTodayItem={onClickTodayItem}
+      refetch={refetch}
+      keyword={keyword}
     />
   );
 }

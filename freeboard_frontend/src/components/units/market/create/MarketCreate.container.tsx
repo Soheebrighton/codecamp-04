@@ -22,6 +22,18 @@ const schema = yup.object().shape({
   // tags: yup.string().required("필수 입력 사항입니다."),
 });
 
+//
+// const schema = yup.object().shape({
+//   name: yup.string().required("필수 입력 사항입니다."),
+//   remarks: yup.string().required("필수 입력 사항입니다"),
+//   contents: yup.string().required("필수 입력 사항입니다"),
+//   price: yup
+//     .number()
+//     .typeError("숫자만 입력가능합니다.")
+//     .required("필수 입력 사항입니다"),
+//   // tags: yup.string().required("필수 입력 사항입니다."),
+// });
+
 interface FormValues {
   email: string;
   password: string;
@@ -33,6 +45,11 @@ export default function MarketCreate() {
   const { data: dataForFetch } = useQuery(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
+
+  const defaultTags = dataForFetch?.fetchUseditem.tags;
+
+  console.log(defaultTags);
+
   const [tags, setTags] = useState([]);
 
   const { handleSubmit, register, formState, setValue, trigger } = useForm({
@@ -76,6 +93,7 @@ export default function MarketCreate() {
         variables: {
           updateUseditemInput: {
             ...data,
+            tags: tags,
             images: fileUrls,
             useditemAddress: {
               ...UseditemAddressInputs,
@@ -91,6 +109,11 @@ export default function MarketCreate() {
   }
 
   // 이미지 업로드
+  useEffect(() => {
+    if (dataForFetch?.fetchUseditem.images?.length) {
+      setFileUrls([...dataForFetch?.fetchUseditem.images]);
+    }
+  }, [dataForFetch]);
 
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
@@ -119,24 +142,32 @@ export default function MarketCreate() {
     lng: lng,
   };
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  // const showModal = () => {
+  //   setIsModalVisible(true);
+  // };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  // const handleOk = () => {
+  //   setIsModalVisible(false);
+  // };
+
+  // const handleCancel = () => {
+  //   setIsModalVisible(false);
+  //   setIsOpen((prev) => !prev);
+  // };
 
   const handleComplete = (data: any) => {
     console.log(data.roadAddress);
     // 모달 종료하기
     setAddress(data.address);
     setZipcode(data.zonecode);
-    setIsModalVisible(false);
+    // setIsModalVisible(false);
+    setIsOpen((prev) => !prev);
   };
 
   function onChangeOptionalAddress(event) {
@@ -156,10 +187,10 @@ export default function MarketCreate() {
       handleChangeQuill={handleChangeQuill}
       tags={tags}
       setTags={setTags}
-      showModal={showModal}
+      // showModal={showModal}
       isModalVisible={isModalVisible}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
+      // handleOk={handleOk}
+      // handleCancel={handleCancel}
       handleComplete={handleComplete}
       onChangeOptionalAddress={onChangeOptionalAddress}
       address={address}
@@ -170,6 +201,8 @@ export default function MarketCreate() {
       lng={lng}
       setLat={setLat}
       setLng={setLng}
+      onToggleModal={onToggleModal}
+      isOpen={isOpen}
     />
   );
 }
