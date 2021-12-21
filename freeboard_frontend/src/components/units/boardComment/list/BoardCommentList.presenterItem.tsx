@@ -19,6 +19,7 @@ import {
   IMutation,
   IMutationDeleteBoardCommentArgs,
 } from "../../../../commons/types/generated/types";
+import { displayedAt } from "../../../../commons/libraries/utils";
 
 export default function BoardCommentListUIItem(
   props: IBoardCommentListUIItemProps
@@ -106,7 +107,9 @@ export default function BoardCommentListUIItem(
 
               <A.CommentViewText>{props.el?.contents}</A.CommentViewText>
 
-              <A.CommentViewDate>{props.el?.createdAt}</A.CommentViewDate>
+              <A.CommentViewDate>
+                {displayedAt(props.el?.createdAt)}
+              </A.CommentViewDate>
             </A.CommentViewDetails>
             <A.CommentEandD>
               {/* <EditOutlined /> */}

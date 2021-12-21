@@ -9,8 +9,8 @@ import {
   UPDATE_USEDITEM,
 } from "./MarketCreate.queries";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../../../../../pages/market/[myId]/edit/index";
 const schema = yup.object().shape({
   name: yup.string().required("필수 입력 사항입니다."),
   remarks: yup.string().required("필수 입력 사항입니다"),
@@ -22,6 +22,16 @@ const schema = yup.object().shape({
   // tags: yup.string().required("필수 입력 사항입니다."),
 });
 
+const schemaForEdit = yup.object().shape({
+  name: yup.string(),
+  remarks: yup.string(),
+  contents: yup.string(),
+  price: yup
+    .number()
+    .typeError("숫자만 입력가능합니다.")
+    .required("필수 입력 사항입니다"),
+  // tags: yup.string().required("필수 입력 사항입니다."),
+});
 //
 // const schema = yup.object().shape({
 //   name: yup.string().required("필수 입력 사항입니다."),
@@ -46,16 +56,23 @@ export default function MarketCreate() {
     variables: { useditemId: router.query.myId },
   });
 
+  const { isEdit } = useContext(Context);
+
   const defaultTags = dataForFetch?.fetchUseditem.tags;
 
   console.log(defaultTags);
 
   const [tags, setTags] = useState([]);
 
-  const { handleSubmit, register, formState, setValue, trigger } = useForm({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
+  const { handleSubmit, register, formState, setValue, trigger, getValues } =
+    useForm({
+      mode: "onChange",
+      resolver: yupResolver(isEdit ? schemaForEdit : schema),
+      defaultValues: {
+        name: dataForFetch?.fetchUseditem.name,
+        remarks: dataForFetch?.fetchUseditem.remarks,
+      },
+    });
 
   function handleChangeQuill(value: String) {
     console.log(value);
@@ -84,10 +101,6 @@ export default function MarketCreate() {
   const [updateUseditem] = useMutation(UPDATE_USEDITEM);
 
   async function onClickEdit(data: FormValues) {
-    console.log("수정됨");
-
-    console.log(data.name);
-
     try {
       await updateUseditem({
         variables: {
@@ -123,8 +136,6 @@ export default function MarketCreate() {
     setFileUrls(newFileUrls);
   }
 
-  //지도
-
   // 우편번호
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -148,25 +159,9 @@ export default function MarketCreate() {
     setIsOpen((prev) => !prev);
   };
 
-  // const showModal = () => {
-  //   setIsModalVisible(true);
-  // };
-
-  // const handleOk = () => {
-  //   setIsModalVisible(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setIsModalVisible(false);
-  //   setIsOpen((prev) => !prev);
-  // };
-
   const handleComplete = (data: any) => {
-    console.log(data.roadAddress);
-    // 모달 종료하기
     setAddress(data.address);
     setZipcode(data.zonecode);
-    // setIsModalVisible(false);
     setIsOpen((prev) => !prev);
   };
 
@@ -187,10 +182,7 @@ export default function MarketCreate() {
       handleChangeQuill={handleChangeQuill}
       tags={tags}
       setTags={setTags}
-      // showModal={showModal}
       isModalVisible={isModalVisible}
-      // handleOk={handleOk}
-      // handleCancel={handleCancel}
       handleComplete={handleComplete}
       onChangeOptionalAddress={onChangeOptionalAddress}
       address={address}
@@ -203,6 +195,7 @@ export default function MarketCreate() {
       setLng={setLng}
       onToggleModal={onToggleModal}
       isOpen={isOpen}
+      getValues={getValues}
     />
   );
 }

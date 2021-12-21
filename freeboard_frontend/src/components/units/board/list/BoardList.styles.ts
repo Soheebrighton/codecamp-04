@@ -214,6 +214,7 @@ export const BestContent = styled.div`
 `;
 
 export const BestPhotos = styled.div`
+  width: 100%;
   height: 140px;
   background: rgb(230, 246, 184);
   background: linear-gradient(
@@ -227,6 +228,12 @@ export const BestPhotos = styled.div`
     rgba(78, 207, 127, 1) 48%,
     rgba(0, 212, 255, 1) 100%
   ); ; */
+`;
+
+export const BestImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const BestTitle = styled.div`

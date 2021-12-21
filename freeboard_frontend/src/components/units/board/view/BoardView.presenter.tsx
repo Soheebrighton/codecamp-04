@@ -12,14 +12,6 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
       <A.Main>
         <A.Wrapper>
           <A.Date>{props.date}</A.Date>{" "}
-          {/* <div>
-          {" "}
-          <FontAwesomeIcon icon={faLink} color="#c8c2fc" />
-        </div>
-        <div>
-          {" "}
-          <FontAwesomeIcon icon={faMapMarkerAlt} color="#c8c2fc" />
-        </div> */}
           <A.Writer>
             <A.Mutation>
               <A.Modify onClick={props.onClickEdit}>수정</A.Modify>
@@ -28,7 +20,6 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
             <A.Profile>
               {" "}
               <A.Name>{props.data?.fetchBoard.writer}</A.Name>{" "}
-              {/* <FontAwesomeIcon icon={faLink} color="#1dbc67" /> */}
               <A.ProfilePhoto>
                 <img
                   src="/images/icon_noprofile.png"

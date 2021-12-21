@@ -12,14 +12,17 @@ import { Modal } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import DaumPostcode from "react-daum-postcode";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import { useForm } from "react-hook-form";
 
 const TagInput = styled(ReactTagInput)`
   .react-tag-input {
     font-size: 40px;
   }
+
   .react-tag-input__input {
     font-size: 40px;
   }
+
   .react-tag-input__tag {
     color: red;
   }
@@ -147,8 +150,12 @@ export default function MarketCreateUI(props) {
 
               <ReactQuill
                 onChange={props.handleChangeQuill}
-                defaultValue={props.dataForFetch?.fetchUseditem.contents}
-                // style={{ height: "100%" }}
+                value={
+                  props.getValues("contents") ||
+                  props.dataForFetch?.fetchUseditem.contents ||
+                  ""
+                }
+                style={{ height: "100%" }}
               />
             </A.PostContent>
             <A.Error>{props.formState.errors.contents?.message}</A.Error>

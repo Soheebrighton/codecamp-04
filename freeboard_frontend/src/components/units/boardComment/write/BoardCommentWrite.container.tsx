@@ -62,12 +62,7 @@ export default function BoardCommentWrite(props) {
       await createBoardComment({
         variables: {
           createBoardCommentInput: { ...myInputs },
-          // createBoardCommentInput: {
-          //   writer: myWriter,
-          //   password: myPassword,
-          //   contents: myContents,
-          //   rating: myStar,
-          // },
+
           boardId: String(router.query.myId),
         },
         refetchQueries: [
@@ -77,6 +72,7 @@ export default function BoardCommentWrite(props) {
           },
         ],
       });
+      props.setIsEdit?.(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

@@ -6,15 +6,30 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
+import { onError } from "@apollo/client/link/error";
 
 export default function BoardListUI(props) {
+  function onErrorBestImg(event) {
+    event.target.style.display = "none";
+  }
   return (
     <A.Main>
       <A.BestList>
         {props.dataForBest?.fetchBoardsOfTheBest.map((el) => (
           <>
             <A.BestContent>
-              <A.BestPhotos></A.BestPhotos>
+              <A.BestPhotos>
+                {el.images ? (
+                  <A.BestImg
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    onError={onErrorBestImg}
+                  />
+                ) : (
+                  <div></div>
+                )}
+
+                {/* <img src={`https://storage.googleapis.com/${el}`} /> */}
+              </A.BestPhotos>
               <A.BestTitle id={el._id} onClick={props.onClickView}>
                 {el.title.length > 18
                   ? el.title.slice(0, 17) + "..."
