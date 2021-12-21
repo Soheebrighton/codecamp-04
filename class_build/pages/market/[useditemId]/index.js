@@ -7,7 +7,7 @@ export default function MarketPage(props) {
         <meta property="og:title" content={props.fetchUseditem.name} />
         {/* <meta property="og:url" content="http://soymarket.shop/" /> */}
         <meta property="og:image" content={props.fetchUseditem.images[0]} />
-        <meta property="og:description" content={props.fetchUseditem.remarks} />
+        {/* <meta property="og:description" content={props.fetchUseditem.remarks} /> */}
         ;
       </Head>
       <div>hello, this is the market page</div>
