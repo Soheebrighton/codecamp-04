@@ -37,19 +37,6 @@ export const ItemPhoto = styled.div`
   border-radius: 7px;
 `;
 
-export const Sold = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  width: 100%;
-  height: 100%;
-  background-color: #00000086;
-  color: white;
-  position: absolute;
-`;
-
 export const Img = styled.img`
   width: 100%;
   height: 100%;
@@ -61,6 +48,19 @@ export const Img = styled.img`
     transform: scale(1.2);
     transition: ease 0.2s;
   }
+`;
+
+export const Sold = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 100%;
+  height: 100%;
+  background-color: #00000086;
+  color: white;
+  position: absolute;
 `;
 
 export const ItemDetails = styled.div``;

@@ -6,7 +6,7 @@ import Footer from "./footer/Footer.container";
 import { useRouter } from "next/router";
 
 const HIDDEN = ["/auth/register", "/auth/login"];
-const HIDDEN_BANNER = ["/"];
+const HIDDEN_BANNER = ["/", "/mypage"];
 const COLOURED_HEADER = ["/"];
 
 export default function Layout(props) {

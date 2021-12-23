@@ -1,4 +1,8 @@
 import Head from "next/head";
+import * as A from "./MypagePoint.styles";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
 export default function MypagePointUI(props) {
   return (
     <>
@@ -13,9 +17,26 @@ export default function MypagePointUI(props) {
           src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
         ></script>
       </Head>
+      <A.Background>
+        <A.Wrapper>
+          <A.Profile>
+            <A.MyPhoto>
+              {" "}
+              <Avatar size={64} icon={<UserOutlined />} />
+            </A.MyPhoto>
+            <A.MyName>{props.data?.fetchUserLoggedIn.name}</A.MyName>
+            <A.EditProfile>회원정보 수정</A.EditProfile>
+          </A.Profile>
+          <A.MyPointWrapper>
+            <A.MyPointDetail>
+              {" "}
+              <div>사용가능한 포인트</div>
+              {props.data?.fetchUserLoggedIn.userPoint.amount}
+            </A.MyPointDetail>{" "}
+          </A.MyPointWrapper>
+        </A.Wrapper>
+      </A.Background>
 
-      <div>{props.data?.fetchUserLoggedIn.name}</div>
-      <div>나의 포인트 : {props.data?.fetchUserLoggedIn.userPoint.amount}</div>
       <label for="amount-select">충전 포인트:</label>
 
       <select
