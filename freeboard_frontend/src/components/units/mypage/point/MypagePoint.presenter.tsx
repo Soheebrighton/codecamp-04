@@ -21,18 +21,18 @@ export default function MypagePointUI(props) {
         <A.Wrapper>
           <A.Profile>
             <A.MyPhoto>
-              {" "}
               <Avatar size={64} icon={<UserOutlined />} />
             </A.MyPhoto>
             <A.MyName>{props.data?.fetchUserLoggedIn.name}</A.MyName>
-            <A.EditProfile>회원정보 수정</A.EditProfile>
+            <A.EditProfile onClick={props.onClickEditUser}>
+              회원정보 수정
+            </A.EditProfile>
           </A.Profile>
           <A.MyPointWrapper>
             <A.MyPointDetail>
-              {" "}
               <div>사용가능한 포인트</div>
               {props.data?.fetchUserLoggedIn.userPoint.amount}
-            </A.MyPointDetail>{" "}
+            </A.MyPointDetail>
           </A.MyPointWrapper>
         </A.Wrapper>
       </A.Background>

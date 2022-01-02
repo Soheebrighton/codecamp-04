@@ -53,10 +53,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => storePathValues, [router.asPath]);
 
-  // useEffect(() => localStorage.setItem("history", router.asPath) );
-
   function storePathValues() {
     const storage = globalThis?.sessionStorage;
+
     if (!storage) return;
     // Set the previous path as the value of the current path.
     const prevPath = storage.getItem("currentPath");

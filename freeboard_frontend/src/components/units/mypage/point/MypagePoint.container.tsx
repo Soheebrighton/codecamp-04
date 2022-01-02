@@ -1,6 +1,7 @@
 import MypagePointUI from "./MypagePoint.presenter";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -95,6 +96,12 @@ export default function MypagePoint() {
 
   // 포인트 충전 뮤테이션
 
+  const router = useRouter();
+
+  function onClickEditUser() {
+    router.push("/mypage/myprofile");
+  }
+
   return (
     <MypagePointUI
       data={data}
@@ -102,6 +109,7 @@ export default function MypagePoint() {
       onClickSelectPoint={onClickSelectPoint}
       selectList={selectList}
       setSelectedPoint={setSelectedPoint}
+      onClickEditUser={onClickEditUser}
     />
   );
 }
