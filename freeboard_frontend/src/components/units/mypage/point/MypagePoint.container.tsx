@@ -95,7 +95,7 @@ export default function MypagePoint() {
   }
 
   // 포인트 충전 뮤테이션
-
+  //
   const router = useRouter();
 
   function onClickEditUser() {
