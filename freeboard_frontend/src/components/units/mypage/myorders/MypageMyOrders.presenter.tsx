@@ -2,6 +2,7 @@ export default function MypageMyOrdersUI(props) {
   return (
     <>
       <div>
+        {/* //설명 */}
         <span>날짜</span>
         <span>내용</span>
         <span>거래 내역</span>
