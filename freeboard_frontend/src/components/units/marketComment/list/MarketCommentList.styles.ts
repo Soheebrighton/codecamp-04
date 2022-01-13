@@ -64,7 +64,6 @@ export const CommentViewDate = styled.div`
 
 export const CommentEandD = styled.div`
   width: 10%;
-  /* background-color: lightyellow; */
   display: flex;
   flex-direction: row;
   justify-content: end;
