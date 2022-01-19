@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { ISubmitButtonProps } from "./BoardWrite.types";
 
-// import styled from "styled-components";
-
 export const Title = styled.div`
   font-size: 25px;
   font-weight: 700;

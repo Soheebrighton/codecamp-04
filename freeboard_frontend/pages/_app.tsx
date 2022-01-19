@@ -111,11 +111,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <GlobalContext.Provider value={myValue}>
-      {" "}
       <ApolloProvider client={client}>
         <Global styles={globalStyles} />
         <Layout>
-          {" "}
           <Component {...pageProps} />
         </Layout>
       </ApolloProvider>
