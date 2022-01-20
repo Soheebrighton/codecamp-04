@@ -31,7 +31,9 @@ export default function MypagePointUI(props) {
           <A.MyPointWrapper>
             <A.MyPointDetail>
               <div>사용가능한 포인트</div>
-              {props.data?.fetchUserLoggedIn.userPoint.amount}
+              <A.MyPointCurrent>
+                {props.data?.fetchUserLoggedIn.userPoint.amount}
+              </A.MyPointCurrent>
             </A.MyPointDetail>
           </A.MyPointWrapper>
         </A.Wrapper>

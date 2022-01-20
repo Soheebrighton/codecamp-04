@@ -11,7 +11,7 @@ export const Background = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 1200px;
 `;
 export const Profile = styled.div`
@@ -42,9 +42,18 @@ export const EditProfile = styled.div`
   cursor: pointer;
 `;
 export const MyPointWrapper = styled.div`
-  width: 78%;
+  /* width: 78%; */
+  padding: 20px;
 `;
 
 export const MyPointDetail = styled.div`
-  background-color: yellowgreen;
+  /* background-color: yellowgreen; */
+  background-color: #f5f5f5;
+  font-size: 20px;
+  padding: 20px;
+`;
+
+export const MyPointCurrent = styled.div`
+  font-size: 50px;
+  color: #1dbc67;
 `;

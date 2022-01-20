@@ -145,8 +145,19 @@ export default function MarketViewUI(props) {
                 <A.BuyBtn onClick={props.onClickPayment}>구매하기</A.BuyBtn>
                 <A.BtnBottom>
                   {" "}
-                  <A.PickBtn onClick={props.onClickPickItem}>
-                    <FontAwesomeIcon icon={faHeart} color="white" />
+                  <A.PickBtn
+                    onClick={props.onClickPickItem}
+                    dataForPicked={props.dataForPicked}
+                    data={props.data}
+                  >
+                    {props.dataForPicked?.fetchUseditemsIPicked
+                      .map((pick) => pick._id)
+                      .includes(props.data?.fetchUseditem._id) ? (
+                      <FontAwesomeIcon icon={faHeart} color="#ff7081" />
+                    ) : (
+                      <FontAwesomeIcon icon={faHeart} color="white" />
+                    )}
+
                     <span style={{ padding: "0px 5px 0px 10px" }}>찜하기</span>
                     {props.data?.fetchUseditem.pickedCount}
                   </A.PickBtn>

@@ -24,6 +24,7 @@ export const Row = styled.div`
 export const ItemDiv = styled.div`
   width: 300px;
   display: flex;
+
   flex-direction: column;
   /* opacity: 0.4; */
   margin: 20px 0px 20px 0px;
@@ -40,7 +41,6 @@ export const ItemPhoto = styled.div`
 export const Img = styled.img`
   width: 100%;
   height: 100%;
-
   border: 1px solid #f7f7f7;
   object-fit: cover;
   :hover {
@@ -48,6 +48,32 @@ export const Img = styled.img`
     transform: scale(1.2);
     transition: ease 0.2s;
   }
+`;
+
+export const PickWrapper = styled.div`
+  position: absolute;
+  align-self: flex-end;
+  z-index: 2;
+  margin: 10px;
+  width: 35px;
+  height: 35px;
+  border: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.el._id)
+      ? "1px solid #ffffff53"
+      : "1px solid #ffffff53"};
+  border-radius: 50px;
+  background-color: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.el._id)
+      ? "#1dbc6722"
+      : "#ffffffe"};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export const Sold = styled.div`

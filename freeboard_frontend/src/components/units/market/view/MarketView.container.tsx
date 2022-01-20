@@ -5,6 +5,7 @@ import {
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
   TOGGLE_USEDITEM_PICK,
   FETCH_USER_LOGGED_IN,
+  FETCH_USEDITEMS_I_PICKED,
 } from "./MarketView.queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -16,6 +17,12 @@ export default function MarketView() {
     variables: { useditemId: router.query.myId },
   });
   const { data: dataForLoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
+
+  const { data: dataForPicked } = useQuery(FETCH_USEDITEMS_I_PICKED, {
+    variables: {
+      search: "",
+    },
+  });
 
   const sellerId = data?.fetchUseditem.seller._id;
   const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
@@ -71,6 +78,12 @@ export default function MarketView() {
           query: FETCH_USEDITEM,
           variables: { useditemId: router.query.myId },
         },
+        {
+          query: FETCH_USEDITEMS_I_PICKED,
+          variables: {
+            search: "",
+          },
+        },
       ],
     });
   }
@@ -103,6 +116,7 @@ export default function MarketView() {
   return (
     <MarketViewUI
       data={data}
+      dataForPicked={dataForPicked}
       onClickDeleteItem={onClickDeleteItem}
       onClickEditItem={onClickEditItem}
       onClickPayment={onClickPayment}

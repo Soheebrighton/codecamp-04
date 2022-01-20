@@ -1,6 +1,7 @@
 import * as A from "./MarketList.styels";
 import InfiniteScroll from "react-infinite-scroller";
-import { faStore } from "@fortawesome/free-solid-svg-icons";
+import { faStore, faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StickyBox from "react-sticky-box";
 import SearchBars from "../../../commons/searchbars/SearchBars.container";
@@ -15,7 +16,6 @@ export default function MarketListUI(props) {
   return (
     <>
       <A.Background>
-        {" "}
         <InfiniteScroll
           pageStart={0}
           loadMore={props.onLoadMore}
@@ -33,7 +33,7 @@ export default function MarketListUI(props) {
                     <A.BImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
                       onError={onError}
-                    />{" "}
+                    />
                   </A.BestPhoto>
                   <A.BestDetails>
                     <A.BestTitle>{el.name}</A.BestTitle>
@@ -50,14 +50,13 @@ export default function MarketListUI(props) {
           </A.Best>
 
           <A.ListMiddleWrapper>
-            {" "}
             <A.CreateItemBtn onClick={props.onClickCreateItem}>
               <FontAwesomeIcon icon={faStore} color="#cccccc" /> 상품등록
             </A.CreateItemBtn>
             <SearchBars
               onChangeKeyword={props.onChangeKeyword}
               refetch={props.refetch}
-            />{" "}
+            />
           </A.ListMiddleWrapper>
 
           <A.Wrapper>
@@ -66,20 +65,40 @@ export default function MarketListUI(props) {
             {/* 상품목록 */}
 
             {props.data?.fetchUseditems.map((el) => (
-              <A.ItemDiv key={el._id} onClick={props.onClickViewItem(el)}>
+              <A.ItemDiv key={el._id}>
                 <A.ItemPhoto>
                   {el.soldAt !== null && (
                     <A.Sold>
-                      {" "}
                       <div>판매완료</div>
                     </A.Sold>
                   )}
-
                   <A.Img
+                    onClick={props.onClickViewItem(el)}
                     src={`https://storage.googleapis.com/${el.images[0]}`}
                     onError={onError}
                   />
                 </A.ItemPhoto>
+                <A.PickWrapper
+                  onClick={props.onClickPick(el)}
+                  dataForPicked={props.dataForPicked}
+                  el={el}
+                >
+                  {props.dataForPicked?.fetchUseditemsIPicked
+                    .map((pick) => pick._id)
+                    .includes(el._id) ? (
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      color="#1dbc67"
+                      style={{ fontSize: "18px", textAlign: "center" }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      color="#ffffff63"
+                      style={{ fontSize: "18px", textAlign: "center" }}
+                    />
+                  )}
+                </A.PickWrapper>
                 <A.ItemDetails>
                   <A.Title>
                     {el.name
@@ -96,7 +115,6 @@ export default function MarketListUI(props) {
                   </A.Title>
                   <A.PriceAndPicked>
                     <A.Price>
-                      {" "}
                       {/* <FontAwesomeIcon
                         icon={faCoins}
                         color="#f1e679"
@@ -107,9 +125,7 @@ export default function MarketListUI(props) {
                         원
                       </span>
                     </A.Price>
-                    <A.Picked>
-                      {el.pickedCount} <i class="fi fi-rr-심장"></i>찜
-                    </A.Picked>
+                    <A.Picked>{el.pickedCount} 찜</A.Picked>
                   </A.PriceAndPicked>
                 </A.ItemDetails>
                 {/* <span>{el.remarks}</span> */}
@@ -122,31 +138,28 @@ export default function MarketListUI(props) {
               </A.ItemDiv>
             ))}
           </A.Wrapper>
-        </InfiniteScroll>{" "}
+        </InfiniteScroll>
         <div>
           <StickyBox offsetTop={100}>
             <A.TodayWrapper>
-              {" "}
               <A.TodayTitle>오늘 본 상품</A.TodayTitle>
               {props.items?.map((el, index) => (
                 <A.TodayItemWrapper key={el._id}>
                   <A.ItemImg>
-                    {" "}
                     <A.TodayImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
                       onError={onError}
                     />
                   </A.ItemImg>
                   <A.ItemDetail>
-                    {" "}
                     <A.TodayName id={el._id} onClick={props.onClickTodayItem}>
                       {el.name}
                     </A.TodayName>
                     <A.TodayPrice>{el.price.toLocaleString()}</A.TodayPrice>
-                  </A.ItemDetail>{" "}
+                  </A.ItemDetail>
                 </A.TodayItemWrapper>
-              ))}{" "}
-            </A.TodayWrapper>{" "}
+              ))}
+            </A.TodayWrapper>
           </StickyBox>
         </div>
       </A.Background>

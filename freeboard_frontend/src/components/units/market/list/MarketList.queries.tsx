@@ -26,3 +26,18 @@ export const FETCH_USEDITEMS_OF_THE_BEST = gql`
     }
   }
 `;
+
+export const TOGGLE_USEDITEM_PICK = gql`
+  mutation toggleUseditemPick($useditemId: ID!) {
+    toggleUseditemPick(useditemId: $useditemId)
+  }
+`;
+
+export const FETCH_USEDITEMS_I_PICKED = gql`
+  query fetchUseditemsIPicked($search: String) {
+    fetchUseditemsIPicked(search: $search) {
+      _id
+      name
+    }
+  }
+`;

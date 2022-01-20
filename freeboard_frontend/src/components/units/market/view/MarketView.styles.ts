@@ -150,11 +150,27 @@ export const BtnBottom = styled.div`
 `;
 export const PickBtn = styled.div`
   width: 49%;
-  color: white;
+  color: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.data?.fetchUseditem._id)
+      ? "#ff7081"
+      : "white"};
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: lightgray;
+  background-color: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.data?.fetchUseditem._id)
+      ? "white"
+      : "lightgray"};
+  border: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.data?.fetchUseditem._id)
+      ? "1px solid #ff7081"
+      : "none"};
   cursor: pointer;
 `;
 

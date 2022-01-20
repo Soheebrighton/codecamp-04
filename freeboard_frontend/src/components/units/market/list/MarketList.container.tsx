@@ -3,13 +3,42 @@ import { useRouter } from "next/router";
 import {
   FETCH_USEDITEMS,
   FETCH_USEDITEMS_OF_THE_BEST,
+  TOGGLE_USEDITEM_PICK,
+  FETCH_USEDITEMS_I_PICKED,
 } from "./MarketList.queries";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 export default function MarketList() {
   const router = useRouter();
   const { data, fetchMore, refetch } = useQuery(FETCH_USEDITEMS);
   const { data: dataForBest } = useQuery(FETCH_USEDITEMS_OF_THE_BEST);
+  const { data: dataForPicked } = useQuery(FETCH_USEDITEMS_I_PICKED, {
+    variables: {
+      search: "",
+    },
+  });
+
+  const [toggleUseditemPick] = useMutation(TOGGLE_USEDITEM_PICK);
+
+  const onClickPick = (el) => async () => {
+    await toggleUseditemPick({
+      variables: {
+        useditemId: el._id,
+      },
+      refetchQueries: [
+        {
+          query: FETCH_USEDITEMS,
+          variables: { useditemId: el._id },
+        },
+        {
+          query: FETCH_USEDITEMS_I_PICKED,
+          variables: {
+            search: "",
+          },
+        },
+      ],
+    });
+  };
 
   function onClickCreateItem() {
     router.push("/market/create");
@@ -114,7 +143,9 @@ export default function MarketList() {
       onClickViewItem={onClickViewItem}
       // onClickAddItemToCart={onClickAddItemToCart}
       onChangeKeyword={onChangeKeyword}
+      onClickPick={onClickPick}
       data={data}
+      dataForPicked={dataForPicked}
       dataForBest={dataForBest}
       items={items}
       onLoadMore={onLoadMore}
