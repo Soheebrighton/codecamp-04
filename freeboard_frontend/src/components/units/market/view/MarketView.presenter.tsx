@@ -6,12 +6,13 @@ import { displayedAt } from "../../../../commons/libraries/utils";
 import { faClock, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "antd";
+import { IPropsMarketViewUI } from "./MarketView.types";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function MarketViewUI(props) {
+export default function MarketViewUI(props: IPropsMarketViewUI) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =

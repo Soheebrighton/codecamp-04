@@ -1,6 +1,12 @@
 import MypagePointUI from "./MypagePoint.presenter";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 
 const FETCH_USER_LOGGED_IN = gql`
@@ -38,10 +44,10 @@ export default function MypagePoint() {
 
   const selectList = ["100", "200", "300", "400", "500"];
 
-  const [selectedPoint, setSelectedPoint] = useState("");
+  const [selectedPoint, setSelectedPoint] = useState<string>("");
 
   // useEffect(() => {});
-  function onClickSelectPoint(event) {
+  function onClickSelectPoint(event: any) {
     setSelectedPoint(event.target.value);
   }
 
@@ -108,7 +114,6 @@ export default function MypagePoint() {
       onClickCreatePoint={onClickCreatePoint}
       onClickSelectPoint={onClickSelectPoint}
       selectList={selectList}
-      setSelectedPoint={setSelectedPoint}
       onClickEditUser={onClickEditUser}
     />
   );

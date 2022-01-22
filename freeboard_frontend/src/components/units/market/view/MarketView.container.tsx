@@ -9,16 +9,31 @@ import {
 } from "./MarketView.queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {
+  IMutation,
+  IMutationCreatePointTransactionOfBuyingAndSellingArgs,
+  IMutationDeleteUseditemArgs,
+  IMutationToggleUseditemPickArgs,
+  IQuery,
+  IQueryFetchUseditemArgs,
+  IQueryFetchUseditemsIPickedArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function MarketView() {
   const router = useRouter();
-  const { data } = useQuery(FETCH_USEDITEM, {
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
-  const { data: dataForLoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: dataForLoggedIn } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
-  const { data: dataForPicked } = useQuery(FETCH_USEDITEMS_I_PICKED, {
+  const { data: dataForPicked } = useQuery<
+    Pick<IQuery, "fetchUseditemsIPicked">,
+    IQueryFetchUseditemsIPickedArgs
+  >(FETCH_USEDITEMS_I_PICKED, {
     variables: {
       search: "",
     },
@@ -28,7 +43,11 @@ export default function MarketView() {
   const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
 
   // 삭제하기
-  const [deleteUseditem] = useMutation(DELETE_USEDITEM);
+  const [deleteUseditem] = useMutation<
+    Pick<IMutation, "deleteUseditem">,
+    IMutationDeleteUseditemArgs
+  >(DELETE_USEDITEM);
+
   async function onClickDeleteItem() {
     try {
       await deleteUseditem({ variables: { useditemId: router.query.myId } });
@@ -39,15 +58,15 @@ export default function MarketView() {
     router.push("/market");
   }
 
-  // 수정하기
   function onClickEditItem() {
     router.push(`/market/${router.query.myId}/edit`);
   }
 
   // 구매하기
-  const [createPointTransactionOfBuyingAndSelling] = useMutation(
-    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
-  );
+  const [createPointTransactionOfBuyingAndSelling] = useMutation<
+    Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
+    IMutationCreatePointTransactionOfBuyingAndSellingArgs
+  >(CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING);
 
   async function onClickPayment() {
     try {
@@ -66,7 +85,10 @@ export default function MarketView() {
 
   // 찜하기
 
-  const [toggleUseditemPick] = useMutation(TOGGLE_USEDITEM_PICK);
+  const [toggleUseditemPick] = useMutation<
+    Pick<IMutation, "toggleUseditemPick">,
+    IMutationToggleUseditemPickArgs
+  >(TOGGLE_USEDITEM_PICK);
 
   async function onClickPickItem() {
     await toggleUseditemPick({

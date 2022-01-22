@@ -2,8 +2,9 @@ import Head from "next/head";
 import * as A from "./MypagePoint.styles";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { IPropsMypagePointUI } from "./MypagePoint.types";
 
-export default function MypagePointUI(props) {
+export default function MypagePointUI(props: IPropsMypagePointUI) {
   return (
     <>
       <Head>
@@ -39,7 +40,7 @@ export default function MypagePointUI(props) {
         </A.Wrapper>
       </A.Background>
 
-      <label for="amount-select">충전 포인트:</label>
+      <label htmlFor="amount-select">충전 포인트:</label>
 
       <select
         id="amount-select"
