@@ -1,6 +1,7 @@
 import AnswerListUIItem from "./AnswerList.presenterItem";
+import { IPropsAnswerListUI } from "./AnswerList.types";
 
-export default function AnswerListUI(props) {
+export default function AnswerListUI(props: IPropsAnswerListUI) {
   return (
     <>
       {props.data?.fetchUseditemQuestionAnswers.map((el) => (

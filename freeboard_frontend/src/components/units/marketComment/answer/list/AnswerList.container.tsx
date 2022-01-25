@@ -4,8 +4,9 @@ import {
 } from "./AnswerList.queries";
 import AnswerListUI from "./AnswerList.presenter";
 import { useQuery } from "@apollo/client";
+import { IPropsAnswerList } from "./AnswerList.types";
 
-export default function AnswerList(props) {
+export default function AnswerList(props: IPropsAnswerList) {
   const { data } = useQuery(FETCH_USEDITEM_QUESTION_ANSWERS, {
     variables: {
       useditemQuestionId: props.usedQId,

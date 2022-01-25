@@ -1,4 +1,4 @@
-import * as A from "./MarketList.styels";
+import * as A from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { faStore, faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -6,8 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StickyBox from "react-sticky-box";
 import SearchBars from "../../../commons/searchbars/SearchBars.container";
 import { v4 as uuidv4 } from "uuid";
+import { IPropsMarketListUI } from "./MarketList.types";
 
-export default function MarketListUI(props) {
+export default function MarketListUI(props: IPropsMarketListUI) {
   function onError(event) {
     event.target.src = "/images/unnamed.png";
   }
@@ -89,13 +90,13 @@ export default function MarketListUI(props) {
                     <FontAwesomeIcon
                       icon={faHeart}
                       color="#1dbc67"
-                      style={{ fontSize: "18px", textAlign: "center" }}
+                      style={{ fontSize: "15px", textAlign: "center" }}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeart}
-                      color="#ffffff63"
-                      style={{ fontSize: "18px", textAlign: "center" }}
+                      color="#ffffffa6"
+                      style={{ fontSize: "15px", textAlign: "center" }}
                     />
                   )}
                 </A.PickWrapper>

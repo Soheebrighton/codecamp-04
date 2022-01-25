@@ -18,8 +18,11 @@ import AnswerWrite from "../answer/write/AnswerWrite.container";
 import AnswerList from "../answer/list/AnswerList.container";
 import MarketCommentWrite from "../write/MarketCommentWrite.container";
 import { displayedAt } from "../../../../commons/libraries/utils";
+import { IPropsMarketCommentListUIItem } from "./MarketCommentList.types";
 
-export default function MarketCommentListUIItem(props) {
+export default function MarketCommentListUIItem(
+  props: IPropsMarketCommentListUIItem
+) {
   const [deleteUseditemQuestion] = useMutation(DELETE_USEDITEM_QUESTION);
   const router = useRouter();
   async function onClickDeleteQuestion() {
@@ -60,7 +63,6 @@ export default function MarketCommentListUIItem(props) {
           <A.CommentQandA>
             <A.CommentView>
               <A.CommentProfilePhoto>
-                {" "}
                 <Avatar size="large" icon={<UserOutlined />} />
               </A.CommentProfilePhoto>
               <A.CommentViewDetails>
@@ -73,19 +75,17 @@ export default function MarketCommentListUIItem(props) {
                 <A.CommentViewDate>
                   {displayedAt(props.el?.createdAt)}
                 </A.CommentViewDate>
-              </A.CommentViewDetails>{" "}
+              </A.CommentViewDetails>
               <A.CommentEandD>
                 {props.el?.user._id ===
                   props.dataForUserInfo?.fetchUserLoggedIn._id && (
                   <>
                     {/* <EditOutlined /> */}
                     <A.CommentEdit onClick={onClickEditQuestion}>
-                      {" "}
                       <FontAwesomeIcon icon={faEdit} color="#eeeeee" />
                     </A.CommentEdit>
                     {/* <A.CommentDelete onClick={onClickDelete}> */}
                     <A.CommentDelete onClick={onClickDeleteQuestion}>
-                      {" "}
                       <FontAwesomeIcon icon={faTrashAlt} color="#eeeeee" />
                     </A.CommentDelete>
                   </>
@@ -94,11 +94,10 @@ export default function MarketCommentListUIItem(props) {
                   style={{ paddingLeft: "10px" }}
                   onClick={onClickAnswerInput}
                 >
-                  {" "}
                   <FontAwesomeIcon icon={faCommentAlt} color="#e2e2e2" />
                 </span>
               </A.CommentEandD>
-            </A.CommentView>{" "}
+            </A.CommentView>
             {/* 대댓글 */}
             <AnswerList usedQId={props.el?._id} />
             {isAnswerWrite && (

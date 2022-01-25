@@ -1,22 +1,30 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
+import {
+  IMutation,
+  IMutationCreateUseditemQuestionAnswerArgs,
+  IMutationUpdateUseditemQuestionAnswerArgs,
+} from "../../../../../commons/types/generated/types";
 import AnswerWriteUI from "./AnswerWrite.presenter";
 import {
   CREATE_USEDITEM_QUESTION_ANSWER,
   FETCH_USEDITEM_QUESTION_ANSWERS,
   UPDATE_USEDITEM_QUESTION_ANSWER,
 } from "./AnswerWrite.queries";
+import { IPropsAnswerWrite } from "./AnswerWrite.types";
 
-export default function AnswerWrite(props) {
-  const [createUseditemQuestionAnswer] = useMutation(
-    CREATE_USEDITEM_QUESTION_ANSWER
-  );
+export default function AnswerWrite(props: IPropsAnswerWrite) {
+  const [createUseditemQuestionAnswer] = useMutation<
+    Pick<IMutation, "createUseditemQuestionAnswer">,
+    IMutationCreateUseditemQuestionAnswerArgs
+  >(CREATE_USEDITEM_QUESTION_ANSWER);
 
-  const [updateUseditemQuestionAnswer] = useMutation(
-    UPDATE_USEDITEM_QUESTION_ANSWER
-  );
+  const [updateUseditemQuestionAnswer] = useMutation<
+    Pick<IMutation, "updateUseditemQuestionAnswer">,
+    IMutationUpdateUseditemQuestionAnswerArgs
+  >(UPDATE_USEDITEM_QUESTION_ANSWER);
 
-  const [contents, setContents] = useState("");
+  const [contents, setContents] = useState<string>("");
 
   function onChangeContents(event) {
     setContents(event.target.value);

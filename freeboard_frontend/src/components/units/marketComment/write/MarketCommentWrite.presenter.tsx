@@ -1,6 +1,9 @@
 import * as A from "./MarketCommentWrite.styles";
+import { IPropsMarketCommentWriteUI } from "./MarketCommentWrite.types";
 
-export default function MarketCommentWriteUI(props) {
+export default function MarketCommentWriteUI(
+  props: IPropsMarketCommentWriteUI
+) {
   return (
     <A.Wrapper>
       <A.CommentCreate>

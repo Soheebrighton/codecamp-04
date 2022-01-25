@@ -70,7 +70,7 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
     };
   }, [props.data]);
 
-  function onChange(a, b, c) {
+  function onChange(a: any, b: any, c: any) {
     console.log(a, b, c);
   }
 
@@ -141,11 +141,9 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                 </A.BuyPointBtn>
               </A.SoyPoint>
               <A.Btns>
-                {" "}
                 {/* <A.BuyBtn onClick={props.onClickPayment} disabled> */}
                 <A.BuyBtn onClick={props.onClickPayment}>구매하기</A.BuyBtn>
                 <A.BtnBottom>
-                  {" "}
                   <A.PickBtn
                     onClick={props.onClickPickItem}
                     dataForPicked={props.dataForPicked}
@@ -189,11 +187,7 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
             )}
             <A.Title>거래장소</A.Title>
             <A.MapWrapper>
-              {" "}
-              <div
-                id="map"
-                style={{ width: "100%", height: "250px" }}
-              ></div>{" "}
+              <div id="map" style={{ width: "100%", height: "250px" }}></div>{" "}
             </A.MapWrapper>
           </A.ContentWrapper>
           <A.Title>문의하기</A.Title>

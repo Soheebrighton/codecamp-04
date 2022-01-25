@@ -8,17 +8,38 @@ import {
 } from "./MarketList.queries";
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import {
+  IQuery,
+  IMutation,
+  IMutationToggleUseditemPickArgs,
+  IQueryFetchUseditemsArgs,
+  IQueryFetchUseditemsIPickedArgs,
+} from "../../../../commons/types/generated/types";
 export default function MarketList() {
   const router = useRouter();
-  const { data, fetchMore, refetch } = useQuery(FETCH_USEDITEMS);
-  const { data: dataForBest } = useQuery(FETCH_USEDITEMS_OF_THE_BEST);
-  const { data: dataForPicked } = useQuery(FETCH_USEDITEMS_I_PICKED, {
+
+  const { data, fetchMore, refetch } = useQuery<
+    Pick<IQuery, "fetchUseditems">,
+    IQueryFetchUseditemsArgs
+  >(FETCH_USEDITEMS);
+
+  const { data: dataForBest } = useQuery<
+    Pick<IQuery, "fetchUseditemsOfTheBest">
+  >(FETCH_USEDITEMS_OF_THE_BEST);
+
+  const { data: dataForPicked } = useQuery<
+    Pick<IQuery, "fetchUseditemsIPicked">,
+    IQueryFetchUseditemsIPickedArgs
+  >(FETCH_USEDITEMS_I_PICKED, {
     variables: {
       search: "",
     },
   });
 
-  const [toggleUseditemPick] = useMutation(TOGGLE_USEDITEM_PICK);
+  const [toggleUseditemPick] = useMutation<
+    Pick<IMutation, "toggleUseditemPick">,
+    IMutationToggleUseditemPickArgs
+  >(TOGGLE_USEDITEM_PICK);
 
   const onClickPick = (el) => async () => {
     await toggleUseditemPick({
@@ -131,8 +152,8 @@ export default function MarketList() {
     });
   }
 
-  const [startPage, setStartPage] = useState(1);
-  const [keyword, setKeyword] = useState("");
+  const [startPage, setStartPage] = useState<number>(1);
+  const [keyword, setKeyword] = useState<string>("");
 
   function onChangeKeyword(value) {
     setKeyword(value);

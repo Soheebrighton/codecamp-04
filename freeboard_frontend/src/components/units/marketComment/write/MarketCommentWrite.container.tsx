@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 export default function MarketCommentWrite(props) {
   const [createUseditemQuestion] = useMutation(CREATE_USEDITEM_QUESTION);
   const [updateUseditemQuestion] = useMutation(UPDATE_USEDITEM_QUESTION);
-  const [contents, setContents] = useState("");
+  const [contents, setContents] = useState<string>("");
   const { data } = useQuery(FETCH_USEDITEM_QUESTIONS);
 
   const router = useRouter();

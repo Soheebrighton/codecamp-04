@@ -1,6 +1,8 @@
 import MarketCommentListUIItem from "./MarketCommentList.presenterItem";
 import InfiniteScroll from "react-infinite-scroller";
-export default function MarketCommentListUI(props) {
+import { IPropsMarketCommentListUI } from "./MarketCommentList.types";
+
+export default function MarketCommentListUI(props: IPropsMarketCommentListUI) {
   return (
     <>
       <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>

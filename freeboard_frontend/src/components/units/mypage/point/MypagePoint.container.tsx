@@ -1,12 +1,6 @@
 import MypagePointUI from "./MypagePoint.presenter";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import {
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 const FETCH_USER_LOGGED_IN = gql`

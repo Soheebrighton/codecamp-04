@@ -53,10 +53,10 @@ export const Img = styled.img`
 export const PickWrapper = styled.div`
   position: absolute;
   align-self: flex-end;
-  z-index: 2;
+
   margin: 10px;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border: ${(props) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
@@ -68,8 +68,8 @@ export const PickWrapper = styled.div`
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
       .includes(props.el._id)
-      ? "#1dbc6722"
-      : "#ffffffe"};
+      ? "#a2d6ba5f"
+      : "#00000014"};
   display: flex;
   justify-content: center;
   align-items: center;

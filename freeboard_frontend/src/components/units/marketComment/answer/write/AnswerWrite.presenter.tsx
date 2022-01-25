@@ -1,9 +1,9 @@
 import * as A from "./AnswerWrite.styles";
+import { IPropsAnswerWriteUI } from "./AnswerWrite.types";
 
-export default function AnswerWriteUI(props) {
+export default function AnswerWriteUI(props: IPropsAnswerWriteUI) {
   return (
     <>
-      {" "}
       <A.CommentWrite>
         <A.CommentInput
           placeholder="댓글을 입력해주세요"
