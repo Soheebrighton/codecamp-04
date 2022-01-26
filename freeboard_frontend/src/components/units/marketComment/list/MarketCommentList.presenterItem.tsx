@@ -115,6 +115,7 @@ export default function MarketCommentListUIItem(
           usedQId={props.el?._id}
           isEditQuestion={isEditQuestion}
           setIsEditQuestion={setIsEditQuestion}
+          el={props.el}
         />
       )}
     </>

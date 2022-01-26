@@ -95,7 +95,7 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeart}
-                      color="#ffffffa6"
+                      color="#ffffffc0"
                       style={{ fontSize: "15px", textAlign: "center" }}
                     />
                   )}
@@ -116,11 +116,6 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                   </A.Title>
                   <A.PriceAndPicked>
                     <A.Price>
-                      {/* <FontAwesomeIcon
-                        icon={faCoins}
-                        color="#f1e679"
-                        style={{ fontSize: "11px", marginRight: "5px" }}
-                      /> */}
                       {Number(el.price).toLocaleString()}
                       <span style={{ fontSize: "15px", paddingLeft: "2px" }}>
                         원

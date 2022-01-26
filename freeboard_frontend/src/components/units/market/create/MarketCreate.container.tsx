@@ -11,6 +11,13 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState, useContext } from "react";
 import { Context } from "../../../../../pages/market/[myId]/edit/index";
+import {
+  IMutation,
+  IMutationCreateUseditemArgs,
+  IMutationUpdateUseditemArgs,
+  IQuery,
+  IQueryFetchUseditemArgs,
+} from "../../../../commons/types/generated/types";
 const schema = yup.object().shape({
   name: yup.string().required("필수 입력 사항입니다."),
   remarks: yup.string().required("필수 입력 사항입니다"),
@@ -26,10 +33,7 @@ const schemaForEdit = yup.object().shape({
   name: yup.string(),
   remarks: yup.string(),
   contents: yup.string(),
-  price: yup
-    .number()
-    .typeError("숫자만 입력가능합니다.")
-    .required("필수 입력 사항입니다"),
+  price: yup.number().typeError("숫자만 입력가능합니다."),
   // tags: yup.string().required("필수 입력 사항입니다."),
 });
 //
@@ -51,8 +55,15 @@ interface FormValues {
 
 export default function MarketCreate() {
   const router = useRouter();
-  const [createUseditem] = useMutation(CREATE_USEDITEM);
-  const { data: dataForFetch } = useQuery(FETCH_USEDITEM, {
+  const [createUseditem] = useMutation<
+    Pick<IMutation, "createUseditem">,
+    IMutationCreateUseditemArgs
+  >(CREATE_USEDITEM);
+
+  const { data: dataForFetch } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USEDITEM, {
     variables: { useditemId: router.query.myId },
   });
 
@@ -98,7 +109,10 @@ export default function MarketCreate() {
   }
 
   // 수정하기
-  const [updateUseditem] = useMutation(UPDATE_USEDITEM);
+  const [updateUseditem] = useMutation<
+    Pick<IMutation, "updateUseditem">,
+    IMutationUpdateUseditemArgs
+  >(UPDATE_USEDITEM);
 
   async function onClickEdit(data: FormValues) {
     try {

@@ -7,8 +7,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { IPropsLoginUI } from "./Login.types";
 
-export default function LoginUI(props) {
+export default function LoginUI(props: IPropsLoginUI) {
   return (
     <>
       <A.Background>
@@ -19,7 +20,6 @@ export default function LoginUI(props) {
             <img src="/images/logo_small.png" onClick={props.onClickHome} />{" "}
           </A.Logo>
           <A.Register>
-            {" "}
             {/* <A.Input
             type="text"
             placeholder="이메일"
@@ -84,7 +84,7 @@ export default function LoginUI(props) {
             </A.InputWrapper>
             <A.RegisterBtn onClick={props.onClickLogin}>로그인</A.RegisterBtn>
             <A.SignUpBtn onClick={props.onClickRegister}>
-              아직 소이마켓 회원이 아니세요?{" "}
+              아직 소이마켓 회원이 아니세요?
               <A.SignUpText>회원가입</A.SignUpText>
             </A.SignUpBtn>
           </A.Register>

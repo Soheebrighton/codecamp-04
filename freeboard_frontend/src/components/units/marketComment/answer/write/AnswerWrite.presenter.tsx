@@ -8,6 +8,7 @@ export default function AnswerWriteUI(props: IPropsAnswerWriteUI) {
         <A.CommentInput
           placeholder="댓글을 입력해주세요"
           onChange={props.onChangeContents}
+          defaultValue={props.contents}
           maxLength={100}
         ></A.CommentInput>
         <A.CommentBottom>

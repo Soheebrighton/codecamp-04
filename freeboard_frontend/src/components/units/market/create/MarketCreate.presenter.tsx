@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import DaumPostcode from "react-daum-postcode";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import { useForm } from "react-hook-form";
+import { IPropsMarketCreateUI } from "./MarketCreate.types";
 
 const TagInput = styled(ReactTagInput)`
   .react-tag-input {
@@ -39,7 +40,7 @@ declare const window: typeof globalThis & {
 };
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function MarketCreateUI(props) {
+export default function MarketCreateUI(props: IPropsMarketCreateUI) {
   const [selectedValue, setSelectedValue] = useState("a");
 
   const handleChange = (event) => {
@@ -314,7 +315,7 @@ export default function MarketCreateUI(props) {
                     },
                   }}
                 />{" "}
-                <A.Label htmlfor="a">사진 1</A.Label>
+                <A.Label htmlFor="a">사진 1</A.Label>
                 <Radio
                   size="small"
                   checked={selectedValue === "b"}
@@ -328,7 +329,7 @@ export default function MarketCreateUI(props) {
                     },
                   }}
                 />{" "}
-                <A.Label htmlfor="b">사진 2</A.Label>
+                <A.Label htmlFor="b">사진 2</A.Label>
               </div>
             </A.MainSetting>
             {!isEdit && (

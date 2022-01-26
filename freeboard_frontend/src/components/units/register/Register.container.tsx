@@ -1,12 +1,19 @@
 import RegisterUI from "./Register.presenter";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CREATE_USER } from "./Register.queries";
 import { useMutation } from "@apollo/client";
+import {
+  IMutation,
+  IMutationCreateUserArgs,
+} from "../../../commons/types/generated/types";
 
 export default function Register() {
   const router = useRouter();
-  const [createUser] = useMutation(CREATE_USER);
+  const [createUser] = useMutation<
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -14,9 +21,9 @@ export default function Register() {
     name: "",
   });
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
 
   const testEmail = /\w+@\w+\.\w+/.test(inputs.email);
   const testPassword =
@@ -24,14 +31,14 @@ export default function Register() {
       inputs.password
     );
 
-  function onChangeEmail(event) {
+  function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
       setEmailError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
-  function onChangePassword(event) {
+  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
     if (
       /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
         event.target.value
@@ -42,7 +49,7 @@ export default function Register() {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   }
 
-  function onChangeName(event) {
+  function onChangeName(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.value) {
       setNameError("");
     }

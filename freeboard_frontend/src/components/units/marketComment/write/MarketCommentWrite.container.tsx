@@ -5,17 +5,31 @@ import {
   FETCH_USEDITEM_QUESTIONS,
   UPDATE_USEDITEM_QUESTION,
 } from "./MarketCommentWrite.queries";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
+import {
+  IMutation,
+  IMutationCreateUseditemQuestionArgs,
+  IMutationUpdateUseditemQuestionArgs,
+} from "../../../../commons/types/generated/types";
+import { IPropsMarketCommentWrite } from "./MarketCommentWrite.types";
 
-export default function MarketCommentWrite(props) {
-  const [createUseditemQuestion] = useMutation(CREATE_USEDITEM_QUESTION);
-  const [updateUseditemQuestion] = useMutation(UPDATE_USEDITEM_QUESTION);
+export default function MarketCommentWrite(props: IPropsMarketCommentWrite) {
   const [contents, setContents] = useState<string>("");
+
+  const [createUseditemQuestion] = useMutation<
+    Pick<IMutation, "createUseditemQuestion">,
+    IMutationCreateUseditemQuestionArgs
+  >(CREATE_USEDITEM_QUESTION);
+
+  const [updateUseditemQuestion] = useMutation<
+    Pick<IMutation, "updateUseditemQuestion">,
+    IMutationUpdateUseditemQuestionArgs
+  >(UPDATE_USEDITEM_QUESTION);
   const { data } = useQuery(FETCH_USEDITEM_QUESTIONS);
 
   const router = useRouter();
-  function onChangeContents(event) {
+  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
   }
 
@@ -62,6 +76,7 @@ export default function MarketCommentWrite(props) {
       isEditQuestion={props.isEditQuestion}
       setIsEditQuestion={props.setIsEditQuestion}
       onClickUpdateQuestion={onClickUpdateQuestion}
+      el={props.el}
     />
   );
 }

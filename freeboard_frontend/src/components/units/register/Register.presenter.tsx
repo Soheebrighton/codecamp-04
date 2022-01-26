@@ -6,8 +6,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { IPropsRegisterUI } from "./Register.types";
 
-export default function RegisterUI(props) {
+export default function RegisterUI(props: IPropsRegisterUI) {
   return (
     <>
       <A.Background>
@@ -18,7 +19,6 @@ export default function RegisterUI(props) {
             <img src="/images/logo_small.png" onClick={props.onClickHome} />{" "}
           </A.Logo>
           <A.Register>
-            {" "}
             <A.Title>
               WELCOME TO <A.ColorTitle>SOY.</A.ColorTitle>MARKET
             </A.Title>

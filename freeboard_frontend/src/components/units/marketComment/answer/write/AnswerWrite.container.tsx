@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   IMutation,
   IMutationCreateUseditemQuestionAnswerArgs,
@@ -26,7 +26,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
 
   const [contents, setContents] = useState<string>("");
 
-  function onChangeContents(event) {
+  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
     setContents(event.target.value);
   }
 
@@ -46,7 +46,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
           },
         ],
       });
-      props.setIsAnswerWrite((prev) => !prev);
+      props.setIsAnswerWrite((prev: boolean) => !prev);
       console.log(result);
     } catch (error) {
       alert(error.message);

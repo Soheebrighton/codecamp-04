@@ -1,6 +1,6 @@
 import LoginUI from "./Login.presenter";
 import { useRouter } from "next/router";
-import { useState, ChangeEvent, useContext, useEffect } from "react";
+import { useState, ChangeEvent, useContext } from "react";
 
 import {
   IMutation,
@@ -23,8 +23,8 @@ export default function Login() {
     password: "",
   });
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const client = useApolloClient();
 

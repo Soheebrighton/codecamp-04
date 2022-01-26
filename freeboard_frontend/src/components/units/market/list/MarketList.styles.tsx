@@ -135,7 +135,7 @@ export const TodayTitle = styled.div`
 
 export const TodayItemWrapper = styled.div`
   width: 100px;
-
+  background-color: white;
   display: flex;
   flex-direction: column;
   border: 1px solid #f5f5f5;
