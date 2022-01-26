@@ -195,7 +195,6 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
 
               <A.PostcodeWrapper>
                 <A.PostcodeSpan>
-                  {" "}
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="위도"
@@ -224,7 +223,6 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
             <A.Youtube>
               <A.PostcodeWrapper>
                 <A.PostcodeSpan>
-                  {" "}
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="00000"
@@ -314,7 +312,7 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                       color: teal["A700"],
                     },
                   }}
-                />{" "}
+                />
                 <A.Label htmlFor="a">사진 1</A.Label>
                 <Radio
                   size="small"
@@ -328,7 +326,7 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                       color: teal["A700"],
                     },
                   }}
-                />{" "}
+                />
                 <A.Label htmlFor="b">사진 2</A.Label>
               </div>
             </A.MainSetting>

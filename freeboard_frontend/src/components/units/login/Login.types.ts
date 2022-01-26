@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 
 export interface IPropsLoginUI {
   onClickHome: () => void;
@@ -6,4 +6,11 @@ export interface IPropsLoginUI {
   passwordError: string;
   onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleClickShowPassword: () => void;
+  handleMouseDownPassword: (event: MouseEvent<HTMLButtonElement>) => void;
+  values: {
+    showPassword: boolean;
+  };
+  onClickLogin: () => Promise<void>;
+  onClickRegister: () => void;
 }

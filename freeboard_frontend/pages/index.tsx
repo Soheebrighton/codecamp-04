@@ -2,7 +2,7 @@
 // import Image from "next/image";
 // import styles from "../styles/Home.module.css";
 
-import HomeUI from "../src/components/units/home/Home.presenter";
+import HomeUI from "../src/components/units/home/Home.container";
 
 export default function Home() {
   return <HomeUI />;

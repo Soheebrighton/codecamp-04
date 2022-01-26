@@ -9,7 +9,7 @@ import {
   UPDATE_USEDITEM,
 } from "./MarketCreate.queries";
 import { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, ChangeEvent } from "react";
 import { Context } from "../../../../../pages/market/[myId]/edit/index";
 import {
   IMutation,
@@ -18,6 +18,8 @@ import {
   IQuery,
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
+import { FormValues } from "./MarketCreate.types";
+
 const schema = yup.object().shape({
   name: yup.string().required("필수 입력 사항입니다."),
   remarks: yup.string().required("필수 입력 사항입니다"),
@@ -47,11 +49,6 @@ const schemaForEdit = yup.object().shape({
 //     .required("필수 입력 사항입니다"),
 //   // tags: yup.string().required("필수 입력 사항입니다."),
 // });
-
-interface FormValues {
-  email: string;
-  password: string;
-}
 
 export default function MarketCreate() {
   const router = useRouter();
@@ -104,7 +101,6 @@ export default function MarketCreate() {
         },
       },
     });
-    console.log(result.data);
     router.push(`/market/${result.data?.createUseditem._id}`);
   }
 
@@ -152,10 +148,10 @@ export default function MarketCreate() {
 
   // 우편번호
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [address, setAddress] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [address, setAddress] = useState<string>("");
+  const [zipcode, setZipcode] = useState<string>("");
+  const [addressDetail, setAddressDetail] = useState<string>("");
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
 
@@ -167,7 +163,7 @@ export default function MarketCreate() {
     lng: lng,
   };
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -179,11 +175,9 @@ export default function MarketCreate() {
     setIsOpen((prev) => !prev);
   };
 
-  function onChangeOptionalAddress(event) {
+  const onChangeOptionalAddress = (event: ChangeEvent<HTMLInputElement>) => {
     setAddressDetail(event.target.value);
-  }
-
-  console.log(address, zipcode, addressDetail);
+  };
 
   return (
     <MarketCreateUI

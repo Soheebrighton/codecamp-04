@@ -1,15 +1,7 @@
 import { IQuery } from "../../../../commons/types/generated/types";
 
-export interface IBoardDetailUIProps {
+export interface IPropsBoardViewUI {
   data?: Pick<IQuery, "fetchBoard">;
-  onClickEdit: () => void;
-  onClickDelete: () => void;
-  onClickLike: () => void;
-  onClickList: () => void;
-
-  // onClickLike: () => void;
-  // onClickDislike: () => void;
-  // onClickMoveToList: () => void;
-  // onClickMoveToUpdate: () => void;
-  // onClickDelete: () => void;
+  date: any;
+  onClickLike: () => Promise<void>;
 }

@@ -1,6 +1,6 @@
 import RegisterUI from "./Register.presenter";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 import { CREATE_USER } from "./Register.queries";
 import { useMutation } from "@apollo/client";
 import {
@@ -10,10 +10,15 @@ import {
 
 export default function Register() {
   const router = useRouter();
+
   const [createUser] = useMutation<
     Pick<IMutation, "createUser">,
     IMutationCreateUserArgs
   >(CREATE_USER);
+
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -31,14 +36,14 @@ export default function Register() {
       inputs.password
     );
 
-  function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
       setEmailError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
+  };
 
-  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     if (
       /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
         event.target.value
@@ -47,16 +52,16 @@ export default function Register() {
       setPasswordError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
+  };
 
-  function onChangeName(event: ChangeEvent<HTMLInputElement>) {
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value) {
       setNameError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
+  };
 
-  async function onClickRegister() {
+  const onClickRegister = async () => {
     if (!testEmail) {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
     }
@@ -71,7 +76,7 @@ export default function Register() {
 
     if (testEmail && testPassword && inputs.name) {
       try {
-        const result = await createUser({
+        await createUser({
           variables: {
             createUserInput: {
               ...inputs,
@@ -83,20 +88,15 @@ export default function Register() {
         alert(error.message);
       }
     }
-  }
+  };
 
-  function onClickHome() {
+  const onClickHome = () => {
     router.push("/");
-  }
+  };
 
-  function onClickLogin() {
+  const onClickLogin = () => {
     router.replace("/auth/login");
-  }
-
-  // 비밀번호 보여주기 //
-  const [values, setValues] = useState({
-    showPassword: false,
-  });
+  };
 
   const handleClickShowPassword = () => {
     setValues({
@@ -105,7 +105,7 @@ export default function Register() {
     });
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
@@ -123,7 +123,6 @@ export default function Register() {
       handleMouseDownPassword={handleMouseDownPassword}
       values={values}
       onClickLogin={onClickLogin}
-      // handleChange={handleChange}
     />
   );
 }

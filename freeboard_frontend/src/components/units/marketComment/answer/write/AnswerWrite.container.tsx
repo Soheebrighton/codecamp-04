@@ -14,6 +14,8 @@ import {
 import { IPropsAnswerWrite } from "./AnswerWrite.types";
 
 export default function AnswerWrite(props: IPropsAnswerWrite) {
+  const [contents, setContents] = useState<string>("");
+
   const [createUseditemQuestionAnswer] = useMutation<
     Pick<IMutation, "createUseditemQuestionAnswer">,
     IMutationCreateUseditemQuestionAnswerArgs
@@ -24,15 +26,13 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
     IMutationUpdateUseditemQuestionAnswerArgs
   >(UPDATE_USEDITEM_QUESTION_ANSWER);
 
-  const [contents, setContents] = useState<string>("");
-
-  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
-  }
+  };
 
-  async function AnswerWriteSubmit() {
+  const AnswerWriteSubmit = async () => {
     try {
-      const result = await createUseditemQuestionAnswer({
+      await createUseditemQuestionAnswer({
         variables: {
           createUseditemQuestionAnswerInput: {
             contents: contents,
@@ -47,13 +47,12 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
         ],
       });
       props.setIsAnswerWrite((prev: boolean) => !prev);
-      console.log(result);
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  async function onClickUpdateAnswer() {
+  const onClickUpdateAnswer = async () => {
     try {
       await updateUseditemQuestionAnswer({
         variables: {
@@ -67,7 +66,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
   return (
     <AnswerWriteUI

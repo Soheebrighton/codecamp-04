@@ -1,14 +1,18 @@
 import * as A from "./Home.styles";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
 export default function HomeUI() {
   const router = useRouter();
-  function onClickMarket() {
+
+  const onClickMarket = () => {
     router.push("/market");
-  }
+  };
+
   useEffect(() => {
     sessionStorage.setItem("prevPath", "/");
   }, []);
+
   return (
     <>
       <A.Background>

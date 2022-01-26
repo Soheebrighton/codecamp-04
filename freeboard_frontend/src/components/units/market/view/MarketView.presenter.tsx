@@ -86,12 +86,10 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
   return (
     <>
       <A.Background>
-        {" "}
         <A.Wrapper>
           {props.sellerId === props.myId && (
             <>
               <A.DeleteAndEdit>
-                {" "}
                 <A.DandEBtns onClick={props.onClickDeleteItem}>
                   삭제
                 </A.DandEBtns>
@@ -107,7 +105,6 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                   .map((el) => (
                     <div key={el}>
                       <h3 style={contentStyle}>
-                        {" "}
                         <A.Img src={`https://storage.googleapis.com/${el}`} />
                       </h3>
                     </div>
@@ -126,13 +123,12 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                   ))}
                 </A.Tags>
                 <A.CreatedAt>
-                  <FontAwesomeIcon icon={faClock} color="#cccccc" />{" "}
+                  <FontAwesomeIcon icon={faClock} color="#cccccc" />
                   {displayedAt(props.data?.fetchUseditem.createdAt)}
-                </A.CreatedAt>{" "}
-              </A.Detail>{" "}
+                </A.CreatedAt>
+              </A.Detail>
               <A.SoyPoint>
                 <A.SoyPointTxt>
-                  {" "}
                   이 상품은 소이포인트로만 결제 가능합니다. <br />
                   포인트가 없으세요?
                 </A.SoyPointTxt>
@@ -141,7 +137,6 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                 </A.BuyPointBtn>
               </A.SoyPoint>
               <A.Btns>
-                {/* <A.BuyBtn onClick={props.onClickPayment} disabled> */}
                 <A.BuyBtn onClick={props.onClickPayment}>구매하기</A.BuyBtn>
                 <A.BtnBottom>
                   <A.PickBtn
@@ -187,7 +182,7 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
             )}
             <A.Title>거래장소</A.Title>
             <A.MapWrapper>
-              <div id="map" style={{ width: "100%", height: "250px" }}></div>{" "}
+              <div id="map" style={{ width: "100%", height: "250px" }}></div>
             </A.MapWrapper>
           </A.ContentWrapper>
           <A.Title>문의하기</A.Title>

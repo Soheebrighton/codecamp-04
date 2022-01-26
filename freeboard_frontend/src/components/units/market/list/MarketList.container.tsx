@@ -61,9 +61,9 @@ export default function MarketList() {
     });
   };
 
-  function onClickCreateItem() {
+  const onClickCreateItem = () => {
     router.push("/market/create");
-  }
+  };
 
   const onClickViewItem = (el) => () => {
     const todayItems =
@@ -129,13 +129,13 @@ export default function MarketList() {
     SetItems(todayItems);
   }, []);
 
-  function onClickTodayItem(event) {
+  const onClickTodayItem = (event) => {
     router.push(`/market/${event.target.id}`);
-  }
+  };
 
   // 무한스크롤
 
-  function onLoadMore() {
+  const onLoadMore = () => {
     if (!data) return;
     fetchMore({
       variables: { page: Math.ceil(data?.fetchUseditems.length / 10) + 1 },
@@ -150,14 +150,15 @@ export default function MarketList() {
         };
       },
     });
-  }
+  };
 
   const [startPage, setStartPage] = useState<number>(1);
   const [keyword, setKeyword] = useState<string>("");
 
-  function onChangeKeyword(value) {
+  const onChangeKeyword = (value) => {
     setKeyword(value);
-  }
+  };
+
   return (
     <MarketListUI
       onClickCreateItem={onClickCreateItem}

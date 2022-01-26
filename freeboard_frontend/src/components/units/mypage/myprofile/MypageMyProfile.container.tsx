@@ -1,5 +1,9 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { ChangeEvent, useState } from "react";
+import {
+  IMutation,
+  IMutationResetUserPasswordArgs,
+} from "../../../../commons/types/generated/types";
 
 const RESET_USER_PASSWORD = gql`
   mutation resetUserPassword($password: String!) {
@@ -8,14 +12,17 @@ const RESET_USER_PASSWORD = gql`
 `;
 
 export default function MyProfile() {
-  const [resetUserPassword] = useMutation(RESET_USER_PASSWORD);
-  const [password, setPassword] = useState("");
+  const [resetUserPassword] = useMutation<
+    Pick<IMutation, "resetUserPassword">,
+    IMutationResetUserPasswordArgs
+  >(RESET_USER_PASSWORD);
+  const [password, setPassword] = useState<string>("");
 
-  function onChangeResetPassword(event) {
+  const onChangeResetPassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-  }
+  };
 
-  async function onClickResetPassword() {
+  const onClickResetPassword = async () => {
     try {
       await resetUserPassword({
         variables: {
@@ -25,7 +32,7 @@ export default function MyProfile() {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
   return (
     <>

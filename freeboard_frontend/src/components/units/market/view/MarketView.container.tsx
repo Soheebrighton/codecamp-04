@@ -112,11 +112,11 @@ export default function MarketView() {
 
   // 장바구니 담기
 
-  const onClickAddItemToCart = (el) => () => {
+  const onClickAddItemToCart = (el: any) => () => {
     const carts = JSON.parse(localStorage.getItem("cart") || "[]") || [];
 
     let isExists = false;
-    carts.forEach((cartEl) => {
+    carts.forEach((cartEl: any) => {
       if (el._id === cartEl._id) {
         isExists = true;
       }
@@ -132,9 +132,10 @@ export default function MarketView() {
     localStorage.setItem("cart", JSON.stringify(carts));
   };
 
-  function onClickBuyPoint() {
+  const onClickBuyPoint = () => {
     router.push("/mypage");
-  }
+  };
+
   return (
     <MarketViewUI
       data={data}

@@ -2,7 +2,10 @@ import { ChangeEvent } from "react";
 
 export interface IPropsAnswerWrite {
   isEditAnswer: boolean;
-  setIsEditAnswer: boolean;
+  setIsEditAnswer: any;
+  setIsAnswerWrite: any;
+  useditemQuestionId: string;
+  useditemAId: string;
 }
 
 export interface IPropsAnswerWriteUI {
@@ -11,5 +14,4 @@ export interface IPropsAnswerWriteUI {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   isEditAnswer: boolean;
   contents: string;
-  setIsEditAnswer: boolean;
 }

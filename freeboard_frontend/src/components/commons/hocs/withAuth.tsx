@@ -13,7 +13,7 @@ export const withAuth = (Component) => (props) => {
     // }
 
     if (!localStorage.getItem("refreshToken")) {
-      // alert("로그인한 사람만 입장가능합니다. 로그인을 먼저 해주세요");
+      alert("로그인한 사람만 입장가능합니다. 로그인을 먼저 해주세요");
       router.push("/auth/login");
     }
   }, []);

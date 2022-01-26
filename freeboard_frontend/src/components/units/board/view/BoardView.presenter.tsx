@@ -3,23 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import styled from "@emotion/styled";
-import { IBoardDetailUIProps } from "./BoardView.types";
+import { IPropsBoardViewUI } from "./BoardView.types";
 
 const MyYoutube = styled(ReactPlayer)``;
-export default function BoardViewUI(props: IBoardDetailUIProps) {
+export default function BoardViewUI(props: IPropsBoardViewUI) {
   return (
     <>
       <A.Main>
         <A.Wrapper>
-          <A.Date>{props.date}</A.Date>{" "}
+          <A.Date>{props.date}</A.Date>
           <A.Writer>
             <A.Mutation>
               <A.Modify onClick={props.onClickEdit}>수정</A.Modify>
               <A.Delete onClick={props.onClickDelete}>삭제</A.Delete>
             </A.Mutation>
             <A.Profile>
-              {" "}
-              <A.Name>{props.data?.fetchBoard.writer}</A.Name>{" "}
+              <A.Name>{props.data?.fetchBoard.writer}</A.Name>
               <A.ProfilePhoto>
                 <img
                   src="/images/icon_noprofile.png"
@@ -54,16 +53,8 @@ export default function BoardViewUI(props: IBoardDetailUIProps) {
               </div>
               <A.LikesText>{props.data?.fetchBoard.likeCount}</A.LikesText>
             </A.Like>
-
-            {/* <Dislike>
-            <div>
-              {" "}
-              <FontAwesomeIcon icon={faThumbsDown} color="#c8c2fc" />
-            </div>
-            <LikesText>123</LikesText>
-          </Dislike> */}
           </A.Likes>
-        </A.Wrapper>{" "}
+        </A.Wrapper>
         <A.ListButton onClick={props.onClickList}>목록으로</A.ListButton>
       </A.Main>
     </>

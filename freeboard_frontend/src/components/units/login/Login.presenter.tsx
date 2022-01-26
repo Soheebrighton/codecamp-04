@@ -14,19 +14,11 @@ export default function LoginUI(props: IPropsLoginUI) {
     <>
       <A.Background>
         <A.LeftWrapper></A.LeftWrapper>
-
         <A.RightWrapper>
           <A.Logo>
             <img src="/images/logo_small.png" onClick={props.onClickHome} />{" "}
           </A.Logo>
           <A.Register>
-            {/* <A.Input
-            type="text"
-            placeholder="이메일"
-            name="email"
-            // onChange={props.onChangeEmail}
-          />{" "} */}
-            {/* 이메일 */}
             <A.InputWrapper>
               <A.Title>
                 WELCOME BACK TO <br />
@@ -38,17 +30,11 @@ export default function LoginUI(props: IPropsLoginUI) {
                   label="이메일"
                   name="email"
                   variant="standard"
+                  defaultValue="soy123@soymarket.shop"
                   onChange={props.onChangeEmail}
                 />
               </A.InputBox>
               <A.Error>{props.emailError}</A.Error>
-              {/* <A.Input
-            type="password"
-            name="password"
-            placeholder="비밀번호"
-            // onChange={props.onChangePassword}
-          /> */}
-              {/* 비밀번호 */}
               <Box sx={{ display: "flex", flexWrap: "wrap" }}>
                 <div>
                   <A.FormBox sx={{ m: 1, width: "49ch" }} variant="standard">
@@ -60,6 +46,7 @@ export default function LoginUI(props: IPropsLoginUI) {
                       type={props.values.showPassword ? "text" : "password"}
                       value={props.values.password}
                       name="password"
+                      defaultValue="Soy123123!"
                       onChange={props.onChangePassword}
                       endAdornment={
                         <InputAdornment position="end">

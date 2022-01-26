@@ -19,10 +19,9 @@ export default function MarketCommentList() {
     variables: { useditemId: router.query.myId },
   });
 
-  const { data: dataForUserInfo } =
-    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  const { data: dataForUserInfo } = useQuery(FETCH_USER_LOGGED_IN);
 
-  function onLoadMore() {
+  const onLoadMore = () => {
     if (!data) return;
     fetchMore({
       variables: {
@@ -39,7 +38,7 @@ export default function MarketCommentList() {
         };
       },
     });
-  }
+  };
 
   return (
     <MarketCommentListUI

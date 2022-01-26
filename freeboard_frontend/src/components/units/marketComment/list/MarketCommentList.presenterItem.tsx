@@ -45,8 +45,8 @@ export default function MarketCommentListUIItem(
     }
   }
 
-  const [isAnswerWrite, setIsAnswerWrite] = useState(false);
-  const [isEditQuestion, setIsEditQuestion] = useState(false);
+  const [isAnswerWrite, setIsAnswerWrite] = useState<boolean>(false);
+  const [isEditQuestion, setIsEditQuestion] = useState<boolean>(false);
 
   function onClickAnswerInput() {
     setIsAnswerWrite((prev) => !prev);
@@ -69,9 +69,7 @@ export default function MarketCommentListUIItem(
                 <A.CommentViewTop>
                   <A.CommentWriter>{props.el?.user.name}</A.CommentWriter>
                 </A.CommentViewTop>
-
                 <A.CommentViewText>{props.el?.contents}</A.CommentViewText>
-
                 <A.CommentViewDate>
                   {displayedAt(props.el?.createdAt)}
                 </A.CommentViewDate>
@@ -80,11 +78,9 @@ export default function MarketCommentListUIItem(
                 {props.el?.user._id ===
                   props.dataForUserInfo?.fetchUserLoggedIn._id && (
                   <>
-                    {/* <EditOutlined /> */}
                     <A.CommentEdit onClick={onClickEditQuestion}>
                       <FontAwesomeIcon icon={faEdit} color="#eeeeee" />
                     </A.CommentEdit>
-                    {/* <A.CommentDelete onClick={onClickDelete}> */}
                     <A.CommentDelete onClick={onClickDeleteQuestion}>
                       <FontAwesomeIcon icon={faTrashAlt} color="#eeeeee" />
                     </A.CommentDelete>
@@ -98,7 +94,6 @@ export default function MarketCommentListUIItem(
                 </span>
               </A.CommentEandD>
             </A.CommentView>
-            {/* 대댓글 */}
             <AnswerList usedQId={props.el?._id} />
             {isAnswerWrite && (
               <AnswerWrite

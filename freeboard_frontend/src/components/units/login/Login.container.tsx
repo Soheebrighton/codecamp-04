@@ -1,7 +1,6 @@
 import LoginUI from "./Login.presenter";
 import { useRouter } from "next/router";
-import { useState, ChangeEvent, useContext } from "react";
-
+import { useState, ChangeEvent, MouseEvent, useContext } from "react";
 import {
   IMutation,
   IMutationLoginUserArgs,
@@ -16,6 +15,10 @@ export default function Login() {
     Pick<IMutation, "loginUser">,
     IMutationLoginUserArgs
   >(LOGIN_USER);
+
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
 
   const { setAccessToken, setUserInfo } = useContext(GlobalContext);
   const [inputs, setInputs] = useState({
@@ -34,14 +37,14 @@ export default function Login() {
       inputs.password
     );
 
-  function onChangeEmail(event: ChangeEvent<HTMLInputElement>) {
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     if (/\w+@\w+\.\w+/.test(event.target.value)) {
       setEmailError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
+  };
 
-  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     if (
       /^(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/.test(
         event.target.value
@@ -50,13 +53,13 @@ export default function Login() {
       setPasswordError("");
     }
     setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
+  };
 
   const prev = sessionStorage.getItem("prevPath");
 
   console.log(prev);
 
-  async function onClickLogin() {
+  const onClickLogin = async () => {
     if (!testEmail) {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
     }
@@ -93,20 +96,15 @@ export default function Login() {
         alert(error.message);
       }
     }
-  }
+  };
 
-  function onClickHome() {
+  const onClickHome = () => {
     router.push("/");
-  }
+  };
 
-  function onClickRegister() {
+  const onClickRegister = () => {
     router.replace("/auth/register");
-  }
-
-  // 비밀번호 보여주기 //
-  const [values, setValues] = useState({
-    showPassword: false,
-  });
+  };
 
   const handleClickShowPassword = () => {
     setValues({
@@ -115,7 +113,7 @@ export default function Login() {
     });
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 

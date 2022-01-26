@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 
 export interface IPropsRegisterUI {
   onClickHome: () => void;
@@ -10,4 +10,10 @@ export interface IPropsRegisterUI {
   onClickRegister: () => Promise<void>;
   onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickLogin: () => void;
+  handleClickShowPassword: () => void;
+  handleMouseDownPassword: (event: MouseEvent<HTMLButtonElement>) => void;
+  values: {
+    showPassword: boolean;
+  };
+  noValidate: any;
 }

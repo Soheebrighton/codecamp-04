@@ -1,18 +1,8 @@
 import * as A from "./BoardCommentWrite.styles";
 import { Rate } from "antd";
-import { useState } from "react";
+import { IPropsBoardCommentWriteUI } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWriteUI(props) {
-  // const [value, setValue] = useState(0);
-  // function handleChange() {
-  //   setValue(value);
-  // }
-
-  // const [value, setValue] = useState(0);
-
-  // function handleChange(value: Number) {
-  //   setValue(value);
-  // }
+export default function BoardCommentWriteUI(props: IPropsBoardCommentWriteUI) {
   return (
     <A.Wrapper>
       <A.CommentCreate>
@@ -29,7 +19,6 @@ export default function BoardCommentWriteUI(props) {
             onChange={props.onChangeMyPassword}
           ></A.CommentWritePassword>
           <A.Rate>
-            {" "}
             <span>
               <Rate onChange={props.onChangeStar} />
             </span>

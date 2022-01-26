@@ -13,42 +13,15 @@ import {
   IMutationCreateBoardCommentArgs,
   IMutationUpdateBoardCommentArgs,
 } from "../../../../commons/types/generated/types";
+import { IPropsBoardCommentWrite } from "./BoardCommentWrite.types";
 
-export default function BoardCommentWrite(props) {
+export default function BoardCommentWrite(props: IPropsBoardCommentWrite) {
   const router = useRouter();
-  const [myWriter, setMyWriter] = useState("");
-  const [myPassword, setMyPassword] = useState("");
-  const [myContents, setMyContents] = useState("");
-  const [myStar, setMyStar] = useState(0);
 
-  const [createBoardComment] = useMutation<
-    Pick<IMutation, "createBoardComment">,
-    IMutationCreateBoardCommentArgs
-  >(CREATE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation<
-    Pick<IMutation, "updateBoardComment">,
-    IMutationUpdateBoardCommentArgs
-  >(UPDATE_BOARD_COMMENT);
-
-  function onChangeMyWriter(event: ChangeEvent<HTMLInputElement>) {
-    setMyWriter(event.target.value);
-  }
-
-  function onChangeMyPassword(event: ChangeEvent<HTMLInputElement>) {
-    setMyPassword(event.target.value);
-  }
-
-  function onChangeMyContents(event: ChangeEvent<HTMLInputElement>) {
-    setMyContents(event.target.value);
-  }
-
-  function onChangeStar(value: number) {
-    setMyStar(value);
-  }
-
-  // function onChangeStar(value: number) {
-  //   setMyStar(value);
-  // }
+  const [myWriter, setMyWriter] = useState<string>("");
+  const [myPassword, setMyPassword] = useState<string>("");
+  const [myContents, setMyContents] = useState<string>("");
+  const [myStar, setMyStar] = useState<number>(0);
 
   const myInputs = {
     writer: myWriter,
@@ -57,7 +30,33 @@ export default function BoardCommentWrite(props) {
     rating: myStar,
   };
 
-  async function onClickWrite() {
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
+
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
+
+  const onChangeMyWriter = (event: ChangeEvent<HTMLInputElement>) => {
+    setMyWriter(event.target.value);
+  };
+
+  const onChangeMyPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    setMyPassword(event.target.value);
+  };
+
+  const onChangeMyContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMyContents(event.target.value);
+  };
+
+  const onChangeStar = (value: number) => {
+    setMyStar(value);
+  };
+
+  const onClickWrite = async () => {
     try {
       await createBoardComment({
         variables: {
@@ -76,9 +75,9 @@ export default function BoardCommentWrite(props) {
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
-  }
+  };
 
-  async function onClickUpdate() {
+  const onClickUpdate = async () => {
     if (!myContents) {
       Modal.warning({
         title: "내용이 수정되지 않았습니다.",
@@ -113,7 +112,7 @@ export default function BoardCommentWrite(props) {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
   return (
     <BoardCommentWriteUI

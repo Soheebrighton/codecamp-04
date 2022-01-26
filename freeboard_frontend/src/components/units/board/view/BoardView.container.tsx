@@ -13,37 +13,48 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Modal } from "antd";
 import {
+  IQuery,
   IMutation,
   IMutationDeleteBoardArgs,
   IMutationLikeBoardArgs,
+  IQueryFetchBoardArgs,
+  IQueryFetchBoardCommentsArgs,
 } from "../../../../commons/types/generated/types";
-
-// const DELETE_BOARD = gql`
-//   mutation deleteBoard($boardId: ID!) {
-//     deleteBoard(boardId: $boardId)
-//   }
-// `;
 
 export default function BoardView() {
   const router = useRouter();
+
+  const [commentWriter, setCommentWriter] = useState<string>("");
+  const [commentPassword, setCommentPassword] = useState<string>("");
+  const [commentContent, setCommentContent] = useState<string>("");
+  const [word, setWord] = useState<string>("");
+  const [isEdit, setEdit] = useState<boolean>(false);
 
   const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
   >(DELETE_BOARD);
+
   const [likeBoard] = useMutation<
     Pick<IMutation, "likeBoard">,
     IMutationLikeBoardArgs
   >(LIKE_BOARD);
+
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.myId },
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: router.query.myId },
+    }
+  );
 
-  const { data: dataForComments } = useQuery(FETCH_BOARD_COMMENTS, {
+  const { data: dataForComments } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.myId },
   });
 
@@ -55,18 +66,16 @@ export default function BoardView() {
 
   // /////라이크////////
 
-  async function onClickLike() {
-    console.log("likes!");
+  const onClickLike = async () => {
     await likeBoard({
       variables: { boardId: router.query.myId },
       refetchQueries: [
         { query: FETCH_BOARD, variables: { boardId: router.query.myId } },
       ],
     });
-  }
+  };
 
-  ////// 삭제 ///////
-  async function onClickDelete() {
+  const onClickDelete = async () => {
     try {
       await deleteBoard({ variables: { boardId: router.query.myId } });
     } catch (error) {
@@ -76,29 +85,17 @@ export default function BoardView() {
       content: "게시물이 정상적으로 삭제되었습니다.",
     });
     router.push(`/boards/list`);
-  }
+  };
 
-  function onClickList() {
+  const onClickList = () => {
     router.push(`/boards/list`);
-  }
+  };
 
-  ////////// 수정하기 ~~~~~~~~~ //////////
-
-  function onClickEdit() {
-    console.log("edit page");
+  const onClickEdit = () => {
     router.push(`/boards/${router.query.myId}/edit`);
-  }
-  //////////////////////////////////////
+  };
 
-  //////////// 댓글 ~~~~~~~////////////
-
-  /////// 댓글 등록시 빈 인풋 확인 /////
-
-  const [commentWriter, setCommentWriter] = useState("");
-  const [commentPassword, setCommentPassword] = useState("");
-  const [commentContent, setCommentContent] = useState("");
-
-  function checkCommentSubmitValid() {
+  const checkCommentSubmitValid = () => {
     if (commentWriter && commentPassword && commentContent) {
       console.log("빈칸없음");
       commentSubmit();
@@ -106,26 +103,22 @@ export default function BoardView() {
     } else {
       console.log("빈칸있음");
     }
-  }
-  /////////////////////////////////
-  ////// 작성자, 비밀번호, 댓글 내용 저장 ////
+  };
 
-  function saveCommentWriter(event) {
+  const saveCommentWriter = (event) => {
     setCommentWriter(event.target.value);
-  }
+  };
 
-  function saveCommentPassword(event) {
+  const saveCommentPassword = (event) => {
     setCommentPassword(event.target.value);
-  }
+  };
 
-  function saveCommentContent(event) {
+  const saveCommentContent = (event) => {
     setCommentContent(event.target.value);
     setWord(event.target.value);
-  }
+  };
 
-  const [word, setWord] = useState("");
-
-  async function commentSubmit() {
+  const commentSubmit = async () => {
     try {
       await createBoardComment({
         variables: {
@@ -147,14 +140,10 @@ export default function BoardView() {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  ////////////////////////////////////
-
-  /////// 댓글 삭제//////
-  async function onClickDeleteComment(event) {
+  const onClickDeleteComment = async (event) => {
     const myPassword = prompt("비밀번호를 입력하세요.");
-
     try {
       // alert(event.target.id);
       await deleteBoardComment({
@@ -169,25 +158,20 @@ export default function BoardView() {
     } catch (error) {
       alert(error.message);
     }
-  }
-  //////// 댓글 수정 //////
-  //// 연필 아이콘 눌렀을 때 수정 인풋으로 나오게 하기///
+  };
 
-  const [isEdit, setEdit] = useState(false);
-
-  function onClickUpdateComment(event) {
+  const onClickUpdateComment = (event) => {
     console.log(event.target.id);
     setEdit(true);
-  }
+  };
 
-  function onClickList() {
+  const onClickList = () => {
     router.push(`/boards/list`);
-  }
+  };
 
-  //// 이미지 에러 //////
-  function onErrorImage(event) {
+  const onErrorImage = (event) => {
     event.target.src = "/images/unnamed.png";
-  }
+  };
 
   return (
     <BoardViewUI

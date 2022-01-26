@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 // import { Rate } from "antd";
 // import { Rate } from "antd";
-///// 댓글 작성 //////
 
 // export const Star = styled(Rate)``;
 

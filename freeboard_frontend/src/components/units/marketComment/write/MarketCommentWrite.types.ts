@@ -7,9 +7,12 @@ export interface IPropsMarketCommentWriteUI {
   isEditQuestion: any;
   setIsEditQuestion: any;
   onClickUpdateQuestion: () => Promise<void>;
+  el?: any;
 }
 
 export interface IPropsMarketCommentWrite {
   isEditQuestion: boolean;
-  setIsEditQuestion: boolean;
+  setIsEditQuestion: any;
+  usedQId: string;
+  el: any;
 }
