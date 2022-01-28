@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, SetStateAction, useState } from "react";
 import {
   IMutation,
   IMutationCreateUseditemQuestionAnswerArgs,
@@ -46,7 +46,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
           },
         ],
       });
-      props.setIsAnswerWrite((prev: boolean) => !prev);
+      props.setIsAnswerWrite((prev: SetStateAction<boolean>) => !prev);
     } catch (error) {
       alert(error.message);
     }

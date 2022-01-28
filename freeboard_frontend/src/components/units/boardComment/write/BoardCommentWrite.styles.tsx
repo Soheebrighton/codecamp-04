@@ -1,8 +1,4 @@
 import styled from "@emotion/styled";
-// import { Rate } from "antd";
-// import { Rate } from "antd";
-
-// export const Star = styled(Rate)``;
 
 export const Wrapper = styled.div`
   padding-top: 60px;
@@ -17,8 +13,6 @@ export const CommentCreate = styled.div`
   width: 1000px;
   background-color: white;
 `;
-
-// export const Star = styled(Rate)``;
 
 export const Row = styled.div``;
 

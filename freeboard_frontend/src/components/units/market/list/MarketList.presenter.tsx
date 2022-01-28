@@ -9,11 +9,6 @@ import { v4 as uuidv4 } from "uuid";
 import { IPropsMarketListUI } from "./MarketList.types";
 
 export default function MarketListUI(props: IPropsMarketListUI) {
-  function onError(event) {
-    event.target.src = "/images/unnamed.png";
-  }
-  console.log(props.items);
-
   return (
     <>
       <A.Background>
@@ -33,7 +28,7 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                     </A.Label>
                     <A.BImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
-                      onError={onError}
+                      onError={props.onError}
                     />
                   </A.BestPhoto>
                   <A.BestDetails>
@@ -61,10 +56,6 @@ export default function MarketListUI(props: IPropsMarketListUI) {
           </A.ListMiddleWrapper>
 
           <A.Wrapper>
-            {/* 베스트목록 */}
-
-            {/* 상품목록 */}
-
             {props.data?.fetchUseditems.map((el) => (
               <A.ItemDiv key={el._id}>
                 <A.ItemPhoto>
@@ -76,7 +67,7 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                   <A.Img
                     onClick={props.onClickViewItem(el)}
                     src={`https://storage.googleapis.com/${el.images[0]}`}
-                    onError={onError}
+                    onError={props.onError}
                   />
                 </A.ItemPhoto>
                 <A.PickWrapper
@@ -139,12 +130,12 @@ export default function MarketListUI(props: IPropsMarketListUI) {
           <StickyBox offsetTop={100}>
             <A.TodayWrapper>
               <A.TodayTitle>오늘 본 상품</A.TodayTitle>
-              {props.items?.map((el, index) => (
+              {props.items?.map((el) => (
                 <A.TodayItemWrapper key={el._id}>
                   <A.ItemImg>
                     <A.TodayImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
-                      onError={onError}
+                      onError={props.onError}
                     />
                   </A.ItemImg>
                   <A.ItemDetail>

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IPropsPickBtn } from "./MarketView.types";
 
 export const Background = styled.div`
   display: flex;
@@ -150,7 +151,7 @@ export const BtnBottom = styled.div`
 `;
 export const PickBtn = styled.div`
   width: 49%;
-  color: ${(props) =>
+  color: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
       .includes(props.data?.fetchUseditem._id)
@@ -159,13 +160,13 @@ export const PickBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) =>
+  background-color: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
       .includes(props.data?.fetchUseditem._id)
       ? "white"
       : "lightgray"};
-  border: ${(props) =>
+  border: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
       .includes(props.data?.fetchUseditem._id)

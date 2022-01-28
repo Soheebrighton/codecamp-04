@@ -23,9 +23,13 @@ import { IPropsMarketCommentListUIItem } from "./MarketCommentList.types";
 export default function MarketCommentListUIItem(
   props: IPropsMarketCommentListUIItem
 ) {
+  const [isAnswerWrite, setIsAnswerWrite] = useState<boolean>(false);
+  const [isEditQuestion, setIsEditQuestion] = useState<boolean>(false);
   const [deleteUseditemQuestion] = useMutation(DELETE_USEDITEM_QUESTION);
+
   const router = useRouter();
-  async function onClickDeleteQuestion() {
+
+  const onClickDeleteQuestion = async () => {
     try {
       await deleteUseditemQuestion({
         variables: {
@@ -43,18 +47,15 @@ export default function MarketCommentListUIItem(
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  const [isAnswerWrite, setIsAnswerWrite] = useState<boolean>(false);
-  const [isEditQuestion, setIsEditQuestion] = useState<boolean>(false);
-
-  function onClickAnswerInput() {
+  const onClickAnswerInput = () => {
     setIsAnswerWrite((prev) => !prev);
-  }
+  };
 
-  function onClickEditQuestion() {
+  const onClickEditQuestion = () => {
     setIsEditQuestion(true);
-  }
+  };
 
   return (
     <>

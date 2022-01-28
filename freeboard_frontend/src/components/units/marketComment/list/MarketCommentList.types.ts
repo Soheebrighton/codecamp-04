@@ -8,4 +8,5 @@ export interface IPropsMarketCommentListUI {
 
 export interface IPropsMarketCommentListUIItem {
   dataForUserInfo?: Pick<IQuery, "fetchUserLoggedIn">;
+  el?: any;
 }

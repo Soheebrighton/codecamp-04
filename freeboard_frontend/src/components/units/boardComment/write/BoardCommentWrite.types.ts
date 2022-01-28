@@ -14,4 +14,6 @@ export interface IPropsBoardCommentWriteUI {
 
 export interface IPropsBoardCommentWrite {
   setIsEdit: any;
+  isEdit: boolean;
+  el: any;
 }

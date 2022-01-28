@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IPropsMarketListStyle, IPropsTextToken } from "./MarketList.types";
 
 export const Background = styled.div`
   padding-top: 40px;
@@ -57,17 +58,17 @@ export const PickWrapper = styled.div`
   margin: 10px;
   width: 30px;
   height: 30px;
-  border: ${(props) =>
+  border: ${(props: IPropsMarketListStyle) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
-      .includes(props.el._id)
+      .includes(props.el?._id)
       ? "1px solid #ffffff53"
       : "1px solid #ffffff53"};
   border-radius: 50px;
-  background-color: ${(props) =>
+  background-color: ${(props: IPropsMarketListStyle) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
-      .includes(props.el._id)
+      .includes(props.el?._id)
       ? "#a2d6ba5f"
       : "#00000014"};
   display: flex;
@@ -304,5 +305,5 @@ export const ListMiddleWrapper = styled.div`
   align-items: flex-end;
 `;
 export const TextToken = styled.span`
-  color: ${(props) => (props.isMatched ? "#1dbc67" : "black")};
+  color: ${(props: IPropsTextToken) => (props.isMatched ? "#1dbc67" : "black")};
 `;

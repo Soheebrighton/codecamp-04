@@ -6,7 +6,7 @@ import { displayedAt } from "../../../../commons/libraries/utils";
 import { faClock, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "antd";
-import { IPropsMarketViewUI } from "./MarketView.types";
+import { IPropsMarketViewUI, IPropsContentStyle } from "./MarketView.types";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -74,7 +74,7 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
     console.log(a, b, c);
   }
 
-  const contentStyle = {
+  const contentStyle: IPropsContentStyle = {
     height: "500px",
     width: "100%",
     color: "#fff",
@@ -83,6 +83,7 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
     border: "1px solid #f7f7f7",
     borderRadius: "7px",
   };
+
   return (
     <>
       <A.Background>

@@ -15,6 +15,7 @@ import {
   IQueryFetchUseditemsArgs,
   IQueryFetchUseditemsIPickedArgs,
 } from "../../../../commons/types/generated/types";
+
 export default function MarketList() {
   const router = useRouter();
 
@@ -41,7 +42,7 @@ export default function MarketList() {
     IMutationToggleUseditemPickArgs
   >(TOGGLE_USEDITEM_PICK);
 
-  const onClickPick = (el) => async () => {
+  const onClickPick = (el: any) => async () => {
     await toggleUseditemPick({
       variables: {
         useditemId: el._id,
@@ -65,12 +66,12 @@ export default function MarketList() {
     router.push("/market/create");
   };
 
-  const onClickViewItem = (el) => () => {
+  const onClickViewItem = (el: any) => () => {
     const todayItems =
       JSON.parse(localStorage.getItem("todayItems") || "[]") || [];
 
     let isExists = false;
-    todayItems.forEach((todayEl) => {
+    todayItems.forEach((todayEl: any) => {
       if (el._id === todayEl._id) {
         isExists = true;
       }
@@ -129,10 +130,9 @@ export default function MarketList() {
     SetItems(todayItems);
   }, []);
 
-  const onClickTodayItem = (event) => {
+  const onClickTodayItem = (event: any) => {
     router.push(`/market/${event.target.id}`);
   };
-
   // 무한스크롤
 
   const onLoadMore = () => {
@@ -155,10 +155,13 @@ export default function MarketList() {
   const [startPage, setStartPage] = useState<number>(1);
   const [keyword, setKeyword] = useState<string>("");
 
-  const onChangeKeyword = (value) => {
+  const onChangeKeyword = (value: any) => {
     setKeyword(value);
   };
 
+  const onError = (event: any) => {
+    event.target.src = "/images/unnamed.png";
+  };
   return (
     <MarketListUI
       onClickCreateItem={onClickCreateItem}
@@ -174,6 +177,7 @@ export default function MarketList() {
       onClickTodayItem={onClickTodayItem}
       refetch={refetch}
       keyword={keyword}
+      onError={onError}
     />
   );
 }

@@ -1,10 +1,10 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export interface IPropsAnswerWrite {
   isEditAnswer: boolean;
-  setIsEditAnswer: any;
-  setIsAnswerWrite: any;
-  useditemQuestionId: string;
+  setIsEditAnswer: Dispatch<SetStateAction<boolean>>;
+  setIsAnswerWrite: Dispatch<SetStateAction<boolean>>;
+  useditemQuestionId: any;
   useditemAId: string;
 }
 
@@ -14,4 +14,5 @@ export interface IPropsAnswerWriteUI {
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   isEditAnswer: boolean;
   contents: string;
+  setIsEditAnswer: Dispatch<SetStateAction<boolean>>;
 }
