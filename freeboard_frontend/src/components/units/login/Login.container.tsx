@@ -55,10 +55,6 @@ export default function Login() {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
   };
 
-  const prev = sessionStorage.getItem("prevPath");
-
-  console.log(prev);
-
   const onClickLogin = async () => {
     if (!testEmail) {
       setEmailError("올바른 이메일 주소를 입력해주세요.");
@@ -89,7 +85,7 @@ export default function Login() {
             },
           },
         });
-
+        const prev = sessionStorage.getItem("prevPath");
         setUserInfo(resultUserInfo.data.fetchUserLoggedIn);
         router.push(prev);
       } catch (error) {

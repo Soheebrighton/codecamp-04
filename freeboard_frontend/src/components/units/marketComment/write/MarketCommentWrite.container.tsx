@@ -39,7 +39,7 @@ export default function MarketCommentWrite(props: IPropsMarketCommentWrite) {
         createUseditemQuestionInput: {
           contents: contents,
         },
-        useditemId: router.query.myId,
+        useditemId: String(router.query.myId),
       },
       refetchQueries: [
         {

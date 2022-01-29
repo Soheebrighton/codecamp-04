@@ -5,34 +5,34 @@ import { useEffect, useState } from "react";
 export default function HeaderColor() {
   const router = useRouter();
 
-  function onClickHome() {
+  const [colorChange, setColorChange] = useState<boolean>(false);
+  const [colorChangeTxt, setColorChangeTxt] = useState<boolean>(false);
+  const [colorChangeLogo, setColorChangeLogo] = useState<boolean>(false);
+  const [bar, setBar] = useState<boolean>(false);
+
+  const onClickHome = () => {
     router.push("/");
-  }
+  };
 
-  function onClickShop() {
+  const onClickShop = () => {
     router.push("/market");
-  }
+  };
 
-  function onClickCommunity() {
+  const onClickCommunity = () => {
     router.push("/boards/list");
-  }
+  };
 
-  function onClickSingUp() {
+  const onClickSingUp = () => {
     router.push("/auth/register");
-  }
+  };
 
-  function onClickLogIn() {
+  const onClickLogIn = () => {
     router.push("/auth/login");
-  }
+  };
 
-  function onClickMyPage() {
+  const onClickMyPage = () => {
     router.push("/mypage");
-  }
-
-  const [colorChange, setColorChange] = useState(false);
-  const [colorChangeTxt, setColorChangeTxt] = useState(false);
-  const [colorChangeLogo, setColorChangeLogo] = useState(false);
-  const [bar, setBar] = useState(false);
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {

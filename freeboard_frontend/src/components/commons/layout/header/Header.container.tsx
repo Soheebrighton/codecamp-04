@@ -4,29 +4,29 @@ import { useRouter } from "next/router";
 export default function Header() {
   const router = useRouter();
 
-  function onClickHome() {
+  const onClickHome = () => {
     router.push("/");
-  }
+  };
 
-  function onClickShop() {
+  const onClickShop = () => {
     router.push("/market");
-  }
+  };
 
-  function onClickCommunity() {
+  const onClickCommunity = () => {
     router.push("/boards/list");
-  }
+  };
 
-  function onClickSingUp() {
+  const onClickSingUp = () => {
     router.push("/auth/register");
-  }
+  };
 
-  function onClickLogIn() {
+  const onClickLogIn = () => {
     router.push("/auth/login");
-  }
+  };
 
-  function onClickMyPage() {
+  const onClickMyPage = () => {
     router.push("/mypage");
-  }
+  };
 
   return (
     <>

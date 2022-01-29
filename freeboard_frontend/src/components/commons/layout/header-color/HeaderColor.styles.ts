@@ -1,16 +1,19 @@
 import styled from "@emotion/styled";
+import { IPropsHeader } from "./HeaderColor.types";
+import Button from "@mui/material/Button";
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80px;
-  background-color: ${(props) =>
+  background-color: ${(props: IPropsHeader) =>
     props.colorChange === true ? "white" : "#1dbd67"};
-  color: ${(props) => (props.colorChangeTxt === true ? "black" : "white")};
+  color: ${(props: IPropsHeader) =>
+    props.colorChangeTxt === true ? "black" : "white"};
   position: sticky;
   transition: all 0.2s ease;
-  border-bottom: ${(props) =>
+  border-bottom: ${(props: IPropsHeader) =>
     props.bar === true ? "1px solid #f5f5f5" : "none"};
   top: 0px;
   z-index: 2;
@@ -24,10 +27,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 export const Logo = styled.div`
-  /* width: 50%; */
   display: flex;
-  /* flex-direction: row;
-  justify-content: center; */
 `;
 
 export const Nav = styled.div``;
@@ -40,7 +40,6 @@ export const PageBtn = styled.span`
   cursor: pointer;
   :hover {
     opacity: 0.6;
-    /* color: gray; */
   }
 `;
 
@@ -73,3 +72,23 @@ export const UserName = styled.span`
 export const UserIcon = styled.span`
   padding-bottom: 3px;
 `;
+
+export const Btn = styled(Button)({
+  color: "white",
+  fontSize: "15px",
+  fontWeight: "600",
+  "&:hover, &.Mui-focusVisible": {
+    backgroundColor: "#1dbd67",
+    opacity: "0.6",
+  },
+});
+
+export const Btn02 = styled(Button)({
+  color: "black",
+  fontSize: "15px",
+  fontWeight: "600",
+  "&:hover, &.Mui-focusVisible": {
+    backgroundColor: "white",
+    opacity: "0.6",
+  },
+});

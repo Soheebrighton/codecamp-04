@@ -4,14 +4,16 @@ import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import styled from "@emotion/styled";
 import { IPropsBoardViewUI } from "./BoardView.types";
+import { getDate } from "../../../../commons/libraries/utils";
 
 const MyYoutube = styled(ReactPlayer)``;
+
 export default function BoardViewUI(props: IPropsBoardViewUI) {
   return (
     <>
       <A.Main>
         <A.Wrapper>
-          <A.Date>{props.date}</A.Date>
+          <A.Date>{getDate(props.data?.fetchBoard.createdAt)}</A.Date>
           <A.Writer>
             <A.Mutation>
               <A.Modify onClick={props.onClickEdit}>수정</A.Modify>
@@ -44,7 +46,7 @@ export default function BoardViewUI(props: IPropsBoardViewUI) {
                   />
                 ))}
             </A.ImageWrapper>
-            <MyYoutube url={props.data?.fetchBoard.youtubeUrl} />
+            <MyYoutube url={String(props.data?.fetchBoard.youtubeUrl)} />
           </A.Content>
           <A.Likes>
             <A.Like onClick={props.onClickLike}>

@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 
-// import styled from "styled-components";
-
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export const Title = styled.div`
   font-size: 25px;
   font-weight: 700;
@@ -13,7 +16,7 @@ export const Bar = styled.div`
   width: 60px;
   height: 4px;
   background-color: black;
-  align-self: center;
+  display: flex;
 `;
 
 export const Writer = styled.div`
@@ -207,7 +210,11 @@ export const AddressMain = styled.div`
 
 export const AddressOptional = styled.div``;
 
-export const Youtube = styled.div`
+export const LatnLngWrapper = styled.div`
+  padding-top: 30px;
+`;
+
+export const AddressWrapper = styled.div`
   padding-bottom: 35px;
 `;
 
@@ -238,14 +245,16 @@ export const UploadImageDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const MainSetting = styled.div`
-  padding-bottom: 35px;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const SubmitButton = styled.button`
   width: 150px;
   height: 42px;
-  /* background-color: #988cff; */
   background-color: black;
   border-radius: 10px;
   border: none;
@@ -253,6 +262,9 @@ export const SubmitButton = styled.button`
   color: gray;
   font-weight: 600;
   align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
@@ -266,8 +278,6 @@ export const Wrapper = styled.div`
   width: 1000px;
   display: flex;
   flex-direction: column;
-
-  /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); */
 `;
 
 export const Main = styled.div`
@@ -275,12 +285,6 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-export const Radio = styled.input`
-  :checked {
-    background: yellow;
-  }
 `;
 
 export const Label = styled.label`

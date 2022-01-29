@@ -1,108 +1,20 @@
 import * as A from "./MarketCreate.styles";
 import "react-quill/dist/quill.snow.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { Context } from "../../../../../pages/market/[myId]/edit";
-import Radio from "@mui/material/Radio";
-import { teal } from "@mui/material/colors";
 import dynamic from "next/dynamic";
-import ReactTagInput from "@pathofdev/react-tag-input";
-import "@pathofdev/react-tag-input/build/index.css";
-import styled from "@emotion/styled";
 import { Modal } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import DaumPostcode from "react-daum-postcode";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
-import { useForm } from "react-hook-form";
 import { IPropsMarketCreateUI } from "./MarketCreate.types";
+import KakaoMap02 from "../../../commons/maps/kakaomap02";
+import Tags from "../../../commons/tags";
 
-const TagInput = styled(ReactTagInput)`
-  .react-tag-input {
-    font-size: 40px;
-  }
-
-  .react-tag-input__input {
-    font-size: 40px;
-  }
-
-  .react-tag-input__tag {
-    color: red;
-  }
-  .react-tag-input__tag__content {
-    color: red;
-    font-size: 40px;
-  }
-  .react-tag-input__tag__remove {
-  }
-`;
-
-declare const window: typeof globalThis & {
-  kakao: any;
-};
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function MarketCreateUI(props: IPropsMarketCreateUI) {
-  const [selectedValue, setSelectedValue] = useState("a");
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
   const { isEdit } = useContext(Context);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9ba75a77772202896933d3e15db534d1&autoload=false&libraries=services";
-    document.head.appendChild(script);
-    script.onload = () => {
-      window.kakao.maps.load(function () {
-        const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
-        const options = {
-          // 지도를 생성할 때 필요한 기본 옵션
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표.
-          level: 3, // 지도의 레벨(확대, 축소 정도)
-        };
-
-        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
-        //
-        //
-        const geocoder = new window.kakao.maps.services.Geocoder();
-
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(
-          props.address ||
-            props.dataForFetch?.fetchUseditem.useditemAddress.address,
-          function (result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === window.kakao.maps.services.Status.OK) {
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
-
-              // 결과값으로 받은 위치를 마커로 표시합니다
-              const marker = new window.kakao.maps.Marker({
-                map: map,
-                position: coords,
-              });
-              props.setLat(coords.La);
-              props.setLng(coords.Ma);
-              // 인포윈도우로 장소에 대한 설명을 표시합니다
-              const infowindow = new window.kakao.maps.InfoWindow({
-                content:
-                  '<div style="width:150px;text-align:center;padding:6px 0;">거래장소</div>',
-              });
-              infowindow.open(map, marker);
-
-              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-              map.setCenter(coords);
-            }
-          }
-        );
-      });
-    };
-  }, [
-    props.address || props.dataForFetch?.fetchUseditem.useditemAddress.address,
-  ]);
 
   return (
     <>
@@ -115,16 +27,16 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                 : props.handleSubmit(props.onClickSubmit)
             }
           >
-            {/* <form onSubmit={props.handleSubmit(props.onClickSubmit)}> */}
-            <A.Title>
-              {isEdit && <span>상품 수정</span>}
-              {!isEdit && <span>상품 등록</span>}
-            </A.Title>
-            <A.Bar></A.Bar>
+            <A.TitleWrapper>
+              <A.Title>
+                {isEdit && <span>상품 수정</span>}
+                {!isEdit && <span>상품 등록</span>}
+              </A.Title>
+              <A.Bar />
+            </A.TitleWrapper>
 
             <A.PostTitle>
               <A.Titles>상품명</A.Titles>
-
               <A.PostTitleInput
                 type="text"
                 placeholder="상품명을 작성해주세요."
@@ -148,7 +60,6 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
 
             <A.PostContent>
               <A.Titles>상품설명</A.Titles>
-
               <ReactQuill
                 onChange={props.handleChangeQuill}
                 value={
@@ -160,14 +71,13 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
               />
             </A.PostContent>
             <A.Error>{props.formState.errors.contents?.message}</A.Error>
-
             <A.Writer>
               <A.WriterDiv>
                 <A.Titles>판매가격</A.Titles>
                 <A.WriterName
                   type="text"
                   placeholder="판매할 상품의 가격을 입력해주세요."
-                  defaultValue={props.dataForFetch?.fetchUseditem.price}
+                  defaultValue={Number(props.dataForFetch?.fetchUseditem.price)}
                   {...props.register("price")}
                 ></A.WriterName>
                 <A.Error>{props.formState.errors.price?.message}</A.Error>
@@ -175,67 +85,64 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
 
               <A.WriterDiv>
                 <A.Titles>태그입력</A.Titles>
-                {/* 
-                <A.WriterPassword
-                  type="text"
-                  placeholder="#태그 #태그 #태그"
-                  {...props.register("tags")}
-                ></A.WriterPassword> */}
-                <TagInput
-                  placeholder="태그를 입력하고 엔터키를 누르세요."
+                <Tags
                   tags={props.tags}
-                  onChange={(newTags) => props.setTags(newTags)}
+                  setTags={props.setTags}
+                  dataForFetch={props.dataForFetch}
                 />
                 <A.Error>{props.formState.errors.tags?.message}</A.Error>
               </A.WriterDiv>
             </A.Writer>
-            <div id="map" style={{ width: "100%", height: "200px" }}></div>
+            <KakaoMap02
+              address={props.address}
+              dataForFetch={props.dataForFetch}
+              setLat={props.setLat}
+              setLng={props.setLng}
+            />
             <A.Address>
-              <A.Titles>GPS</A.Titles>
-
-              <A.PostcodeWrapper>
+              <A.LatnLngWrapper>
+                <A.Titles>GPS</A.Titles>
                 <A.PostcodeSpan>
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="위도"
                     value={
                       props.lat ||
-                      props.dataForFetch?.fetchUseditem.useditemAddress.lat ||
+                      props.dataForFetch?.fetchUseditem.useditemAddress?.lat ||
                       ""
                     }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
                 <A.PostcodeSpan>
-                  {" "}
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="경도"
                     value={
                       props.lng ||
-                      props.dataForFetch?.fetchUseditem.useditemAddress.lng ||
+                      props.dataForFetch?.fetchUseditem.useditemAddress?.lng ||
                       ""
                     }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
-              </A.PostcodeWrapper>
+              </A.LatnLngWrapper>
             </A.Address>
 
-            <A.Youtube>
+            <A.AddressWrapper>
+              <A.Titles>주소</A.Titles>
               <A.PostcodeWrapper>
                 <A.PostcodeSpan>
                   <A.AddressPostcodeInput
                     type="text"
                     placeholder="00000"
-                    maxLength="5"
+                    maxLength={5}
                     value={
                       props.zipcode ||
                       props.dataForFetch?.fetchUseditem.useditemAddress
-                        .zipcode ||
+                        ?.zipcode ||
                       "000000"
                     }
                   ></A.AddressPostcodeInput>
                 </A.PostcodeSpan>
-
                 <A.AddressPostcodeButton
                   type="button"
                   onClick={props.onToggleModal}
@@ -252,8 +159,6 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                   </Modal>
                 )}
               </A.PostcodeWrapper>
-
-              <A.Titles>주소</A.Titles>
               <A.AddressMain>
                 <A.AddressMainInput
                   value={
@@ -265,7 +170,6 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                   type="text"
                 ></A.AddressMainInput>
               </A.AddressMain>
-
               <A.AddressOptional>
                 <A.AddressOptionalInput
                   onChange={
@@ -277,8 +181,7 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                   type="text"
                 ></A.AddressOptionalInput>
               </A.AddressOptional>
-            </A.Youtube>
-
+            </A.AddressWrapper>
             <A.UploadImages>
               <A.Titles>사진첨부</A.Titles>
               <A.UploadImageDiv>
@@ -295,52 +198,10 @@ export default function MarketCreateUI(props: IPropsMarketCreateUI) {
                 ))}
               </A.UploadImageDiv>
             </A.UploadImages>
-
-            <A.MainSetting>
-              <A.Titles>메인 사진 설정</A.Titles>
-
-              <div>
-                <Radio
-                  size="small"
-                  checked={selectedValue === "a"}
-                  onChange={handleChange}
-                  value="a"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "A" }}
-                  sx={{
-                    "&.Mui-checked": {
-                      color: teal["A700"],
-                    },
-                  }}
-                />
-                <A.Label htmlFor="a">사진 1</A.Label>
-                <Radio
-                  size="small"
-                  checked={selectedValue === "b"}
-                  onChange={handleChange}
-                  value="b"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "B" }}
-                  sx={{
-                    "&.Mui-checked": {
-                      color: teal["A700"],
-                    },
-                  }}
-                />
-                <A.Label htmlFor="b">사진 2</A.Label>
-              </div>
-            </A.MainSetting>
-            {!isEdit && (
-              <A.SubmitButton>
-                <div>등록하기</div>
-              </A.SubmitButton>
-            )}
-
-            {isEdit && (
-              <A.SubmitButton>
-                <div>수정하기</div>
-              </A.SubmitButton>
-            )}
+            <A.ButtonWrapper>
+              {!isEdit && <A.SubmitButton>등록하기</A.SubmitButton>}
+              {isEdit && <A.SubmitButton>수정하기</A.SubmitButton>}
+            </A.ButtonWrapper>
           </form>
         </A.Wrapper>
       </A.Main>

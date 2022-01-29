@@ -12,14 +12,10 @@ export const Main = styled.div`
 
 export const Wrapper = styled.div`
   margin: 30px;
-  /* padding-bottom: 30px; */
   width: 1200px;
-
-  /* padding: 20px; */
   background-color: white;
 `;
 
-/// 검색 UI ///
 export const SearchWrapper = styled.div`
   width: 1200px;
   padding-top: 30px;
@@ -31,7 +27,6 @@ export const SearchWrapper = styled.div`
 export const SearchInput = styled.input`
   width: 180px;
   border: none;
-  /* background-color: rgba(255, 255, 255, 0.5); */
   :focus {
     outline: none;
     background-color: white;
@@ -44,7 +39,6 @@ export const SearchIcon = styled.div`
 `;
 
 export const Row = styled.div`
-  /* background-color: red; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -52,9 +46,7 @@ export const Row = styled.div`
   border-bottom: 2px solid #f2f6f4;
 `;
 
-export const Column = styled.div`
-  /* background-color: turquoise; */
-`;
+export const Column = styled.div``;
 
 export const ColumnTopCheckbox = styled.div`
   width: 10px;
@@ -157,9 +149,7 @@ export const DeleteButton = styled.button`
   }
 `;
 
-//// 페이지네이션 ///
 export const Pages = styled.div`
-  /* background-color: lightsteelblue; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,8 +182,6 @@ export const NextPage = styled.span`
   cursor: pointer;
 `;
 
-////베스트 게시물////
-
 export const BestList = styled.div`
   display: flex;
   flex-direction: row;
@@ -205,8 +193,6 @@ export const BestList = styled.div`
 export const BestContent = styled.div`
   width: 260px;
   height: 250px;
-
-  /* border: 1px solid #dbdbdb; */
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -222,12 +208,6 @@ export const BestPhotos = styled.div`
     rgba(230, 246, 184, 1) 0%,
     rgba(0, 215, 166, 1) 100%
   );
-  /* background: linear-gradient(
-    156deg,
-    rgba(230, 246, 184, 1) 0%,
-    rgba(78, 207, 127, 1) 48%,
-    rgba(0, 212, 255, 1) 100%
-  ); ; */
 `;
 
 export const BestImg = styled.img`
@@ -241,13 +221,10 @@ export const BestTitle = styled.div`
   padding-top: 20px;
   font-size: 16px;
   font-weight: 800;
-
-  /* height: 90px; */
   :hover {
     color: gray;
   }
   cursor: pointer;
-  /* background-color: white; */
 `;
 export const ProfilePhoto = styled.div`
   display: flex;
@@ -300,12 +277,3 @@ export const NewButton = styled.div`
     background-color: #787878;
   }
 `;
-
-// background-color: #ededed;
-// border-radius: 10px;
-// cursor: pointer;
-// transition: all 0.3s ease;
-// :hover {
-//   color: white;
-//   background-color: #787878;
-// }

@@ -1,6 +1,5 @@
 import MarketCreateUI from "./MarketCreate.presenter";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useMutation, useQuery } from "@apollo/client";
 import {
@@ -19,58 +18,46 @@ import {
   IQueryFetchUseditemArgs,
 } from "../../../../commons/types/generated/types";
 import { FormValues } from "./MarketCreate.types";
-
-const schema = yup.object().shape({
-  name: yup.string().required("필수 입력 사항입니다."),
-  remarks: yup.string().required("필수 입력 사항입니다"),
-  contents: yup.string().required("필수 입력 사항입니다"),
-  price: yup
-    .number()
-    .typeError("숫자만 입력가능합니다.")
-    .required("필수 입력 사항입니다"),
-  // tags: yup.string().required("필수 입력 사항입니다."),
-});
-
-const schemaForEdit = yup.object().shape({
-  name: yup.string(),
-  remarks: yup.string(),
-  contents: yup.string(),
-  price: yup.number().typeError("숫자만 입력가능합니다."),
-  // tags: yup.string().required("필수 입력 사항입니다."),
-});
-//
-// const schema = yup.object().shape({
-//   name: yup.string().required("필수 입력 사항입니다."),
-//   remarks: yup.string().required("필수 입력 사항입니다"),
-//   contents: yup.string().required("필수 입력 사항입니다"),
-//   price: yup
-//     .number()
-//     .typeError("숫자만 입력가능합니다.")
-//     .required("필수 입력 사항입니다"),
-//   // tags: yup.string().required("필수 입력 사항입니다."),
-// });
+import { schema, schemaForEdit } from "./MarketCreate.validation";
 
 export default function MarketCreate() {
   const router = useRouter();
+
+  const [address, setAddress] = useState<string>("");
+  const [zipcode, setZipcode] = useState<string>("");
+  const [addressDetail, setAddressDetail] = useState<string>("");
+  const [lat, setLat] = useState<number>(0);
+  const [lng, setLng] = useState<number>(0);
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [tags, setTags] = useState<string[]>([]);
+
+  const UseditemAddressInputs = {
+    address: address,
+    zipcode: zipcode,
+    addressDetail: addressDetail,
+    lat: lat,
+    lng: lng,
+  };
+
+  const { isEdit } = useContext(Context);
+
   const [createUseditem] = useMutation<
     Pick<IMutation, "createUseditem">,
     IMutationCreateUseditemArgs
   >(CREATE_USEDITEM);
 
+  const [updateUseditem] = useMutation<
+    Pick<IMutation, "updateUseditem">,
+    IMutationUpdateUseditemArgs
+  >(UPDATE_USEDITEM);
+
   const { data: dataForFetch } = useQuery<
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
   >(FETCH_USEDITEM, {
-    variables: { useditemId: router.query.myId },
+    variables: { useditemId: String(router.query.myId) },
   });
-
-  const { isEdit } = useContext(Context);
-
-  const defaultTags = dataForFetch?.fetchUseditem.tags;
-
-  console.log(defaultTags);
-
-  const [tags, setTags] = useState([]);
 
   const { handleSubmit, register, formState, setValue, trigger, getValues } =
     useForm({
@@ -79,16 +66,16 @@ export default function MarketCreate() {
       defaultValues: {
         name: dataForFetch?.fetchUseditem.name,
         remarks: dataForFetch?.fetchUseditem.remarks,
+        price: dataForFetch?.fetchUseditem.price,
       },
     });
 
   function handleChangeQuill(value: String) {
-    console.log(value);
     setValue("contents", value === "<p><br></p>" ? "" : value);
     trigger("contents");
   }
 
-  async function onClickSubmit(data: FormValues) {
+  const onClickSubmit = async (data: FormValues) => {
     const result = await createUseditem({
       variables: {
         createUseditemInput: {
@@ -102,15 +89,9 @@ export default function MarketCreate() {
       },
     });
     router.push(`/market/${result.data?.createUseditem._id}`);
-  }
+  };
 
-  // 수정하기
-  const [updateUseditem] = useMutation<
-    Pick<IMutation, "updateUseditem">,
-    IMutationUpdateUseditemArgs
-  >(UPDATE_USEDITEM);
-
-  async function onClickEdit(data: FormValues) {
+  const onClickEdit = async (data: FormValues) => {
     try {
       await updateUseditem({
         variables: {
@@ -122,48 +103,26 @@ export default function MarketCreate() {
               ...UseditemAddressInputs,
             },
           },
-          useditemId: router.query.myId,
+          useditemId: String(router.query.myId),
         },
       });
     } catch (error) {
       alert(error.message);
     }
     router.push(`/market/${router.query.myId}`);
-  }
+  };
 
-  // 이미지 업로드
   useEffect(() => {
     if (dataForFetch?.fetchUseditem.images?.length) {
       setFileUrls([...dataForFetch?.fetchUseditem.images]);
     }
   }, [dataForFetch]);
 
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
-
-  function onChangeFileUrls(fileUrl: string, index: number) {
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);
-  }
-
-  // 우편번호
-
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [address, setAddress] = useState<string>("");
-  const [zipcode, setZipcode] = useState<string>("");
-  const [addressDetail, setAddressDetail] = useState<string>("");
-  const [lat, setLat] = useState();
-  const [lng, setLng] = useState();
-
-  const UseditemAddressInputs = {
-    address: address,
-    zipcode: zipcode,
-    addressDetail: addressDetail,
-    lat: lat,
-    lng: lng,
   };
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -190,7 +149,6 @@ export default function MarketCreate() {
       handleChangeQuill={handleChangeQuill}
       tags={tags}
       setTags={setTags}
-      isModalVisible={isModalVisible}
       handleComplete={handleComplete}
       onChangeOptionalAddress={onChangeOptionalAddress}
       address={address}

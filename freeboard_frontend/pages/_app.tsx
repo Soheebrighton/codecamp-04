@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 // import { useEffect } from "react";
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

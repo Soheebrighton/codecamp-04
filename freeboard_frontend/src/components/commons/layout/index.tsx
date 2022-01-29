@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import Banner from "./banner/Banner.container";
 import Header from "./header/Header.container";
 import HeaderColor from "./header-color/HeaderColor.container";
@@ -9,7 +8,11 @@ const HIDDEN = ["/auth/register", "/auth/login"];
 const HIDDEN_BANNER = ["/", "/mypage"];
 const COLOURED_HEADER = ["/"];
 
-export default function Layout(props) {
+interface IPropsLayout {
+  children: any;
+}
+
+export default function Layout(props: IPropsLayout) {
   const router = useRouter();
   const isHidden = HIDDEN.includes(router.asPath);
   const isHiddenBanner = HIDDEN_BANNER.includes(router.asPath);
@@ -22,7 +25,6 @@ export default function Layout(props) {
           {!isHiddenBanner && <Banner />}
         </>
       )}
-
       <div>{props.children}</div>
       {!isHidden && <Footer />}
     </>

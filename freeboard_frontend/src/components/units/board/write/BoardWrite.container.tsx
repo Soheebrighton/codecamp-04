@@ -3,15 +3,19 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
-import { IBoardWriteProps } from "./BoardWrite.types";
+import { IBoardWriteProps, IUpdateBoardInputProps } from "./BoardWrite.types";
 import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
+  IQueryFetchBoardArgs,
+  IQuery,
 } from "../../../../commons/types/generated/types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
+
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -30,29 +34,35 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
   const [changeBtnBC, setChangeBtnBC] = useState(false);
   const [changeBtnColor, setChangeBtnColor] = useState(false);
-  const [select, setSelect] = useState("optionA");
 
-  /// 사진 업로드 //
-  function onChangeFileUrls(fileUrl: string, index: number) {
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: { boardId: String(router.query.myId) },
+    }
+  );
+
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
+
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);
-  }
-
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.myId },
-  });
+  };
 
   useEffect(() => {
     if (data?.fetchBoard.images?.length) {
       setFileUrls([...data?.fetchBoard.images]);
     }
   }, [data]);
-
-  function handleSelectChange(event: ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setSelect(value);
-  }
 
   const myInputs = {
     writer: name,
@@ -68,19 +78,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
     },
   };
 
-  const [createBoard] = useMutation<
-    Pick<IMutation, "createBoard">,
-    IMutationCreateBoardArgs
-  >(CREATE_BOARD);
-
-  const [updateBoard] = useMutation<
-    Pick<IMutation, "updateBoard">,
-    IMutationUpdateBoardArgs
-  >(UPDATE_BOARD);
-
-  console.log(createBoard);
-
-  function saveName(event: ChangeEvent<HTMLInputElement>) {
+  const saveName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     if (event.target.value) {
       setNameError("");
@@ -92,9 +90,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setChangeBtnBC(false);
       setChangeBtnColor(false);
     }
-  }
+  };
 
-  function savePassword(event: ChangeEvent<HTMLInputElement>) {
+  const savePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (event.target.value) {
       setPasswordError("");
@@ -106,9 +104,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setChangeBtnBC(false);
       setChangeBtnColor(false);
     }
-  }
+  };
 
-  function saveTitle(event: ChangeEvent<HTMLInputElement>) {
+  const saveTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
     if (event.target.value) {
       setTitleError("");
@@ -120,9 +118,9 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setChangeBtnBC(false);
       setChangeBtnColor(false);
     }
-  }
+  };
 
-  function saveContent(event: ChangeEvent<HTMLInputElement>) {
+  const saveContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
 
     if (event.target.value) {
@@ -135,13 +133,17 @@ export default function BoardWrite(props: IBoardWriteProps) {
       setChangeBtnBC(false);
       setChangeBtnColor(false);
     }
-  }
+  };
 
-  function saveYoutubeUrl(event: ChangeEvent<HTMLInputElement>) {
+  const saveYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(event.target.value);
-  }
+  };
 
-  async function checkValid() {
+  const onChangeOptionalAddress = (event: ChangeEvent<HTMLInputElement>) => {
+    setOptionalAddress(event.target.value);
+  };
+
+  const checkValid = async () => {
     if (!name) {
       setNameError("이름을 입력해주세요.");
     }
@@ -168,34 +170,32 @@ export default function BoardWrite(props: IBoardWriteProps) {
 
       router.push(`/boards/${result.data?.createBoard._id}`);
     }
-  }
+  };
 
-  ////////// 수정하기 ~~~~ ////////
-
-  async function editBoard() {
-    const myVariablesForEdit = {
+  const editBoard = async () => {
+    const myVariablesForEdit: IUpdateBoardInputProps = {
       updateBoardInput: { images: fileUrls },
       password,
-      boardId: router.query.myId,
+      boardId: String(router.query.myId),
     };
 
     if (title) {
       myVariablesForEdit.updateBoardInput.title = title;
     } else {
-      myVariablesForEdit.updateBoardInput.title = data.fetchBoard.title;
+      myVariablesForEdit.updateBoardInput.title = data?.fetchBoard.title;
     }
 
     if (content) {
       myVariablesForEdit.updateBoardInput.contents = content;
     } else {
-      myVariablesForEdit.updateBoardInput.contents = data.fetchBoard.contents;
+      myVariablesForEdit.updateBoardInput.contents = data?.fetchBoard.contents;
     }
 
     if (youtubeUrl) {
       myVariablesForEdit.updateBoardInput.youtubeUrl = youtubeUrl;
     } else {
       myVariablesForEdit.updateBoardInput.youtubeUrl =
-        data.fetchBoard.youtubeUrl;
+        data?.fetchBoard.youtubeUrl;
     }
 
     try {
@@ -203,39 +203,21 @@ export default function BoardWrite(props: IBoardWriteProps) {
         variables: myVariablesForEdit,
       });
 
-      console.log(myVariablesForEdit);
       router.push(`/boards/${router.query.myId}`);
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  //// 우편번호 모달////
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = () => {
-    setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const onToggleModal = () => {
+    setIsModalVisible((prev) => !prev);
   };
 
   const handleComplete = (data: any) => {
-    console.log(data.roadAddress);
-    // 모달 종료하기
     setMyAddress(data.address);
     setMyZonecode(data.zonecode);
-    setIsModalVisible(false);
+    setIsModalVisible((prev) => !prev);
   };
-
-  function onChangeOptionalAddress(event: ChangeEvent<HTMLInputElement>) {
-    setOptionalAddress(event.target.value);
-  }
 
   return (
     <BoardWriteUI
@@ -251,20 +233,16 @@ export default function BoardWrite(props: IBoardWriteProps) {
       changeBtnBC={changeBtnBC}
       isEdit={props.isEdit}
       editBoard={editBoard}
-      bbb={changeBtnColor}
+      changeBtnColor={changeBtnColor}
       data={data}
       saveYoutubeUrl={saveYoutubeUrl}
-      showModal={showModal}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
+      onToggleModal={onToggleModal}
       handleComplete={handleComplete}
       isModalVisible={isModalVisible}
       myAddress={myAddress}
       myZonecode={myZonecode}
       onChangeOptionalAddress={onChangeOptionalAddress}
       optionalAddress={optionalAddress}
-      select={select}
-      handleSelectChange={handleSelectChange}
       onChangeFileUrls={onChangeFileUrls}
       fileUrls={fileUrls}
     ></BoardWriteUI>

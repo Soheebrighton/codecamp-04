@@ -2,10 +2,9 @@ import * as A from "./Header.styles";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { GlobalContext } from "../../../../../pages/_app";
-
+import { IPropsHeaderUI } from "./Header.types";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
@@ -26,13 +25,16 @@ const LOGOUT_USER = gql`
   }
 `;
 
-export default function HeaderUI(props) {
+export default function HeaderUI(props: IPropsHeaderUI) {
+  const router = useRouter();
+
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const [logoutUser] = useMutation(LOGOUT_USER);
-  const router = useRouter();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -54,7 +56,6 @@ export default function HeaderUI(props) {
   return (
     <A.Header>
       <A.Wrapper>
-        {" "}
         <A.Logo>
           <img
             src="/images/logo_small.png"
@@ -68,7 +69,6 @@ export default function HeaderUI(props) {
           <A.PageBtn onClick={props.onClickMyPage}>MY PAGE</A.PageBtn>
         </A.Nav>
         <A.LoginBtns>
-          {" "}
           {data?.fetchUserLoggedIn.name ? (
             <A.User>
               <div>
@@ -97,7 +97,6 @@ export default function HeaderUI(props) {
                   <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
                 </Menu>
               </div>
-              {/* <A.UserName>{data?.fetchUserLoggedIn.name}님</A.UserName>{" "} */}
               <A.UserIcon>
                 <Avatar size="small" icon={<UserOutlined />} />
               </A.UserIcon>

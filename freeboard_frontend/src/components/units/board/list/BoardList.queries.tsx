@@ -24,25 +24,6 @@ export const FETCH_BOARDS_OF_THE_BEST = gql`
   }
 `;
 
-////// 개별 보드 게시물 ////
-
-export const FETCH_BOARD = gql`
-  query fetchBoard($boardId: ID!) {
-    fetchBoard(boardId: $boardId) {
-      _id
-      writer
-      title
-    }
-  }
-`;
-
-export const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
-  }
-`;
-
-/// 페이지네이션 ///
 export const FETCH_BOARDS_COUNT = gql`
   query fetchBoardsCount {
     fetchBoardsCount

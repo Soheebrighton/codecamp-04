@@ -7,13 +7,10 @@ import {
   DELETE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
 } from "./BoardCommentList.queries";
-import { Avatar } from "antd";
+import { Avatar, Modal, Rate } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Rate } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { Modal } from "antd";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { IBoardCommentListUIItemProps } from "./BoardCommentList.types";
 import {
   IMutation,
@@ -33,12 +30,6 @@ export default function BoardCommentListUIItem(
 
   function onClickUpdate() {
     setIsEdit(true);
-  }
-
-  const [value, setValue] = useState(0);
-
-  function handleChange(value: Number) {
-    setValue(value);
   }
 
   async function onClickDelete() {
@@ -71,16 +62,8 @@ export default function BoardCommentListUIItem(
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const onToggleModal = () => {
+    setIsModalVisible((prev) => !prev);
   };
 
   return (
@@ -89,44 +72,37 @@ export default function BoardCommentListUIItem(
         <A.Wrapper>
           <A.CommentView>
             <A.CommentProfilePhoto>
-              {" "}
               <Avatar size="large" icon={<UserOutlined />} />
             </A.CommentProfilePhoto>
             <A.CommentViewDetails>
               <A.CommentViewTop>
                 <A.CommentWriter>{props.el?.writer}</A.CommentWriter>
                 <A.CommentViewRating>
-                  {" "}
                   <Rate
-                    onChange={handleChange}
+                    disabled
                     value={props.el?.rating}
                     style={{ fontSize: 15 }}
                   />
                 </A.CommentViewRating>
               </A.CommentViewTop>
-
               <A.CommentViewText>{props.el?.contents}</A.CommentViewText>
-
               <A.CommentViewDate>
                 {displayedAt(props.el?.createdAt)}
               </A.CommentViewDate>
             </A.CommentViewDetails>
             <A.CommentEandD>
-              {/* <EditOutlined /> */}
               <A.CommentEdit onClick={onClickUpdate}>
-                {" "}
                 <FontAwesomeIcon icon={faEdit} color="#eeeeee" />
               </A.CommentEdit>
-              {/* <A.CommentDelete onClick={onClickDelete}> */}
-              <A.CommentDelete onClick={showModal}>
-                {" "}
+              <A.CommentDelete onClick={onToggleModal}>
                 <FontAwesomeIcon icon={faTrashAlt} color="#eeeeee" />
+
                 <Modal
                   visible={isModalVisible}
                   onOk={onClickDelete}
-                  onCancel={handleCancel}
+                  onCancel={onToggleModal}
                 >
-                  비밀번호를 입력하세요{" "}
+                  비밀번호를 입력하세요
                   <input onChange={CheckPassword} type="password" />
                 </Modal>
               </A.CommentDelete>

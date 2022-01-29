@@ -3,6 +3,7 @@ import { IPropsMarketListStyle, IPropsTextToken } from "./MarketList.types";
 
 export const Background = styled.div`
   padding-top: 40px;
+  padding-bottom: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -25,9 +26,7 @@ export const Row = styled.div`
 export const ItemDiv = styled.div`
   width: 300px;
   display: flex;
-
   flex-direction: column;
-  /* opacity: 0.4; */
   margin: 20px 0px 20px 0px;
 `;
 
@@ -178,8 +177,6 @@ export const TodayPrice = styled.div`
   font-family: "Montserrat-Medium";
 `;
 
-// best
-
 export const Best = styled.div`
   display: flex;
   flex-direction: column;
@@ -204,9 +201,7 @@ export const BestItemsTitle = styled.div`
 export const BestDiv = styled.div`
   width: 220px;
   display: flex;
-  /* background-color: blue; */
   flex-direction: column;
-  /* opacity: 0.4; */
   margin: 20px 0px 20px 0px;
 `;
 
@@ -223,7 +218,6 @@ export const BImg = styled.img`
   height: 100%;
   position: relative;
   border: 1px solid #f7f7f7;
-
   object-fit: cover;
   :hover {
     border-radius: 7px;
@@ -256,7 +250,6 @@ export const LabelTxt = styled.div`
 export const BestDetails = styled.div``;
 export const BestDetail = styled.div`
   width: 100%;
-
   padding: 10px;
 `;
 

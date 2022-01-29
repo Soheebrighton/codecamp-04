@@ -94,35 +94,13 @@ export default function MarketList() {
   useEffect(() => {
     const todayItems =
       JSON.parse(localStorage.getItem("todayItems") || "[]") || [];
-    if (todayItems.length > 3) {
+    if (todayItems.length > 2) {
       localStorage.setItem(
         "todayItems",
-        JSON.stringify(todayItems.slice(0, 3))
+        JSON.stringify(todayItems.slice(0, 2))
       );
     }
   }, []);
-
-  // const onClickAddItemToCart = (el) => () => {
-  //   const carts = JSON.parse(localStorage.getItem("cart") || "[]") || [];
-
-  //   let isExists = false;
-  //   carts.forEach((cartEl) => {
-  //     if (el._id === cartEl._id) {
-  //       isExists = true;
-  //     }
-  //   });
-  //   if (isExists) {
-  //     alert("이미 장바구니에 담긴 상품입니다.");
-  //     return;
-  //   }
-
-  //   console.log(el.name);
-  //   const { __typename, ...newEl } = el;
-  //   carts.push(newEl);
-  //   localStorage.setItem("cart", JSON.stringify(carts));
-  // };
-
-  // 오늘 본 상품
 
   const [items, SetItems] = useState([]);
   useEffect(() => {
@@ -133,7 +111,6 @@ export default function MarketList() {
   const onClickTodayItem = (event: any) => {
     router.push(`/market/${event.target.id}`);
   };
-  // 무한스크롤
 
   const onLoadMore = () => {
     if (!data) return;
@@ -166,7 +143,6 @@ export default function MarketList() {
     <MarketListUI
       onClickCreateItem={onClickCreateItem}
       onClickViewItem={onClickViewItem}
-      // onClickAddItemToCart={onClickAddItemToCart}
       onChangeKeyword={onChangeKeyword}
       onClickPick={onClickPick}
       data={data}

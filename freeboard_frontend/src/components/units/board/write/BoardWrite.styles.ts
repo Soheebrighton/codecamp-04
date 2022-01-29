@@ -106,6 +106,7 @@ export const PostContentInput = styled.textarea`
   height: 300px;
   border-radius: 4px;
   border: 1px solid #dbdbdb;
+  resize: none;
   &:focus {
     outline: none;
     &::placeholder {
@@ -243,7 +244,6 @@ export const MainSetting = styled.div`
 export const SubmitButton = styled.button`
   width: 150px;
   height: 42px;
-  /* background-color: #988cff; */
   background-color: black;
   border-radius: 10px;
   border: none;
@@ -257,7 +257,7 @@ export const SubmitButton = styled.button`
     background-color: #787878;
     color: white;
   }
-  background-color: ${(props) =>
+  background-color: ${(props: ISubmitButtonProps) =>
     props.changeBtnBC === true ? "#1dbc67" : "#ededed"};
 
   color: ${(props: ISubmitButtonProps) =>
@@ -269,8 +269,6 @@ export const Wrapper = styled.div`
   width: 1000px;
   display: flex;
   flex-direction: column;
-
-  /* box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); */
 `;
 
 export const Main = styled.div`

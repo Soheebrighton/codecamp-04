@@ -2,6 +2,9 @@ import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IPropsBoardViewUI {
   data?: Pick<IQuery, "fetchBoard">;
-  date: any;
   onClickLike: () => Promise<void>;
+  onClickDelete: () => Promise<void>;
+  onClickList: () => void;
+  onClickEdit: () => void;
+  onErrorImage: (event: any) => void;
 }

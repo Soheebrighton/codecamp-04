@@ -1,7 +1,6 @@
 import * as A from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import { faStore, faHeart } from "@fortawesome/free-solid-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StickyBox from "react-sticky-box";
 import SearchBars from "../../../commons/searchbars/SearchBars.container";
@@ -115,19 +114,12 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                     <A.Picked>{el.pickedCount} 찜</A.Picked>
                   </A.PriceAndPicked>
                 </A.ItemDetails>
-                {/* <span>{el.remarks}</span> */}
-                {/* <button
-                  onClick={props.onClickAddItemToCart(el)}
-                  style={{ border: "none", backgroundColor: "transparent" }}
-                >
-                  add to cart
-                </button> */}
               </A.ItemDiv>
             ))}
           </A.Wrapper>
         </InfiniteScroll>
         <div>
-          <StickyBox offsetTop={100}>
+          <StickyBox offsetTop={90} offsetBottom={90}>
             <A.TodayWrapper>
               <A.TodayTitle>오늘 본 상품</A.TodayTitle>
               {props.items?.map((el) => (

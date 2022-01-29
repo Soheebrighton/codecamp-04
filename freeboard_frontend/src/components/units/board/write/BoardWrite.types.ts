@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IBoardWriteProps {
@@ -7,27 +7,44 @@ export interface IBoardWriteProps {
 }
 
 export interface IBoardWriteUIProps {
+  saveName: (event: ChangeEvent<HTMLInputElement>) => void;
+  savePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  saveTitle: (event: ChangeEvent<HTMLInputElement>) => void;
+  saveContent: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   nameError: string;
   passwordError: string;
   titleError: string;
   contentError: string;
-
-  saveName: (event: ChangeEvent<HTMLInputElement>) => void;
-  savePassword: (event: ChangeEvent<HTMLInputElement>) => void;
-  saveTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  saveContent: (event: ChangeEvent<HTMLInputElement>) => void;
+  checkValid: () => Promise<void>;
+  changeBtnBC: boolean;
+  isEdit: boolean | undefined;
+  editBoard: () => Promise<void>;
+  changeBtnColor: boolean;
+  data?: Pick<IQuery, "fetchBoard">;
   saveYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-
-  onChangeMyYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeOptionalAddress: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickSubmit: () => void;
-  onClickUpdate: () => void;
-
-  myZonecode: string;
+  onToggleModal: () => void;
+  handleComplete: (data: any) => void;
+  isModalVisible: boolean;
   myAddress: string;
+  myZonecode: string;
+  onChangeOptionalAddress: (event: ChangeEvent<HTMLInputElement>) => void;
+  optionalAddress: string;
+  onChangeFileUrls: (fileUrl: string, index: number) => void;
+  fileUrls: string[];
 }
 
 export interface ISubmitButtonProps {
-  isActive: boolean;
+  changeBtnBC: boolean;
+  changeBtnColor: boolean;
+}
+
+export interface IUpdateBoardInputProps {
+  updateBoardInput: {
+    images: string[];
+    title?: string | undefined;
+    contents?: string | undefined;
+    youtubeUrl?: string | null | undefined;
+  };
+  password: string;
+  boardId: string;
 }

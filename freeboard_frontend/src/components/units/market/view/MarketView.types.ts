@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IPropsMarketViewUI {
@@ -18,15 +17,4 @@ export interface IPropsMarketViewUI {
 export interface IPropsPickBtn {
   dataForPicked?: Pick<IQuery, "fetchUseditemsIPicked">;
   data?: Pick<IQuery, "fetchUseditem">;
-}
-
-export interface IPropsContentStyle {
-  style?: CSSProperties;
-  height: string;
-  width: string;
-  color: string;
-  textAlign: string;
-  overflow: string;
-  border: string;
-  borderRadius: string;
 }

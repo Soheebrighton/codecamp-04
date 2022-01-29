@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
 
-///////////////////////////////
-////////// 댓글 보기 ////////////
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,7 +30,6 @@ export const CommentViewDetails = styled.div`
 export const CommentViewTop = styled.div`
   font-weight: 600;
   padding-bottom: 5px;
-  /* background-color: lightseagreen; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,7 +49,6 @@ export const CommentViewDate = styled.div`
 
 export const CommentEandD = styled.div`
   width: 10%;
-  /* background-color: lightyellow; */
   display: flex;
   flex-direction: row;
   justify-content: end;

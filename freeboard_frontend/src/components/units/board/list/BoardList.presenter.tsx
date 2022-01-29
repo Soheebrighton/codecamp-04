@@ -1,17 +1,13 @@
 import * as A from "./BoardList.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
-import { onError } from "@apollo/client/link/error";
+import { IPropsBoardListUI } from "./BoardList.types";
+import { getDate } from "../../../../commons/libraries/utils";
 
-export default function BoardListUI(props) {
-  function onErrorBestImg(event) {
-    event.target.style.display = "none";
-  }
+export default function BoardListUI(props: IPropsBoardListUI) {
   return (
     <A.Main>
       <A.BestList>
@@ -22,13 +18,11 @@ export default function BoardListUI(props) {
                 {el.images ? (
                   <A.BestImg
                     src={`https://storage.googleapis.com/${el.images[0]}`}
-                    onError={onErrorBestImg}
+                    onError={props.onErrorBestImg}
                   />
                 ) : (
-                  <div></div>
+                  <div />
                 )}
-
-                {/* <img src={`https://storage.googleapis.com/${el}`} /> */}
               </A.BestPhotos>
               <A.BestTitle id={el._id} onClick={props.onClickView}>
                 {el.title.length > 18
@@ -36,21 +30,16 @@ export default function BoardListUI(props) {
                   : el.title}
               </A.BestTitle>
               <A.BestBottom>
-                {" "}
                 <A.ProfilePhoto>
-                  {" "}
                   <Avatar size="small" icon={<UserOutlined />} />
                 </A.ProfilePhoto>
                 <div>
-                  {" "}
                   <A.BestWriter>
                     <A.BestName>{el.writer}</A.BestName>
-                    <A.BestDate>{el.createdAt.split("T")[0]}</A.BestDate>
+                    <A.BestDate>{getDate(el.createdAt)}</A.BestDate>
                   </A.BestWriter>
                 </div>
               </A.BestBottom>
-
-              <A.BestLikes></A.BestLikes>
             </A.BestContent>
           </>
         ))}
@@ -58,20 +47,16 @@ export default function BoardListUI(props) {
       <A.SearchWrapper>
         <A.SearchInput type="text" onChange={props.onChangeSearch} />
         <A.SearchIcon>
-          {" "}
           <FontAwesomeIcon icon={faSearch} color="#0dc56c" />
         </A.SearchIcon>
       </A.SearchWrapper>
       <A.Wrapper>
-        {/* //게시글 목록 설명 */}
-
         <A.Row>
           <A.ColumnTopNumber>☻</A.ColumnTopNumber>
           <A.ColumnTopTitle>제목</A.ColumnTopTitle>
           <A.ColumnTopWriter>작성자</A.ColumnTopWriter>
           <A.ColumnTopDate>날짜</A.ColumnTopDate>
         </A.Row>
-        {/* ////////////// */}
         {props.dataForBoards?.fetchBoards.map((el, index) => (
           <A.Row key={el._id}>
             <A.ColumnNumber>
@@ -83,44 +68,9 @@ export default function BoardListUI(props) {
                 : el.title}
             </A.ColumnTitle>
             <A.ColumnWriter>{el.writer}</A.ColumnWriter>
-            <A.ColumnDate>{el.createdAt.split("T")[0]}</A.ColumnDate>
-            {/* <A.ColumnDelete>
-              {" "}
-              <A.DeleteButton id={el._id} onClick={props.onClickDelete}>
-                x
-              </A.DeleteButton>
-            </A.ColumnDelete> */}
+            <A.ColumnDate>{getDate(el.createdAt)}</A.ColumnDate>
           </A.Row>
         ))}
-        {/* <A.Pages>
-          <A.PrevPage onClick={props.onClickPagePrev}>
-            {" "}
-            <FontAwesomeIcon icon={faAngleLeft} color="#0dc56c" />
-          </A.PrevPage>
-          <A.PageNums onClick={props.onClickPage}>
-            {" "}
-            {new Array(10).fill(1).map(
-              (_, index) =>
-                props.startPage + index <= props.lastPage && (
-                  <A.PageNum
-                    key={props.startPage + index}
-                    onClick={props.onClickPage}
-                    id={String(props.startPage + index)}
-                    style={{ margin: "10px", cursor: "pointer" }}
-                  >
-                    {props.startPage + index}
-                  </A.PageNum>
-                )
-            )}{" "}
-          </A.PageNums>
-          <A.NextPage onClick={props.onClickPageNext}>
-            {" "}
-            <span>
-              {" "}
-              <FontAwesomeIcon icon={faAngleRight} color="#0dc56c" />
-            </span>
-          </A.NextPage>
-        </A.Pages> */}
         <Paginations01
           refetch={props.refetch}
           count={props.count}
@@ -129,11 +79,7 @@ export default function BoardListUI(props) {
           onClickPage={props.onClickPage}
         />
       </A.Wrapper>
-
-      {/* //버튼 */}
-      <A.NewButton onClick={props.onClickNew}>
-        <div>게시물 작성하기</div>
-      </A.NewButton>
+      <A.NewButton onClick={props.onClickNew}>게시물 작성하기</A.NewButton>
     </A.Main>
   );
 }

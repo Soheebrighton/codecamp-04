@@ -11,7 +11,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
   IMutation,
-  IMutationCreatePointTransactionOfBuyingAndSellingArgs,
   IMutationDeleteUseditemArgs,
   IMutationToggleUseditemPickArgs,
   IQuery,
@@ -25,7 +24,7 @@ export default function MarketView() {
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
   >(FETCH_USEDITEM, {
-    variables: { useditemId: router.query.myId },
+    variables: { useditemId: String(router.query.myId) },
   });
   const { data: dataForLoggedIn } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
@@ -39,18 +38,27 @@ export default function MarketView() {
     },
   });
 
-  const sellerId = data?.fetchUseditem.seller._id;
-  const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
-
-  // 삭제하기
   const [deleteUseditem] = useMutation<
     Pick<IMutation, "deleteUseditem">,
     IMutationDeleteUseditemArgs
   >(DELETE_USEDITEM);
 
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
+  );
+  const [toggleUseditemPick] = useMutation<
+    Pick<IMutation, "toggleUseditemPick">,
+    IMutationToggleUseditemPickArgs
+  >(TOGGLE_USEDITEM_PICK);
+
+  const sellerId = data?.fetchUseditem.seller?._id;
+  const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
+
   async function onClickDeleteItem() {
     try {
-      await deleteUseditem({ variables: { useditemId: router.query.myId } });
+      await deleteUseditem({
+        variables: { useditemId: String(router.query.myId) },
+      });
     } catch (error) {
       alert(error.message);
     }
@@ -61,12 +69,6 @@ export default function MarketView() {
   function onClickEditItem() {
     router.push(`/market/${router.query.myId}/edit`);
   }
-
-  // 구매하기
-  const [createPointTransactionOfBuyingAndSelling] = useMutation<
-    Pick<IMutation, "createPointTransactionOfBuyingAndSelling">,
-    IMutationCreatePointTransactionOfBuyingAndSellingArgs
-  >(CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING);
 
   async function onClickPayment() {
     try {
@@ -83,17 +85,10 @@ export default function MarketView() {
     }
   }
 
-  // 찜하기
-
-  const [toggleUseditemPick] = useMutation<
-    Pick<IMutation, "toggleUseditemPick">,
-    IMutationToggleUseditemPickArgs
-  >(TOGGLE_USEDITEM_PICK);
-
   async function onClickPickItem() {
     await toggleUseditemPick({
       variables: {
-        useditemId: router.query.myId,
+        useditemId: String(router.query.myId),
       },
       refetchQueries: [
         {
@@ -110,8 +105,6 @@ export default function MarketView() {
     });
   }
 
-  // 장바구니 담기
-
   const onClickAddItemToCart = (el: any) => () => {
     const carts = JSON.parse(localStorage.getItem("cart") || "[]") || [];
 
@@ -125,8 +118,6 @@ export default function MarketView() {
       alert("이미 장바구니에 담긴 상품입니다.");
       return;
     }
-
-    console.log(el.name);
     const { __typename, ...newEl } = el;
     carts.push(newEl);
     localStorage.setItem("cart", JSON.stringify(carts));

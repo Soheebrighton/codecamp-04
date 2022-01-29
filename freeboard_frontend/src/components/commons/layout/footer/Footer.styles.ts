@@ -15,5 +15,4 @@ export const Content = styled.div`
   padding-bottom: 20px;
   width: 1200px;
   font-size: 12px;
-  /* background-color: lightgreen; */
 `;

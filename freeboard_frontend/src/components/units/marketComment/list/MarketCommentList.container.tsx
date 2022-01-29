@@ -16,7 +16,7 @@ export default function MarketCommentList() {
     Pick<IQuery, "fetchUseditemQuestions">,
     IQueryFetchUseditemQuestionsArgs
   >(FETCH_USEDITEM_QUESTIONS, {
-    variables: { useditemId: router.query.myId },
+    variables: { useditemId: String(router.query.myId) },
   });
 
   const { data: dataForUserInfo } = useQuery(FETCH_USER_LOGGED_IN);

@@ -15,7 +15,6 @@ export default function AnswerList(props: IPropsAnswerList) {
 
   const { data: dataForUserInfo } = useQuery(FETCH_USER_LOGGED_IN);
 
-  console.log(data);
   return (
     <AnswerListUI
       data={data}

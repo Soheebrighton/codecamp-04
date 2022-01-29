@@ -23,10 +23,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 export const Logo = styled.div`
-  /* width: 50%; */
   display: flex;
-  /* flex-direction: row;
-  justify-content: center; */
 `;
 
 export const Nav = styled.div``;
@@ -39,7 +36,6 @@ export const PageBtn = styled.span`
   cursor: pointer;
   :hover {
     opacity: 0.6;
-    /* color: gray; */
   }
   z-index: 3;
 `;

@@ -20,7 +20,10 @@ export default function BoardCommentWriteUI(props: IPropsBoardCommentWriteUI) {
           ></A.CommentWritePassword>
           <A.Rate>
             <span>
-              <Rate onChange={props.onChangeStar} />
+              <Rate
+                onChange={props.onChangeStar}
+                defaultValue={props.el?.rating}
+              />
             </span>
           </A.Rate>
         </A.CommentTop>

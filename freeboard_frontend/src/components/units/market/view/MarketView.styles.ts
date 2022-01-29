@@ -38,8 +38,6 @@ export const TopWrapper = styled.div`
 
 export const ImgWrapper = styled.div`
   width: 50%;
-  /* height: 100%; */
-  /* border: 1px solid black; */
   border-radius: 7px;
 `;
 
@@ -87,7 +85,6 @@ export const Tag = styled.span`
 
 export const CreatedAt = styled.div`
   padding-top: 10px;
-
   color: #cccccc;
 `;
 
@@ -123,7 +120,6 @@ export const BuyPointBtn = styled.div`
 `;
 export const Btns = styled.div`
   height: 25%;
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   font-weight: 600;
@@ -154,7 +150,7 @@ export const PickBtn = styled.div`
   color: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
-      .includes(props.data?.fetchUseditem._id)
+      .includes(String(props.data?.fetchUseditem._id))
       ? "#ff7081"
       : "white"};
   display: flex;
@@ -163,13 +159,13 @@ export const PickBtn = styled.div`
   background-color: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
-      .includes(props.data?.fetchUseditem._id)
+      .includes(String(props.data?.fetchUseditem._id))
       ? "white"
       : "lightgray"};
   border: ${(props: IPropsPickBtn) =>
     props.dataForPicked?.fetchUseditemsIPicked
       .map((pick) => pick._id)
-      .includes(props.data?.fetchUseditem._id)
+      .includes(String(props.data?.fetchUseditem._id))
       ? "1px solid #ff7081"
       : "none"};
   cursor: pointer;
@@ -189,7 +185,6 @@ export const ContentWrapper = styled.div`
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
 `;
 
 export const Contents = styled.div`
@@ -202,10 +197,19 @@ export const Title = styled.div`
   text-align: center;
   font-weight: 400;
   width: 70px;
-  /* border-bottom: 2px solid #1dbc67; */
 `;
 
 export const MapWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const CarouselContent = styled.h3`
+  height: 500px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid #f7f7f7;
+  border-radius: 7px;
 `;
