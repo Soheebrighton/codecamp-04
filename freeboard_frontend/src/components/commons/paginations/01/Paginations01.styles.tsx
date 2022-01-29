@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Pages = styled.div`
-  /* background-color: lightsteelblue; */
   display: flex;
   align-items: center;
   justify-content: center;

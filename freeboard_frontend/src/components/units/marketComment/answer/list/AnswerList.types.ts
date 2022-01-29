@@ -6,9 +6,8 @@ export interface IPropsAnswerList {
 
 export interface IPropsAnswerListUI {
   data?: Pick<IQuery, "fetchUseditemQuestionAnswers">;
+  usedQId: string;
   dataForUserInfo?: Pick<IQuery, "fetchUserLoggedIn">;
-  usedQId: any;
-  el: any;
 }
 
 export interface IPropsAnswerListUIItem {

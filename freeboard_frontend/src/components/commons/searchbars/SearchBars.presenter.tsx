@@ -2,7 +2,11 @@ import * as A from "./SearchBars.styles";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function SearchBarsUI(props) {
+interface IPropsSearchBarsUI {
+  onChangeSearchBar: (event: any) => void;
+}
+
+export default function SearchBarsUI(props: IPropsSearchBarsUI) {
   return (
     <>
       <A.SearchWrapper>
@@ -15,7 +19,7 @@ export default function SearchBarsUI(props) {
           color="#ebebeb"
           style={{ position: "absolute", right: "175px" }}
         />
-      </A.SearchWrapper>{" "}
+      </A.SearchWrapper>
     </>
   );
 }

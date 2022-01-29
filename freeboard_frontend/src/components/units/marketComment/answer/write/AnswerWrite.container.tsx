@@ -37,7 +37,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
           createUseditemQuestionAnswerInput: {
             contents: contents,
           },
-          useditemQuestionId: props.useditemQuestionId,
+          useditemQuestionId: String(props.useditemQuestionId),
         },
         refetchQueries: [
           {
@@ -59,7 +59,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
           updateUseditemQuestionAnswerInput: {
             contents: contents,
           },
-          useditemQuestionAnswerId: props.useditemAId,
+          useditemQuestionAnswerId: String(props.useditemAId),
         },
       });
       props.setIsEditAnswer(false);
@@ -76,6 +76,7 @@ export default function AnswerWrite(props: IPropsAnswerWrite) {
       isEditAnswer={props.isEditAnswer}
       setIsEditAnswer={props.setIsEditAnswer}
       contents={contents}
+      el={props.el}
     />
   );
 }

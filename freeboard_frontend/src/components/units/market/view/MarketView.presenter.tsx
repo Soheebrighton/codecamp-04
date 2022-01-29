@@ -48,7 +48,11 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                   ))}
                 </A.Tags>
                 <A.CreatedAt>
-                  <FontAwesomeIcon icon={faClock} color="#cccccc" />
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    color="#cccccc"
+                    style={{ marginRight: "5px" }}
+                  />
                   {displayedAt(props.data?.fetchUseditem.createdAt)}
                 </A.CreatedAt>
               </A.Detail>

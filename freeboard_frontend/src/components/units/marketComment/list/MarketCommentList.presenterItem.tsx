@@ -19,15 +19,23 @@ import AnswerList from "../answer/list/AnswerList.container";
 import MarketCommentWrite from "../write/MarketCommentWrite.container";
 import { displayedAt } from "../../../../commons/libraries/utils";
 import { IPropsMarketCommentListUIItem } from "./MarketCommentList.types";
+import {
+  IMutation,
+  IMutationDeleteUseditemQuestionArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function MarketCommentListUIItem(
   props: IPropsMarketCommentListUIItem
 ) {
+  const router = useRouter();
+
   const [isAnswerWrite, setIsAnswerWrite] = useState<boolean>(false);
   const [isEditQuestion, setIsEditQuestion] = useState<boolean>(false);
-  const [deleteUseditemQuestion] = useMutation(DELETE_USEDITEM_QUESTION);
 
-  const router = useRouter();
+  const [deleteUseditemQuestion] = useMutation<
+    Pick<IMutation, "deleteUseditemQuestion">,
+    IMutationDeleteUseditemQuestionArgs
+  >(DELETE_USEDITEM_QUESTION);
 
   const onClickDeleteQuestion = async () => {
     try {

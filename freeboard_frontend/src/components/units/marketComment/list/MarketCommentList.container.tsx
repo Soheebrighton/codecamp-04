@@ -9,6 +9,7 @@ import {
   IQuery,
   IQueryFetchUseditemQuestionsArgs,
 } from "../../../../commons/types/generated/types";
+
 export default function MarketCommentList() {
   const router = useRouter();
 
@@ -19,7 +20,8 @@ export default function MarketCommentList() {
     variables: { useditemId: String(router.query.myId) },
   });
 
-  const { data: dataForUserInfo } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: dataForUserInfo } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   const onLoadMore = () => {
     if (!data) return;

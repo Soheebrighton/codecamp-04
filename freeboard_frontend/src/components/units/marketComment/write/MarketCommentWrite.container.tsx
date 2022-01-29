@@ -1,5 +1,5 @@
 import MarketCommentWriteUI from "./MarketCommentWrite.presenter";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   CREATE_USEDITEM_QUESTION,
   FETCH_USEDITEM_QUESTIONS,
@@ -15,6 +15,8 @@ import {
 import { IPropsMarketCommentWrite } from "./MarketCommentWrite.types";
 
 export default function MarketCommentWrite(props: IPropsMarketCommentWrite) {
+  const router = useRouter();
+
   const [contents, setContents] = useState<string>("");
 
   const [createUseditemQuestion] = useMutation<
@@ -26,31 +28,33 @@ export default function MarketCommentWrite(props: IPropsMarketCommentWrite) {
     Pick<IMutation, "updateUseditemQuestion">,
     IMutationUpdateUseditemQuestionArgs
   >(UPDATE_USEDITEM_QUESTION);
-  const { data } = useQuery(FETCH_USEDITEM_QUESTIONS);
 
-  const router = useRouter();
-  function onChangeContents(event: ChangeEvent<HTMLTextAreaElement>) {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
-  }
+  };
 
-  async function onClickSubmitQuestion() {
-    await createUseditemQuestion({
-      variables: {
-        createUseditemQuestionInput: {
-          contents: contents,
+  const onClickSubmitQuestion = async () => {
+    if (contents) {
+      await createUseditemQuestion({
+        variables: {
+          createUseditemQuestionInput: {
+            contents: contents,
+          },
+          useditemId: String(router.query.myId),
         },
-        useditemId: String(router.query.myId),
-      },
-      refetchQueries: [
-        {
-          query: FETCH_USEDITEM_QUESTIONS,
-          variables: { useditemId: router.query.myId },
-        },
-      ],
-    });
-  }
+        refetchQueries: [
+          {
+            query: FETCH_USEDITEM_QUESTIONS,
+            variables: { useditemId: router.query.myId },
+          },
+        ],
+      });
+    } else {
+      alert("내용을 입력해주세요!");
+    }
+  };
 
-  async function onClickUpdateQuestion() {
+  const onClickUpdateQuestion = async () => {
     await updateUseditemQuestion({
       variables: {
         updateUseditemQuestionInput: {
@@ -66,7 +70,7 @@ export default function MarketCommentWrite(props: IPropsMarketCommentWrite) {
       ],
     });
     props.setIsEditQuestion(false);
-  }
+  };
 
   return (
     <MarketCommentWriteUI

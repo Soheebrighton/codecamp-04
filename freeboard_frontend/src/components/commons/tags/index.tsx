@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { IQuery } from "../../../commons/types/generated/types";
 
 const Wrapper = styled.div``;
 
@@ -40,7 +41,13 @@ const TagWrapper = styled.div`
   cursor: pointer;
 `;
 
-export default function Tags(props) {
+interface IPropsTags {
+  tags: string[];
+  setTags: Dispatch<SetStateAction<string[]>>;
+  dataForFetch?: Pick<IQuery, "fetchUseditem">;
+}
+
+export default function Tags(props: IPropsTags) {
   const [tag, setTag] = useState<string>("");
 
   const onKeyPress = (event: any) => {

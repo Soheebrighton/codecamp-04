@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 export const CommentQandA = styled.div`
   display: flex;
   flex-direction: column;
-
   padding-top: 20px;
 `;
 
@@ -37,17 +36,10 @@ export const CommentViewDetails = styled.div`
 export const CommentViewTop = styled.div`
   font-weight: 600;
   padding-bottom: 5px;
-  /* background-color: lightseagreen; */
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
-
-//
-//
-//
-//
-//
 
 export const CommentWriter = styled.div``;
 
@@ -59,7 +51,6 @@ export const CommentViewText = styled.div``;
 
 export const CommentEandD = styled.div`
   width: 10%;
-  /* background-color: lightyellow; */
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -79,5 +70,3 @@ export const CommentDelete = styled.span`
     color: gray;
   }
 `;
-
-// 대댓글

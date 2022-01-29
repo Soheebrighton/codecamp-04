@@ -11,13 +11,20 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import * as A from "./AnswerList.styles";
 import { IPropsAnswerListUIItem } from "./AnswerList.types";
+import {
+  IMutation,
+  IMutationDeleteUseditemQuestionAnswerArgs,
+} from "../../../../../commons/types/generated/types";
+
 export default function AnswerListUIItem(props: IPropsAnswerListUIItem) {
-  const [deleteUseditemQuestionAnswer] = useMutation(
-    DELETE_USEDITEM_QUESTION_ANSWER
-  );
+  const [deleteUseditemQuestionAnswer] = useMutation<
+    Pick<IMutation, "deleteUseditemQuestionAnswer">,
+    IMutationDeleteUseditemQuestionAnswerArgs
+  >(DELETE_USEDITEM_QUESTION_ANSWER);
+
   const [isEditAnswer, setIsEditAnswer] = useState<boolean>(false);
 
-  async function onClickDeleteAnswer() {
+  const onClickDeleteAnswer = async () => {
     try {
       await deleteUseditemQuestionAnswer({
         variables: {
@@ -35,11 +42,11 @@ export default function AnswerListUIItem(props: IPropsAnswerListUIItem) {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  function onClickEditAnswer() {
+  const onClickEditAnswer = () => {
     setIsEditAnswer(true);
-  }
+  };
 
   return (
     <>
@@ -54,18 +61,15 @@ export default function AnswerListUIItem(props: IPropsAnswerListUIItem) {
                 <A.CommentViewTop>
                   <A.CommentWriter>{props.el?.user.name}</A.CommentWriter>
                 </A.CommentViewTop>
-
                 <A.CommentViewText>{props.el?.contents}</A.CommentViewText>
               </A.CommentViewDetails>
               <A.CommentEandD>
                 {props.el?.user._id ===
                   props.dataForUserInfo?.fetchUserLoggedIn._id && (
                   <>
-                    {/* <EditOutlined /> */}
                     <A.CommentEdit onClick={onClickEditAnswer}>
                       <FontAwesomeIcon icon={faEdit} color="#eeeeee" />
                     </A.CommentEdit>
-                    {/* <A.CommentDelete onClick={onClickDelete}> */}
                     <A.CommentDelete onClick={onClickDeleteAnswer}>
                       <FontAwesomeIcon icon={faTrashAlt} color="#eeeeee" />
                     </A.CommentDelete>
@@ -73,7 +77,6 @@ export default function AnswerListUIItem(props: IPropsAnswerListUIItem) {
                 )}
               </A.CommentEandD>
             </A.CommentView>
-            {/* 대댓글 */}
           </A.CommentQandA>
         </A.Wrapper>
       )}
@@ -82,6 +85,7 @@ export default function AnswerListUIItem(props: IPropsAnswerListUIItem) {
           isEditAnswer={isEditAnswer}
           setIsEditAnswer={setIsEditAnswer}
           useditemAId={props.el._id}
+          el={props.el}
         />
       )}
     </>

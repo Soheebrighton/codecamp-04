@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  /* padding-top: 60px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +11,6 @@ export const CommentCreate = styled.div`
   width: 1000px;
   background-color: white;
 `;
-
-// export const Star = styled(Rate)``;
 
 export const Row = styled.div``;
 
@@ -67,7 +64,6 @@ export const CommentWritePassword = styled.input`
 `;
 
 export const Rate = styled.div`
-  /* width: 400px; */
   padding-left: 20px;
   align-self: center;
   justify-self: center;
@@ -81,18 +77,12 @@ export const CommentInput = styled.textarea`
   padding: 10px;
   border: none;
   background-color: #f2f6f4;
-  /* border: 1px solid #dbdbdb; */
-  /* border-radius: 4px; */
+  resize: none;
   &:focus {
     outline: none;
     &::placeholder {
       color: transparent;
     }
-    /* border: 1px solid #787878; */
-  }
-
-  &:hover {
-    /* border: 1px solid #787878; */
   }
 `;
 
@@ -117,8 +107,6 @@ export const CommentSubmitButton = styled.span`
   justify-content: center;
   width: 80px;
   height: 32px;
-  /* background-color: #1dbc67; */
-  /* background-color: black; */
   border-radius: 10px;
   border: 1px solid #1dbc67;
   font-size: 14px;

@@ -12,7 +12,7 @@ export default function MarketCommentWriteUI(
             placeholder="댓글을 입력해주세요"
             maxLength={100}
             onChange={props.onChangeContents}
-            defaultValue={props.el?.contents}
+            defaultValue={props.contents}
           ></A.CommentInput>
           <A.CommentBottom>
             <A.CommentWords>
