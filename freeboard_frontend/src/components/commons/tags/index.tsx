@@ -51,7 +51,8 @@ export default function Tags(props: IPropsTags) {
   const [tag, setTag] = useState<string>("");
 
   const onKeyPress = (event: any) => {
-    if (event.keyCode === 32) {
+    if (event.keyCode === 32 && event.target.value !== " ") {
+      event.target.value.replace(/\s+/g, "");
       props.setTags([...props.tags, event.target.value]);
       setTag("");
     }

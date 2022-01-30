@@ -8,6 +8,8 @@ import { IPropsHeaderUI } from "./Header.types";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
+import SideSheet from "react-side-sheet";
+import Cart from "../../../units/market/cart/MarketCart.container";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -32,10 +34,13 @@ export default function HeaderUI(props: IPropsHeaderUI) {
   const [logoutUser] = useMutation(LOGOUT_USER);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openSheet, setOpenSheet] = useState(false);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
+    setOpenSheet(false);
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -50,7 +55,7 @@ export default function HeaderUI(props: IPropsHeaderUI) {
 
   const handleCloseCart = async () => {
     setAnchorEl(null);
-    router.push("/market/cart");
+    setOpenSheet(true);
   };
 
   return (
@@ -109,6 +114,11 @@ export default function HeaderUI(props: IPropsHeaderUI) {
           )}
         </A.LoginBtns>
       </A.Wrapper>
+      <div>
+        <SideSheet isOpen={openSheet} onDismiss={() => setOpenSheet(false)}>
+          <Cart setOpenSheet={setOpenSheet} />
+        </SideSheet>
+      </div>
     </A.Header>
   );
 }

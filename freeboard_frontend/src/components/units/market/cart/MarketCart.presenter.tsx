@@ -1,52 +1,59 @@
-import { gql } from "@apollo/client";
-import { useRouter } from "next/router";
+import * as A from "./MarketCart.styles";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IPropsCartUI } from "./MarketCart.types";
 
-export const FETCH_USEDITEMS = gql`
-  query fetchUseditems($search: String, $page: Int) {
-    fetchUseditems(search: $search, page: $page) {
-      _id
-      name
-      remarks
-      contents
-      price
-    }
-  }
-`;
-
-export default function CartUI(props) {
-  const router = useRouter();
-
-  function onClickViewItem(event) {
-    router.push(`/market/${event.target.id}`);
-  }
-
-  function onClickItems() {
-    router.push("/market");
-  }
-
-  function onClickDelete(event) {
-    const carts = JSON.parse(localStorage.getItem("cart") || "[]");
-    const newCarts = carts.filter((el) => el._id !== event?.target.id);
-    localStorage.setItem("cart", JSON.stringify(newCarts));
-  }
-
+export default function CartUI(props: IPropsCartUI) {
   return (
     <>
-      {props.items?.map((el, index) => (
-        <div key={el._id}>
-          <input type="checkbox" />
-          <span>{index + 1}</span>
-          <span onClick={onClickViewItem} id={el._id}>
-            {el.name}
-          </span>
-          <span>{el.price}원</span>
-          <button onClick={onClickDelete} id={el._id}>
-            삭제
-          </button>
-        </div>
-      ))}
-      <div>나의 장바구니 아이템 : {props.items.length}개</div>
-      <button onClick={onClickItems}>계속 쇼핑하기</button>
+      <A.Wrapper>
+        <A.Title>장바구니</A.Title>
+        {props.items.length === 0 && (
+          <A.NoItemWrapper>
+            <A.NoItem>
+              <FontAwesomeIcon
+                icon={faExclamationCircle}
+                color="#dddddd"
+                style={{ fontSize: "20px", marginBottom: "5px" }}
+              />
+              아직 담긴 상품이 없습니다.
+            </A.NoItem>
+            <A.ShopBtn onClick={props.onClickItems}>상품담으러 가기</A.ShopBtn>
+          </A.NoItemWrapper>
+        )}
+        {props.items?.map((el) => (
+          <A.Container key={el} el={el} items={props.items}>
+            <A.ImgWrapper>
+              <A.Img src={`https://storage.googleapis.com/${el.images[0]}`} />
+            </A.ImgWrapper>
+            <A.ItemWrapper>
+              <A.ItemDetails>
+                {el.name}
+                <A.Price>{el.price.toLocaleString()}원</A.Price>
+              </A.ItemDetails>
+              <A.Options>
+                <A.Option onClick={props.onClickViewItem} id={el._id}>
+                  상세보기
+                </A.Option>
+                <A.Bar />
+                <A.Option onClick={props.onClickBuyItem} id={el._id}>
+                  바로구매
+                </A.Option>
+              </A.Options>
+            </A.ItemWrapper>
+            <A.DeleteWrapper>
+              <A.DeleteBtn onClick={props.onClickDelete} id={el._id}>
+                ✕
+              </A.DeleteBtn>
+            </A.DeleteWrapper>
+          </A.Container>
+        ))}
+
+        <A.CountWrapper>
+          총<A.Count>{props.items.length}</A.Count>
+          개의 아이템
+        </A.CountWrapper>
+      </A.Wrapper>
     </>
   );
 }

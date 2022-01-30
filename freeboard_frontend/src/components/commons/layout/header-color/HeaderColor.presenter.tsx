@@ -9,6 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import SideSheet from "react-side-sheet";
+import Cart from "../../../units/market/cart/MarketCart.container";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -32,7 +34,7 @@ export default function HeaderColorUI(props: IPropsHeaderColor) {
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   const [logoutUser] = useMutation(LOGOUT_USER);
-
+  const [openSheet, setOpenSheet] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -52,7 +54,7 @@ export default function HeaderColorUI(props: IPropsHeaderColor) {
 
   const handleCloseCart = async () => {
     setAnchorEl(null);
-    router.push("/market/cart");
+    setOpenSheet(true);
   };
 
   return (
@@ -136,6 +138,11 @@ export default function HeaderColorUI(props: IPropsHeaderColor) {
           )}
         </A.LoginBtns>
       </A.Wrapper>
+      <div>
+        <SideSheet isOpen={openSheet} onDismiss={() => setOpenSheet(false)}>
+          <Cart setOpenSheet={setOpenSheet} />
+        </SideSheet>
+      </div>
     </A.Header>
   );
 }
