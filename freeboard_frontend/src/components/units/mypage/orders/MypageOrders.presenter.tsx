@@ -1,4 +1,6 @@
-export default function MypageMyOrdersUI(props) {
+import * as A from "../point/MypagePoint.styles";
+
+export default function MypageOrdersUI(props) {
   return (
     <>
       <div>

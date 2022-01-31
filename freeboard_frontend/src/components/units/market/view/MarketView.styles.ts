@@ -213,3 +213,32 @@ export const CarouselContent = styled.h3`
   border: 1px solid #f7f7f7;
   border-radius: 7px;
 `;
+
+export const ModalBtns = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const GoCartBtn = styled.button`
+  width: 48%;
+  background-color: #1dbc67;
+  margin-top: 20px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+`;
+
+export const ModalClose = styled.button`
+  width: 48%;
+  background-color: #cccccc;
+  margin-top: 20px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+`;

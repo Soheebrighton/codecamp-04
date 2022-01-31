@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "antd";
 import { IPropsMarketViewUI } from "./MarketView.types";
 import KakaoMap from "../../../commons/maps/kakaomap";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function MarketViewUI(props: IPropsMarketViewUI) {
   return (
@@ -116,7 +119,37 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
           </A.ContentWrapper>
           <A.Title>문의하기</A.Title>
         </A.Wrapper>
+        <div>
+          <Modal
+            open={props.modalOpen}
+            onClose={props.handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                장바구니에 상품을 담았습니다
+              </Typography>
+              <A.ModalBtns>
+                <A.GoCartBtn>장바구니로 이동</A.GoCartBtn>
+                <A.ModalClose onClick={props.handleClose}>닫기</A.ModalClose>
+              </A.ModalBtns>
+            </Box>
+          </Modal>
+        </div>
       </A.Background>
     </>
   );
 }
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: "7px",
+  boxShadow: 24,
+  p: 4,
+};

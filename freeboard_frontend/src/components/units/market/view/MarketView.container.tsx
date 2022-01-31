@@ -17,9 +17,12 @@ import {
   IQueryFetchUseditemArgs,
   IQueryFetchUseditemsIPickedArgs,
 } from "../../../../commons/types/generated/types";
+import { useState } from "react";
 
 export default function MarketView() {
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditem">,
     IQueryFetchUseditemArgs
@@ -54,7 +57,7 @@ export default function MarketView() {
   const sellerId = data?.fetchUseditem.seller?._id;
   const myId = dataForLoggedIn?.fetchUserLoggedIn._id;
 
-  async function onClickDeleteItem() {
+  const onClickDeleteItem = async () => {
     try {
       await deleteUseditem({
         variables: { useditemId: String(router.query.myId) },
@@ -64,13 +67,13 @@ export default function MarketView() {
     }
     alert("게시물이 삭제되었습니다.");
     router.push("/market");
-  }
+  };
 
-  function onClickEditItem() {
+  const onClickEditItem = () => {
     router.push(`/market/${router.query.myId}/edit`);
-  }
+  };
 
-  async function onClickPayment() {
+  const onClickPayment = async () => {
     try {
       const result = await createPointTransactionOfBuyingAndSelling({
         variables: {
@@ -83,9 +86,9 @@ export default function MarketView() {
     } catch (error) {
       alert(error.message);
     }
-  }
+  };
 
-  async function onClickPickItem() {
+  const onClickPickItem = async () => {
     await toggleUseditemPick({
       variables: {
         useditemId: String(router.query.myId),
@@ -103,7 +106,7 @@ export default function MarketView() {
         },
       ],
     });
-  }
+  };
 
   const onClickAddItemToCart = (el: any) => () => {
     const carts = JSON.parse(localStorage.getItem("cart") || "[]") || [];
@@ -121,7 +124,10 @@ export default function MarketView() {
     const { __typename, ...newEl } = el;
     carts.push(newEl);
     localStorage.setItem("cart", JSON.stringify(carts));
+    setModalOpen(true);
   };
+
+  const handleClose = () => setModalOpen(false);
 
   const onClickBuyPoint = () => {
     router.push("/mypage");
@@ -139,6 +145,8 @@ export default function MarketView() {
       sellerId={sellerId}
       myId={myId}
       onClickBuyPoint={onClickBuyPoint}
+      modalOpen={modalOpen}
+      handleClose={handleClose}
     />
   );
 }

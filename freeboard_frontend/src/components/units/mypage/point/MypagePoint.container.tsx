@@ -1,34 +1,12 @@
 import MypagePointUI from "./MypagePoint.presenter";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useRouter } from "next/router";
-
-const FETCH_USER_LOGGED_IN = gql`
-  query fetchUserLoggedIn {
-    fetchUserLoggedIn {
-      email
-      name
-      picture
-      userPoint {
-        amount
-      }
-    }
-  }
-`;
-
-const CREATE_POINT_TRANSACTION_OF_LOADING = gql`
-  mutation createPointTransactionOfLoading($impUid: ID!) {
-    createPointTransactionOfLoading(impUid: $impUid) {
-      _id
-      impUid
-      amount
-      balance
-      statusDetail
-      createdAt
-      updatedAt
-    }
-  }
-`;
+import {
+  FETCH_USER_LOGGED_IN,
+  CREATE_POINT_TRANSACTION_OF_LOADING,
+  FETCH_POINT_TRANSACTIONS,
+} from "./MypagePoint.queries";
 
 export default function MypagePoint() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
@@ -36,20 +14,15 @@ export default function MypagePoint() {
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
 
-  const selectList = ["100", "200", "300", "400", "500"];
+  const { data: dataForPoint } = useQuery(FETCH_POINT_TRANSACTIONS);
+
+  const selectList = ["1000", "5000", "10000", "20000", "50000"];
 
   const [selectedPoint, setSelectedPoint] = useState<string>("");
 
-  // useEffect(() => {});
   function onClickSelectPoint(event: any) {
     setSelectedPoint(event.target.value);
   }
-
-  // function onClickCreatePoint() {
-  //   console.log(selectedPoint, "충전하기");
-  // }
-
-  // 결제하기
 
   function onClickCreatePoint() {
     const IMP = window.IMP; // 생략 가능
@@ -105,6 +78,7 @@ export default function MypagePoint() {
   return (
     <MypagePointUI
       data={data}
+      dataForPoint={dataForPoint}
       onClickCreatePoint={onClickCreatePoint}
       onClickSelectPoint={onClickSelectPoint}
       selectList={selectList}
