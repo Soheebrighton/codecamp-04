@@ -1,4 +1,4 @@
-import MypagePointUI from "./MypagePoint.presenter";
+import MypageSideUI from "./MypageSide.presenter";
 import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -6,26 +6,34 @@ import {
   FETCH_USER_LOGGED_IN,
   CREATE_POINT_TRANSACTION_OF_LOADING,
   FETCH_POINT_TRANSACTIONS,
-} from "./MypagePoint.queries";
+} from "./MypageSide.queries";
+import {
+  IMutation,
+  IMutationCreatePointTransactionOfLoadingArgs,
+  IQuery,
+} from "../../../../commons/types/generated/types";
 
-export default function MypagePoint() {
+export default function MypageSide() {
   const router = useRouter();
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  const [createPointTransactionOfLoading] = useMutation(
-    CREATE_POINT_TRANSACTION_OF_LOADING
-  );
 
-  const { data: dataForPoint } = useQuery(FETCH_POINT_TRANSACTIONS);
+  const currentPage = router.pathname;
 
   const selectList = ["1000", "5000", "10000", "20000", "50000"];
-
   const [selectedPoint, setSelectedPoint] = useState<string>("");
 
-  function onClickSelectPoint(event: any) {
-    setSelectedPoint(event.target.value);
-  }
+  const { data } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
-  function onClickCreatePoint() {
+  const [createPointTransactionOfLoading] = useMutation<
+    Pick<IMutation, "createPointTransactionOfLoading">,
+    IMutationCreatePointTransactionOfLoadingArgs
+  >(CREATE_POINT_TRANSACTION_OF_LOADING);
+
+  const onClickSelectPoint = (event: any) => {
+    setSelectedPoint(event.target.value);
+  };
+
+  const onClickCreatePoint = () => {
     const IMP = window.IMP; // 생략 가능
     IMP.init("imp49910675"); // Example: imp00000000
 
@@ -43,7 +51,7 @@ export default function MypagePoint() {
         buyer_postcode: "01181",
         m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소!
       },
-      async (rsp) => {
+      async (rsp: any) => {
         // callback
         if (rsp.success) {
           console.log(rsp);
@@ -74,47 +82,10 @@ export default function MypagePoint() {
         }
       }
     );
-  }
+  };
 
-  // 포인트 충전 뮤테이션
-  //
-  const router = useRouter();
-
-  const [isAllTrans, setIsAllTrans] = useState<boolean>(true);
-  const [isOrders, setIsOrders] = useState<boolean>(false);
-  const [isTopUp, setIsTopUp] = useState<boolean>(false);
-  const [isSelling, setIsSelling] = useState<boolean>(false);
-
-  function onClickEditUser() {
+  const onClickEditUser = () => {
     router.push("/mypage/profile");
-  }
-
-  const onClickAllTrans = () => {
-    setIsAllTrans(true);
-    setIsOrders(false);
-    setIsTopUp(false);
-    setIsSelling(false);
-  };
-
-  const onClickTopUp = () => {
-    setIsAllTrans(false);
-    setIsOrders(false);
-    setIsTopUp(true);
-    setIsSelling(false);
-  };
-
-  const onClickOrders = () => {
-    setIsAllTrans(false);
-    setIsOrders(true);
-    setIsTopUp(false);
-    setIsSelling(false);
-  };
-
-  const onClickSelling = () => {
-    setIsAllTrans(false);
-    setIsOrders(false);
-    setIsTopUp(false);
-    setIsSelling(true);
   };
 
   const onClickPoint = () => {
@@ -130,24 +101,17 @@ export default function MypagePoint() {
   };
 
   return (
-    <MypagePointUI
+    <MypageSideUI
       data={data}
-      dataForPoint={dataForPoint}
+      selectedPoint={selectedPoint}
       onClickCreatePoint={onClickCreatePoint}
       onClickSelectPoint={onClickSelectPoint}
       selectList={selectList}
+      currentPage={currentPage}
       onClickEditUser={onClickEditUser}
-      onClickOrders={onClickOrders}
-      onClickAllTrans={onClickAllTrans}
-      onClickTopUp={onClickTopUp}
-      onClickSelling={onClickSelling}
       onClickPoint={onClickPoint}
       onClickPicked={onClickPicked}
       onClickBought={onClickBought}
-      isAllTrans={isAllTrans}
-      isOrders={isOrders}
-      isTopUp={isTopUp}
-      isSelling={isSelling}
     />
   );
 }

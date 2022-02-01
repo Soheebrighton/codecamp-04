@@ -6,6 +6,7 @@ import StickyBox from "react-sticky-box";
 import SearchBars from "../../../commons/searchbars/SearchBars.container";
 import { v4 as uuidv4 } from "uuid";
 import { IPropsMarketListUI } from "./MarketList.types";
+import { onError } from "../../../../commons/libraries/utils";
 
 export default function MarketListUI(props: IPropsMarketListUI) {
   return (
@@ -19,28 +20,30 @@ export default function MarketListUI(props: IPropsMarketListUI) {
           <A.Best>
             <A.BestItemsTitle>베스트 상품</A.BestItemsTitle>
             <A.BestWrapper>
-              {props.dataForBest?.fetchUseditemsOfTheBest.map((el, index) => (
-                <A.BestDiv key={el._id} onClick={props.onClickViewItem(el)}>
-                  <A.BestPhoto>
-                    <A.Label>
-                      <A.LabelTxt>{index + 1}</A.LabelTxt>
-                    </A.Label>
-                    <A.BImg
-                      src={`https://storage.googleapis.com/${el.images[0]}`}
-                      onError={props.onError}
-                    />
-                  </A.BestPhoto>
-                  <A.BestDetails>
-                    <A.BestTitle>{el.name}</A.BestTitle>
-                    <A.BestPriceAndPicked>
-                      <A.BestPrice>
-                        {Number(el.price).toLocaleString()}
-                      </A.BestPrice>
-                      <A.BestPicked>{el.pickedCount} 찜</A.BestPicked>
-                    </A.BestPriceAndPicked>
-                  </A.BestDetails>
-                </A.BestDiv>
-              ))}
+              {props.dataForBest?.fetchUseditemsOfTheBest.map(
+                (el: any, index: number) => (
+                  <A.BestDiv key={el._id} onClick={props.onClickViewItem(el)}>
+                    <A.BestPhoto>
+                      <A.Label>
+                        <A.LabelTxt>{index + 1}</A.LabelTxt>
+                      </A.Label>
+                      <A.BImg
+                        src={`https://storage.googleapis.com/${el.images[0]}`}
+                        onError={onError}
+                      />
+                    </A.BestPhoto>
+                    <A.BestDetails>
+                      <A.BestTitle>{el.name}</A.BestTitle>
+                      <A.BestPriceAndPicked>
+                        <A.BestPrice>
+                          {Number(el.price).toLocaleString()}
+                        </A.BestPrice>
+                        <A.BestPicked>{el.pickedCount} 찜</A.BestPicked>
+                      </A.BestPriceAndPicked>
+                    </A.BestDetails>
+                  </A.BestDiv>
+                )
+              )}
             </A.BestWrapper>
           </A.Best>
 
@@ -55,7 +58,7 @@ export default function MarketListUI(props: IPropsMarketListUI) {
           </A.ListMiddleWrapper>
 
           <A.Wrapper>
-            {props.data?.fetchUseditems.map((el) => (
+            {props.data?.fetchUseditems.map((el: any) => (
               <A.ItemDiv key={el._id}>
                 <A.ItemPhoto>
                   {el.soldAt !== null && (
@@ -66,7 +69,7 @@ export default function MarketListUI(props: IPropsMarketListUI) {
                   <A.Img
                     onClick={props.onClickViewItem(el)}
                     src={`https://storage.googleapis.com/${el.images[0]}`}
-                    onError={props.onError}
+                    onError={onError}
                   />
                 </A.ItemPhoto>
                 <A.PickWrapper
@@ -122,12 +125,12 @@ export default function MarketListUI(props: IPropsMarketListUI) {
           <StickyBox offsetTop={90} offsetBottom={90}>
             <A.TodayWrapper>
               <A.TodayTitle>오늘 본 상품</A.TodayTitle>
-              {props.items?.map((el) => (
+              {props.items?.map((el: any) => (
                 <A.TodayItemWrapper key={el._id}>
                   <A.ItemImg>
                     <A.TodayImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
-                      onError={props.onError}
+                      onError={onError}
                     />
                   </A.ItemImg>
                   <A.ItemDetail>

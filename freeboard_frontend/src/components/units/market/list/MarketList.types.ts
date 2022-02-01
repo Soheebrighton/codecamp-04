@@ -15,7 +15,6 @@ export interface IPropsMarketListUI {
   onClickTodayItem: (event: any) => void;
   items: any[];
   onLoadMore: () => void;
-  onError: (event: any) => void;
   refetch: (
     variables?: Partial<IQueryFetchUseditemsArgs> | undefined
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchUseditems">>>;

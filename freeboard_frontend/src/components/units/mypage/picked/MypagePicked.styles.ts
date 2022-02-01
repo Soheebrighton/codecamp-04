@@ -39,37 +39,6 @@ export const Profile = styled.div`
   padding: 30px;
 `;
 
-export const Pages = styled.div`
-  width: 100%;
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: 300;
-`;
-
-export const PointBtn = styled.div`
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  background-color: #fafafa;
-  font-weight: 500;
-`;
-
-export const PickedBtn = styled.div`
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  /* background-color: #f2f2f2; */
-`;
-
-export const BoughtBtn = styled.div`
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  /* background-color: #f2f2f2; */
-`;
-
 export const MyPhoto = styled.div``;
 export const MyName = styled.div`
   padding: 10px 0px 10px 0px;
@@ -84,6 +53,95 @@ export const EditProfile = styled.div`
   border: 1px solid #ebebeb;
   /* background-color: #f5f5f5; */
   cursor: pointer;
+`;
+
+export const Container = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: space-between;
+`;
+
+export const ItemDiv = styled.div`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0px 20px 0px;
+`;
+
+export const ItemPhoto = styled.div`
+  height: 300px;
+  position: relative;
+  width: 300px;
+  overflow: hidden;
+  border-radius: 7px;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f7f7f7;
+  object-fit: cover;
+  :hover {
+    border-radius: 7px;
+    transform: scale(1.2);
+    transition: ease 0.2s;
+  }
+`;
+
+export const PickWrapper = styled.div`
+  position: absolute;
+  align-self: flex-end;
+
+  margin: 10px;
+  width: 30px;
+  height: 30px;
+  border: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.el?._id)
+      ? "1px solid #ffffff53"
+      : "1px solid #ffffff53"};
+  border-radius: 50px;
+  background-color: ${(props) =>
+    props.dataForPicked?.fetchUseditemsIPicked
+      .map((pick) => pick._id)
+      .includes(props.el?._id)
+      ? "#a2d6ba5f"
+      : "#00000014"};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const ItemDetails = styled.div``;
+
+export const Title = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 0px 25px 0px;
+  width: 100%;
+  height: 35px;
+  overflow: hidden;
+  cursor: pointer;
+`;
+export const PriceAndPicked = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Price = styled.span`
+  color: #1dbc67;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Montserrat-Medium";
+`;
+
+export const Picked = styled.span`
+  font-size: 12px;
+  color: lightgray;
 `;
 export const MyPointWrapper = styled.div`
   width: 100%;
@@ -143,7 +201,9 @@ export const PointQueryWrapper = styled.div`
 `;
 
 export const TransTitle = styled.h2`
-  padding-top: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.25rem;
 `;
 
 export const TransDisplay = styled.div`
@@ -154,34 +214,6 @@ export const TransDisplay = styled.div`
   font-weight: 400;
   color: #6f6f6f;
   padding-bottom: 10px;
-`;
-
-export const DisplayBtn = styled.div`
-  cursor: pointer;
-  color: ${(props) => props.isAllTrans && "black"};
-  text-decoration: ${(props) =>
-    props.isAllTrans ? "solid underline #000 2px " : "none"};
-`;
-
-export const DisplayOrdersBtn = styled.div`
-  cursor: pointer;
-  color: ${(props) => props.isOrders && "black"};
-  text-decoration: ${(props) =>
-    props.isOrders ? "solid underline #000 2px " : "none"};
-`;
-
-export const DisplayTopUpBtn = styled.div`
-  cursor: pointer;
-  color: ${(props) => props.isTopUp && "black"};
-  text-decoration: ${(props) =>
-    props.isTopUp ? "solid underline #000 2px " : "none"};
-`;
-
-export const DisplaySellingBtn = styled.div`
-  cursor: pointer;
-  color: ${(props) => props.isSelling && "black"};
-  text-decoration: ${(props) =>
-    props.isSelling ? "solid underline #000 2px " : "none"};
 `;
 
 export const Bar = styled.div`
@@ -228,28 +260,4 @@ export const RowHeader = styled.div`
 export const RowHeaderTxt = styled.div`
   color: #2e2e2e;
   font-weight: 700;
-`;
-
-export const Amount = styled.div`
-  width: 20%;
-`;
-
-export const Balance = styled.div`
-  width: 30%;
-  justify-content: flex-end;
-
-  font-weight: 400;
-`;
-
-export const Status = styled.div`
-  width: 30%;
-  color: ${(props) => (props.status === "구매" ? "#FFD600" : "#1dbc67")};
-`;
-
-export const CreatedAt = styled.div`
-  width: 20%;
-  font-size: 13px;
-  color: gray;
-
-  font-family: "Montserrat";
 `;

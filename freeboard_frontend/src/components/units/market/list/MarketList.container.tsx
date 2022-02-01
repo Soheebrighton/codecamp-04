@@ -136,9 +136,6 @@ export default function MarketList() {
     setKeyword(value);
   };
 
-  const onError = (event: any) => {
-    event.target.src = "/images/unnamed.png";
-  };
   return (
     <MarketListUI
       onClickCreateItem={onClickCreateItem}
@@ -153,7 +150,6 @@ export default function MarketList() {
       onClickTodayItem={onClickTodayItem}
       refetch={refetch}
       keyword={keyword}
-      onError={onError}
     />
   );
 }

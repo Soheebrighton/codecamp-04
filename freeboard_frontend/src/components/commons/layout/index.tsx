@@ -5,7 +5,13 @@ import Footer from "./footer/Footer.container";
 import { useRouter } from "next/router";
 
 const HIDDEN = ["/auth/register", "/auth/login"];
-const HIDDEN_BANNER = ["/", "/mypage", "/mypage/myprofile"];
+const HIDDEN_BANNER = [
+  "/",
+  "/mypage",
+  "/mypage/profile",
+  "/mypage/picked",
+  "/mypage/bought",
+];
 const COLOURED_HEADER = ["/"];
 
 interface IPropsLayout {

@@ -1,6 +1,17 @@
+import { ChangeEvent } from "react";
+import { IQuery } from "../../../../commons/types/generated/types";
 import * as A from "./MypageProfile.styles";
 
-export default function ProfileUI(props) {
+interface IPropsProfileUI {
+  data?: Pick<IQuery, "fetchUserLoggedIn">;
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeCheckPassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeResetPassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClickUpdateUser: () => Promise<void>;
+  onClickResetPassword: () => Promise<void>;
+}
+
+export default function ProfileUI(props: IPropsProfileUI) {
   return (
     <A.Background>
       <A.Wrapper>

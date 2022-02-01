@@ -4,7 +4,7 @@ import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import styled from "@emotion/styled";
 import { IPropsBoardViewUI } from "./BoardView.types";
-import { getDate } from "../../../../commons/libraries/utils";
+import { getDate, onError } from "../../../../commons/libraries/utils";
 
 const MyYoutube = styled(ReactPlayer)``;
 
@@ -42,7 +42,7 @@ export default function BoardViewUI(props: IPropsBoardViewUI) {
                   <A.Image
                     key={el}
                     src={`https://storage.googleapis.com/${el}`}
-                    onError={props.onErrorImage}
+                    onError={onError}
                   />
                 ))}
             </A.ImageWrapper>

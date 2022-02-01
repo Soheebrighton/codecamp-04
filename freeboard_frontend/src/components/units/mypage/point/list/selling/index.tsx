@@ -1,10 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
-import * as A from "../point/MypagePoint.styles";
-import { getDate } from "../../../../commons/libraries/utils";
+import * as A from "../../MypagePoint.styles";
+import { getDate } from "../../../../../../commons/libraries/utils";
 import {
   IQuery,
   IQueryFetchPointTransactionsOfSellingArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../../commons/types/generated/types";
 
 const FETCH_POINT_TRANSACTIONS_OF_SELLING = gql`
   query fetchPointTransactionsOfSelling($search: String, $page: Int) {

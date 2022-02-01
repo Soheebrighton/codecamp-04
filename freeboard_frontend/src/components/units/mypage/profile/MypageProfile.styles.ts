@@ -27,7 +27,6 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px 0px 10px 0px;
-  /* background-color: blanchedalmond; */
 `;
 
 export const Label = styled.div`
@@ -67,4 +66,7 @@ export const SubmitBtn = styled.button`
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  :hover {
+    background-color: #1aad5f;
+  }
 `;

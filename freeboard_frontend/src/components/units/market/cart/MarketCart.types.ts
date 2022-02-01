@@ -12,3 +12,8 @@ export interface IPropsCartUI {
 export interface IPropsCart {
   setOpenSheet: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface IPropsContainer {
+  el: any;
+  items: any[];
+}

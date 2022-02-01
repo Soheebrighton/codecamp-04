@@ -1,6 +1,6 @@
 import DOMPurify from "dompurify";
 import * as A from "./MarketView.styles";
-import { displayedAt } from "../../../../commons/libraries/utils";
+import { displayedAt, onError } from "../../../../commons/libraries/utils";
 import { faClock, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "antd";
@@ -9,6 +9,8 @@ import KakaoMap from "../../../commons/maps/kakaomap";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import SideSheet from "react-side-sheet";
+import Cart from "../cart/MarketCart.container";
 
 export default function MarketViewUI(props: IPropsMarketViewUI) {
   return (
@@ -33,7 +35,10 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                   .map((el) => (
                     <div key={el}>
                       <A.CarouselContent>
-                        <A.Img src={`https://storage.googleapis.com/${el}`} />
+                        <A.Img
+                          onError={onError}
+                          src={`https://storage.googleapis.com/${el}`}
+                        />
                       </A.CarouselContent>
                     </div>
                   ))}
@@ -131,11 +136,21 @@ export default function MarketViewUI(props: IPropsMarketViewUI) {
                 장바구니에 상품을 담았습니다
               </Typography>
               <A.ModalBtns>
-                <A.GoCartBtn>장바구니로 이동</A.GoCartBtn>
+                <A.GoCartBtn onClick={props.onClickGoToCart}>
+                  장바구니로 이동
+                </A.GoCartBtn>
                 <A.ModalClose onClick={props.handleClose}>닫기</A.ModalClose>
               </A.ModalBtns>
             </Box>
           </Modal>
+        </div>
+        <div>
+          <SideSheet
+            isOpen={props.openSheet}
+            onDismiss={() => props.setOpenSheet(false)}
+          >
+            <Cart setOpenSheet={props.setOpenSheet} />
+          </SideSheet>
         </div>
       </A.Background>
     </>

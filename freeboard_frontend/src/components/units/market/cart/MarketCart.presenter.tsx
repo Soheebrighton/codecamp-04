@@ -2,6 +2,7 @@ import * as A from "./MarketCart.styles";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IPropsCartUI } from "./MarketCart.types";
+import { onError } from "../../../../commons/libraries/utils";
 
 export default function CartUI(props: IPropsCartUI) {
   return (
@@ -21,10 +22,13 @@ export default function CartUI(props: IPropsCartUI) {
             <A.ShopBtn onClick={props.onClickItems}>상품담으러 가기</A.ShopBtn>
           </A.NoItemWrapper>
         )}
-        {props.items?.map((el) => (
+        {props.items?.map((el: any) => (
           <A.Container key={el} el={el} items={props.items}>
             <A.ImgWrapper>
-              <A.Img src={`https://storage.googleapis.com/${el.images[0]}`} />
+              <A.Img
+                onError={onError}
+                src={`https://storage.googleapis.com/${el.images[0]}`}
+              />
             </A.ImgWrapper>
             <A.ItemWrapper>
               <A.ItemDetails>

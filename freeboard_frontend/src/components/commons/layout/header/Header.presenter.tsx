@@ -46,6 +46,11 @@ export default function HeaderUI(props: IPropsHeaderUI) {
     setAnchorEl(null);
   };
 
+  const handleClosePicked = () => {
+    setAnchorEl(null);
+    router.push("/mypage/picked");
+  };
+
   const handleCloseLogout = async () => {
     setAnchorEl(null);
     await logoutUser();
@@ -97,7 +102,7 @@ export default function HeaderUI(props: IPropsHeaderUI) {
                   TransitionComponent={Fade}
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
+                  <MenuItem onClick={handleClosePicked}>찜목록</MenuItem>
                   <MenuItem onClick={handleCloseCart}>장바구니</MenuItem>
                   <MenuItem onClick={handleCloseLogout}>Logout</MenuItem>
                 </Menu>

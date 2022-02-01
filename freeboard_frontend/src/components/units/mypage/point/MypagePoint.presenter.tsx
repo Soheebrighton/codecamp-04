@@ -1,15 +1,13 @@
 import Head from "next/head";
 import * as A from "./MypagePoint.styles";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import { IPropsMypagePointUI } from "./MypagePoint.types";
 import { getDate } from "../../../../commons/libraries/utils";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MypageOrders from "../orders/MypageOrders.container";
-import MypageTopUp from "../topup/MypageTopUp.container";
-import MypageSelling from "../selling/MypageSelling.container";
-
+import MypageOrders from "./list/orders";
+import MypageTopUp from "./list/topup";
+import MypageSelling from "./list/selling";
+import MypageSide from "../side/MypageSide.container";
 export default function MypagePointUI(props: IPropsMypagePointUI) {
   return (
     <>
@@ -26,32 +24,7 @@ export default function MypagePointUI(props: IPropsMypagePointUI) {
       </Head>
       <A.Background>
         <A.Wrapper>
-          <A.Profile>
-            <A.MyPhoto>
-              <Avatar size={64} icon={<UserOutlined />} />
-            </A.MyPhoto>
-            <A.MyName>{props.data?.fetchUserLoggedIn.name}</A.MyName>
-            <A.EditProfile onClick={props.onClickEditUser}>
-              회원정보 수정
-            </A.EditProfile>
-            {/* <label htmlFor="amount-select">충전 포인트:</label> */}
-            <A.PointSelect
-              id="amount-select"
-              onChange={props.onClickSelectPoint}
-              value={props.SelectedPoint}
-            >
-              <A.PointOption value="">-충전금액을 선택해주세요-</A.PointOption>
-
-              {props.selectList.map((el) => (
-                <A.PointOption key={el} value={el}>
-                  {Number(el).toLocaleString()} 포인트
-                </A.PointOption>
-              ))}
-            </A.PointSelect>
-            <A.PointTopUpBtn onClick={props.onClickCreatePoint}>
-              충전하기
-            </A.PointTopUpBtn>
-          </A.Profile>
+          <MypageSide />
           <A.WrapperRight>
             <A.PointCurrentWrapper>
               <A.MyPointWrapper>

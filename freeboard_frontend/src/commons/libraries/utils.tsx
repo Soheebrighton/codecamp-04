@@ -30,3 +30,7 @@ export const getDate = (value: Date) => {
   const day = date.getDate();
   return `${year}-${month}-${day}`; // 2021-11-10
 };
+
+export const onError = (event: any) => {
+  event.target.src = "/images/unnamed.png";
+};

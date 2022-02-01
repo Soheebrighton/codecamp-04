@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IPropsContainer } from "./MarketCart.types";
 
 export const Wrapper = styled.div`
   padding: 30px;
@@ -25,11 +26,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: ${(props) =>
+  border-bottom: ${(props: IPropsContainer) =>
     props.items[props.items.length - 1] === props.el
       ? "none"
       : "1px solid #f2f2f2"};
-  /* border-bottom: 1px solid #f2f2f2; */
   padding: 10px 0px 30px 0px;
   margin-bottom: 20px;
 `;

@@ -22,6 +22,7 @@ import { useState } from "react";
 export default function MarketView() {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
+  const [openSheet, setOpenSheet] = useState(false);
 
   const { data } = useQuery<
     Pick<IQuery, "fetchUseditem">,
@@ -127,6 +128,11 @@ export default function MarketView() {
     setModalOpen(true);
   };
 
+  const onClickGoToCart = () => {
+    setOpenSheet(true);
+    setModalOpen(false);
+  };
+
   const handleClose = () => setModalOpen(false);
 
   const onClickBuyPoint = () => {
@@ -145,7 +151,10 @@ export default function MarketView() {
       sellerId={sellerId}
       myId={myId}
       onClickBuyPoint={onClickBuyPoint}
+      onClickGoToCart={onClickGoToCart}
       modalOpen={modalOpen}
+      openSheet={openSheet}
+      setOpenSheet={setOpenSheet}
       handleClose={handleClose}
     />
   );

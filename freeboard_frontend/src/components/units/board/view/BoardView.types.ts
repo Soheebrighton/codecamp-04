@@ -6,5 +6,4 @@ export interface IPropsBoardViewUI {
   onClickDelete: () => Promise<void>;
   onClickList: () => void;
   onClickEdit: () => void;
-  onErrorImage: (event: any) => void;
 }

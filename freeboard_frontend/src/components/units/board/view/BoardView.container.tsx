@@ -60,10 +60,6 @@ export default function BoardView() {
     router.push(`/boards/${router.query.myId}/edit`);
   };
 
-  const onErrorImage = (event: any) => {
-    event.target.src = "/images/unnamed.png";
-  };
-
   return (
     <BoardViewUI
       data={data}
@@ -71,7 +67,6 @@ export default function BoardView() {
       onClickDelete={onClickDelete}
       onClickList={onClickList}
       onClickEdit={onClickEdit}
-      onErrorImage={onErrorImage}
     ></BoardViewUI>
   );
 }
