@@ -1,5 +1,5 @@
-import MyProfile from "../../../src/components/units/mypage/myprofile/MypageMyProfile.container";
+import Profile from "../../../src/components/units/mypage/profile/MypageProfile.container";
 
 export default function MyProfilePage() {
-  return <MyProfile />;
+  return <Profile />;
 }

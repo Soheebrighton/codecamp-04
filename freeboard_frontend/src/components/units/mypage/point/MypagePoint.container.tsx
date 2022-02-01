@@ -71,9 +71,42 @@ export default function MypagePoint() {
   //
   const router = useRouter();
 
+  const [isAllTrans, setIsAllTrans] = useState<boolean>(true);
+  const [isOrders, setIsOrders] = useState<boolean>(false);
+  const [isTopUp, setIsTopUp] = useState<boolean>(false);
+  const [isSelling, setIsSelling] = useState<boolean>(false);
+
   function onClickEditUser() {
     router.push("/mypage/myprofile");
   }
+
+  const onClickAllTrans = () => {
+    setIsAllTrans(true);
+    setIsOrders(false);
+    setIsTopUp(false);
+    setIsSelling(false);
+  };
+
+  const onClickTopUp = () => {
+    setIsAllTrans(false);
+    setIsOrders(false);
+    setIsTopUp(true);
+    setIsSelling(false);
+  };
+
+  const onClickOrders = () => {
+    setIsAllTrans(false);
+    setIsOrders(true);
+    setIsTopUp(false);
+    setIsSelling(false);
+  };
+
+  const onClickSelling = () => {
+    setIsAllTrans(false);
+    setIsOrders(false);
+    setIsTopUp(false);
+    setIsSelling(true);
+  };
 
   return (
     <MypagePointUI
@@ -83,6 +116,14 @@ export default function MypagePoint() {
       onClickSelectPoint={onClickSelectPoint}
       selectList={selectList}
       onClickEditUser={onClickEditUser}
+      onClickOrders={onClickOrders}
+      onClickAllTrans={onClickAllTrans}
+      onClickTopUp={onClickTopUp}
+      onClickSelling={onClickSelling}
+      isAllTrans={isAllTrans}
+      isOrders={isOrders}
+      isTopUp={isTopUp}
+      isSelling={isSelling}
     />
   );
 }

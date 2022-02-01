@@ -127,6 +127,30 @@ export const TransDisplay = styled.div`
 
 export const DisplayBtn = styled.div`
   cursor: pointer;
+  color: ${(props) => props.isAllTrans && "black"};
+  text-decoration: ${(props) =>
+    props.isAllTrans ? "solid underline #000 2px " : "none"};
+`;
+
+export const DisplayOrdersBtn = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.isOrders && "black"};
+  text-decoration: ${(props) =>
+    props.isOrders ? "solid underline #000 2px " : "none"};
+`;
+
+export const DisplayTopUpBtn = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.isTopUp && "black"};
+  text-decoration: ${(props) =>
+    props.isTopUp ? "solid underline #000 2px " : "none"};
+`;
+
+export const DisplaySellingBtn = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.isSelling && "black"};
+  text-decoration: ${(props) =>
+    props.isSelling ? "solid underline #000 2px " : "none"};
 `;
 
 export const Bar = styled.div`
@@ -148,6 +172,14 @@ export const Row = styled.div`
   :hover {
     background-color: #fafafa;
   }
+`;
+
+export const NoTrans = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #333333;
 `;
 
 export const RowHeader = styled.div`
@@ -174,6 +206,8 @@ export const Amount = styled.div`
 export const Balance = styled.div`
   width: 30%;
   justify-content: flex-end;
+
+  font-weight: 400;
 `;
 
 export const Status = styled.div`

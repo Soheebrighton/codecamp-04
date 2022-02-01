@@ -3,17 +3,15 @@ import * as A from "../point/MypagePoint.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import {
   IQuery,
-  IQueryFetchPointTransactionsOfBuyingArgs,
+  IQueryFetchPointTransactionsOfSellingArgs,
 } from "../../../../commons/types/generated/types";
 
-const FETCH_POINT_TRANSACTIONS_OF_BUYING = gql`
-  query fetchPointTransactionsOfBuying($search: String, $page: Int) {
-    fetchPointTransactionsOfBuying(search: $search, page: $page) {
+const FETCH_POINT_TRANSACTIONS_OF_SELLING = gql`
+  query fetchPointTransactionsOfSelling($search: String, $page: Int) {
+    fetchPointTransactionsOfSelling(search: $search, page: $page) {
       _id
       amount
       balance
-      status
-      statusDetail
       useditem {
         name
         soldAt
@@ -22,11 +20,11 @@ const FETCH_POINT_TRANSACTIONS_OF_BUYING = gql`
   }
 `;
 
-export default function MypageOrders() {
+export default function MypageSelling() {
   const { data } = useQuery<
-    Pick<IQuery, "fetchPointTransactionsOfBuying">,
-    IQueryFetchPointTransactionsOfBuyingArgs
-  >(FETCH_POINT_TRANSACTIONS_OF_BUYING);
+    Pick<IQuery, "fetchPointTransactionsOfSelling">,
+    IQueryFetchPointTransactionsOfSellingArgs
+  >(FETCH_POINT_TRANSACTIONS_OF_SELLING);
 
   return (
     <>
@@ -38,22 +36,22 @@ export default function MypageOrders() {
           <A.RowHeaderTxt>상품명</A.RowHeaderTxt>
         </A.Status>
         <A.Amount>
-          <A.RowHeaderTxt>거래 및 충전 내역</A.RowHeaderTxt>
+          <A.RowHeaderTxt>거래내역</A.RowHeaderTxt>
         </A.Amount>
         <A.Balance>
-          <A.RowHeaderTxt>잔액</A.RowHeaderTxt>
+          <A.RowHeaderTxt>거래 후 잔액</A.RowHeaderTxt>
         </A.Balance>
       </A.RowHeader>
-      {data?.fetchPointTransactionsOfBuying.map((el: any) => (
+      {data?.fetchPointTransactionsOfSelling.map((el: any) => (
         <A.Row key={el}>
-          <A.CreatedAt>{getDate(el.useditem?.soldAt)}</A.CreatedAt>
+          <A.CreatedAt>{getDate(el.createdAt)}</A.CreatedAt>
           <A.Status>{el.useditem?.name}</A.Status>
-          <A.Amount>{el.amount.toLocaleString()}</A.Amount>
+          <A.Amount>{"+" + el.amount.toLocaleString()}</A.Amount>
           <A.Balance>{el.balance.toLocaleString()}</A.Balance>
         </A.Row>
       ))}
-      {data?.fetchPointTransactionsOfBuying.length === 0 && (
-        <A.NoTrans>아직 구매내역이 없습니다.</A.NoTrans>
+      {data?.fetchPointTransactionsOfSelling.length === 0 && (
+        <A.NoTrans>아직 판매내역이 없습니다.</A.NoTrans>
       )}
     </>
   );
